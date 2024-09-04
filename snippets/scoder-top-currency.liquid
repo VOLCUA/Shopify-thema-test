@@ -1,0 +1,40 @@
+<div class="header-language_currency">
+  <div class="top-language-currency">
+    <div class="scoder-top-currency"{% if settings.currency_type == 'auto_currencies' %} style="display:none;" {% endif %}>
+    	{% if settings.currency_type == 'shopify_payment' %}
+    	<div class="btn-group currency-dropdown shopify-currency">
+    	    <label class="dropdown-toggle dropdown-label {% unless settings.currency_type == 'multiple_currencies' %}show-icon{% endunless %}" data-currency-label>
+    	        {% assign currency_iso = cart.currency.iso_code %}
+    	        <span class="text">
+    	            {{ cart.currency.iso_code }}
+    	        </span>
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 728.9 428.2" enable-background="new 0 0 728.9 428.2" xml:space="preserve">
+                  <path stroke="#000000" stroke-width="20" stroke-miterlimit="10" d="M670.1,13.8l44.3,39.4l-350,360.6L14.5,53.2l44.3-39.4
+                    l305.6,314.9L670.1,13.8z"/></path>
+                </svg>
+    	    </label>
+    	</div>
+    	{% else %}
+    	<div class="btn-group currency-dropdown">
+    	    <label class="dropdown-toggle dropdown-label {% unless settings.currency_type == 'multiple_currencies' %}show-icon{% endunless %}" data-currency-label>
+    	        <span class="icon">{{ settings.i-currency-1 }}</span>
+    	        <span class="text">
+    	            {{ settings.currency_1_unit }}
+    	        </span>
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 728.9 428.2" enable-background="new 0 0 728.9 428.2" xml:space="preserve">
+                  <path stroke="#000000" stroke-width="20" stroke-miterlimit="10" d="M670.1,13.8l44.3,39.4l-350,360.6L14.5,53.2l44.3-39.4
+                    l305.6,314.9L670.1,13.8z"/></path>
+                </svg>
+    	    </label>
+    	</div>
+    	{% endif %}
+    	<div class="dropdown-currency">
+            {% if settings.enable_currencies  %}
+                {% render 'scoder-currency' %}
+            {% endif %} 
+        </div>
+    </div>
+  </div>
+</div>

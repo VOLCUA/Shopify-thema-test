@@ -1,0 +1,41 @@
+<div class="header-language_currency">
+  <div class="top-language-currency">
+    <div class="scoder-top-language">
+        <div class="disclosure">
+            {% assign logoActive = '' %}
+            {% for i in (1..6) %}
+            {% capture lang_unit %}lange_{{ i }}{% endcapture %}
+            {% capture i-lang_unit %}i-lang-{{ i }}{% endcapture %}
+            {% assign currency_length = settings[i-lang_unit] | size %}
+            {% if settings[lang_unit] == localization.language.iso_code %}
+            {% assign logoActive = settings[i-lang_unit] %}
+            {% endif %}
+            {% endfor %}
+            <button type="button" class="disclosure__button dropdown-toggle localization-form__select localization-selector link link--text caption-large" aria-controls="HeaderLanguageList" aria-describedby="HeaderLanguageLabel">
+                <span class="icon">
+                    {{ logoActive }}
+                </span>
+              <span class="text text-language">
+                {{ localization.language.iso_code | capitalize }}
+              </span>
+              {%- if localization.available_languages.size > 1 -%}
+                {%- if settings.header_layout == '07' -%}
+                  {% render 'icon-sort-down' %}
+                {%- else -%}
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  	 viewBox="0 0 728.9 428.2" enable-background="new 0 0 728.9 428.2" xml:space="preserve">
+                    <path stroke="#000000" stroke-width="20" stroke-miterlimit="10" d="M670.1,13.8l44.3,39.4l-350,360.6L14.5,53.2l44.3-39.4
+                  	l305.6,314.9L670.1,13.8z"/></path>
+                  </svg>
+                {%- endif -%}
+              {%- endif -%}
+            </button>
+        </div>
+        <div class="dropdown-language">
+            {% if settings.enable_multilang_shopify %}
+                {% render 'scoder-language' %}
+            {% endif %}
+        </div>
+    </div>
+  </div>
+</div>

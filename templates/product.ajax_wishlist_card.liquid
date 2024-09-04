@@ -1,0 +1,10 @@
+{% layout none %}
+
+<div class="product">
+    {% render 'product-card'
+     , product_card_product: product
+     , portrait_aspect_ratio: '125'
+     , serial: forloop.index
+     , sectionId: 'list-result'
+     %}
+</div>

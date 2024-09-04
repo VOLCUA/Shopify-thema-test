@@ -1,0 +1,321 @@
+#scoder-quickshop-popup-option-3 {
+    max-width: 680px;
+    width: 100%;
+    transform: translate(calc(-50% + 10px), -50%);
+}
+
+body.quickshop-popup-show #scoder-quickshop-popup-option-3 {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transform: translate(-50%,-50%);
+}
+
+body.quickshop-popup-show {
+    overflow-y: hidden;
+}
+
+body.quickshop-popup-show .background-overlay {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#scoder-quickshop-popup-option-3 .scoder-popup-wrapper {
+    padding: 30px;
+}
+
+#scoder-quickshop-popup-option-3 .on-desktop-hide {
+    display: none;
+}
+
+#scoder-quickshop-popup-option-3 .on-mobile-hide {
+    display: block;
+}
+
+#scoder-quickshop-popup-option-3 .productView-top {
+    padding-right: 0;
+    display: flex;
+}
+
+#scoder-quickshop-popup-option-3 .productView-thumbnail-wrapper, 
+#scoder-quickshop-popup-option-3 .productView-desc,
+#scoder-quickshop-popup-option-3 .productView-info,
+#scoder-quickshop-popup-option-3 .productView-property,
+#scoder-quickshop-popup-option-3 .productView-wishlist,
+#scoder-quickshop-popup-option-3 .productView-more,
+#scoder-quickshop-popup-option-3 .productView-hotStock,
+#scoder-quickshop-popup-option-3 .productView-notifyMe {
+    display: none;
+}
+
+#scoder-quickshop-popup-option-3 .price {
+    justify-content: flex-start;
+    margin-bottom: 9px;
+}
+
+#scoder-quickshop-popup-option-3 .scoder-productView-left {
+    width: 45%;
+    padding-right: 20px;
+}
+
+#scoder-quickshop-popup-option-3 .scoder-productView-right {
+    width: 55%; 
+    margin-bottom: 0;
+}
+
+#scoder-quickshop-popup-option-3 .product-option {
+    flex-direction: column;
+}
+
+#scoder-quickshop-popup-option-3 .productView-image-wrapper {
+    width: 100%;
+}
+
+#scoder-quickshop-popup-option-3 .productView-quantity input {
+    width: 100px;
+    height: 100%;
+}
+
+#scoder-quickshop-popup-option-3 .previewCartItem-qty .btn-quantity {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#scoder-quickshop-popup-option-3 .productView-see-details {
+    font-size: var(--font-body-size);
+    margin-top: 20px;
+}
+
+#scoder-quickshop-popup-option-3 .productView-see-details .button {
+    background-color: var(--sidebar-cart-viewcart-bg-color);
+    color: var(--sidebar-cart-viewcart-text-color);
+    border-color: var(--sidebar-cart-viewcart-border-color);
+    width: 100%;
+}
+
+#scoder-quickshop-popup-option-3 .productView-options {
+    border-top: none;
+    padding-top: 0;
+    margin-bottom: 0;
+    margin-top: 7px;
+}
+
+#scoder-quickshop-popup-option-3 .product-form__swatch .form__label {
+    margin-bottom: 0;
+}
+
+#scoder-quickshop-popup-option-3 .product-form__swatch .product-form__label {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+}
+
+#scoder-quickshop-popup-option-3 .product-form__swatch .product-form__label:hover .tooltip {
+    display: none;
+}
+
+#scoder-quickshop-popup-option-3 .product-form__label .text {
+    min-width: 30px;
+    height: var(--product-swatch-height);
+    line-height: var(--product-swatch-height);
+    padding: 0 5px;
+}
+
+#scoder-quickshop-popup-option-3 .product-form__input:not(.product-form__swatch) .product-form__label .text {
+    border-radius: 0;
+    padding: 0 12px;
+    min-width: 40px;
+}
+
+#scoder-quickshop-popup-option-3 .productView-groupTop {
+    margin-top: 0;
+    align-items: stretch;
+}
+
+#scoder-quickshop-popup-option-3 .productView-groupTop cart-update-quantity {
+    height: auto;
+}
+
+#scoder-quickshop-popup-option-3 .productView-groupTop .previewCartItem-qty {
+    height: 100%;
+    width: 100px;
+}
+
+#scoder-quickshop-popup-option-3 .productView-groupTop .previewCartItem-qty {
+    margin-top: 0;
+}
+
+#scoder-quickshop-popup-option-3 .productView-title {
+    font-size: var(--title-qc-font-size);
+    margin-bottom: 10px;
+    margin-top: -2px;
+    font-weight: var(--font-weight-medium);
+}
+
+#scoder-quickshop-popup-option-3 .price.price--medium .price-item .money {
+    font-size: calc(var(--product-price-font-size) + 2px);
+}
+
+#scoder-quickshop-popup-option-3 .product-form__label:hover .expand {
+    display: none;
+}
+
+#scoder-quickshop-popup-option-3 .productView-nav .slick-arrow {
+    border: none;
+    border-radius: 0;
+}
+
+#scoder-quickshop-popup-option-3 .productView-nav .slick-arrow.slick-prev {
+    left: 0 !important;
+}
+
+#scoder-quickshop-popup-option-3 .productView-nav .slick-arrow.slick-next {
+    right: 0 !important;
+}
+
+#scoder-quickshop-popup-option-3 .productView-action .button {
+    background-color: var(--button-bg-color);
+    color: var(--button-color);
+    border-color: var(--button-border-color);
+    padding-top: var(--button-top-bottom-padding);
+    padding-bottom: var(--button-top-bottom-padding);
+    min-width: unset;
+}
+
+#scoder-quickshop-popup-option-3 .previewCartItem-qty {
+    margin-right: 10px;
+}
+
+#scoder-quickshop-popup-option-3 .productView {
+    padding: 0;
+}
+
+quantity-quick-shop-input.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@media screen and (max-width: 767px) {
+    #scoder-quickshop-popup-option-3 {
+        width: 90%;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-groupTop {
+        flex-wrap: nowrap;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-groupTop .productView-action {
+        margin-top: 0px;
+        margin-left: 10px;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-nav .slick-arrow {
+        display: none !important;
+    }
+
+    #scoder-quickshop-popup-option-3 .on-desktop-hide {
+        display: block;
+    }
+    
+    #scoder-quickshop-popup-option-3 .on-mobile-hide {
+        display: none;
+    }
+
+    #scoder-quickshop-popup-option-3 .scoder-productView-right {
+        width: 100%;
+        margin: 0;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-product {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-product .productView-images.on-desktop-hide {
+        width: 50%;
+        padding-right: 15px;
+    }
+    #scoder-quickshop-popup-option-3 .productView-product .productView-title-proce-group {
+        width: 50%;
+        padding-left: 15px;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-title {
+        grid-area: title;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-price {
+        grid-area: price;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-options {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #scoder-quickshop-popup-option-3 .product-form__input {
+        text-align: center;
+    }
+
+    #scoder-quickshop-popup-option-3 .product-form__input .form__label {
+        margin: 0 auto;
+    }
+
+    #scoder-quickshop-popup-option-3 .product-form .productView-action {
+        width: 100%;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-groupTop {
+        justify-content: center;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-groupTop .productView-action {
+        width: 100%;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-see-details {
+        text-align: center;
+    }
+
+    #scoder-quickshop-popup-option-3 .previewCartItem-qty {
+        margin: 0 auto;
+    }
+
+    #scoder-quickshop-popup-option-3 .on-desktop-hide .productView-badge {
+        display: none;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-quantity input {
+        padding: 15px 14px 13px 20px;
+    }
+    
+    #scoder-quickshop-popup-option-3 .productView-see-details {
+        margin-top: 15px;
+    }
+
+    #scoder-quickshop-popup-option-3 .scoder-popup-wrapper {
+        padding: 20px;
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-title {
+        font-size: calc(var(--product-title-font-size) + 1px);
+    }
+    #scoder-quickshop-popup-option-3 .productView-action .button {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    #scoder-quickshop-popup-option-3 .productView-see-details .button:hover {
+        background-color: var(--sidebar-cart-viewcart-hover-bg-color);
+        color: var(--sidebar-cart-viewcart-hover-text-color);
+        border-color: var(--sidebar-cart-viewcart-hover-border-color);
+    }
+
+    #scoder-quickshop-popup-option-3 .productView-action .button:hover {
+        background-color: var(--button-bg-hover-color);
+        color: var(--button-hover-color);
+        border-color: var(--button-border-hover-color);
+    }
+}

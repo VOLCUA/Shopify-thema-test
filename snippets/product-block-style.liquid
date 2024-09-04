@@ -1,0 +1,952 @@
+<style>
+  {% if settings.type_font_1 == 'shopify_fonts' and settings.type_font_2 == 'shopify_fonts' %}
+      {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+      {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+      {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+      {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+      {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+      {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+
+      {% if settings.type_font_2_font.family != settings.type_font_1_font.family %}
+          {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+          {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+          {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+          {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+          
+          {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+                {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+      {% else %}
+                {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+      {% endif %}
+  {% elsif settings.type_font_1 != 'shopify_fonts' and settings.type_font_2 != 'shopify_fonts' %}
+        {%- assign font_1 = settings.type_font_1_name -%}
+        {%- capture font_name_1 -%}
+            {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+        {%- endcapture -%}
+        @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+              {% assign fonts_name = font_1 %}
+
+        {% if settings.type_font_1_name != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                  {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = font_1 %}
+        {% endif %}
+  {% elsif settings.type_font_1 == 'shopify_fonts' %}
+        {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+        {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+        {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+        {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+        {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+        {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+      
+        {% if base_font.family != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                    {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+        {% endif %}
+  {% else %}
+        {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+        {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+        {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+        {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+
+        {% if header_font.family != settings.type_font_1_name %}
+            {%- assign font_1 = settings.type_font_1_name -%}
+            {%- capture font_name_1 -%}
+                {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+                  {% assign fonts_name = font_1 %}
+        {% else %}
+                  {% assign fonts_name = header_font.family | append: ',' | append: header_font.fallback_families %}
+        {% endif %}
+
+        {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+             
+        {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+  {% endif %}
+  :root {
+      {% if section.settings.sub_heading_font == 'font_1' %}
+          --scoder-block-sub-title-font-family: {{fonts_name}};
+      {% else %}
+          --scoder-block-sub-title-font-family: {{fonts_name_2}};
+      {% endif %}
+  }
+{% assign card-product__group_position = settings.group_quickview_wishlist_top_bottom %}
+{%- liquid
+  assign blog_bg_image = section.settings.background_image
+  assign background_image_conent = section.settings.background_image_conent
+-%}
+{% if card-product__group_position == 'bottom'%}
+  .card-product__group {
+    top: unset !important;
+    bottom: var(--postion-top-badge);
+  }
+{% endif %}
+.trending-product.trending-block-{{section.id}} {
+    {% if section.settings.background_image != blank %}
+      background: url({{ blog_bg_image | img_url: '1920x' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    {% else %}
+      background: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+    {% endif %}
+}
+.trending-block-animation-{{section.id}} {
+    {% if section.settings.clip_path_enabel != blank %}
+      background: {% if section.settings.clip_background_gradient != blank %}{{ section.settings.clip_background_gradient }}{% else %}{{ section.settings.clip_background_color }}{% endif %};
+    {% endif %}
+    padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    position: relative;
+}
+.trending-product.trending-block-{{section.id}} .section-header .banner-sub-title {
+  font-size: {{ section.settings.font_size_sub_title | append: 'px' }};
+  {% if section.settings.sub_title_color != blank %}
+      color: {{ section.settings.sub_title_color }};
+  {% else %}
+      color: var(--heading-text-color);
+  {% endif %}
+  text-transform: {{ section.settings.product_title_transform }};
+  font-weight: {{ section.settings.sub_title_font_weight }};
+  padding-bottom: {{ section.settings.sub_title__space_top | append: 'px' }};
+  letter-spacing: {{ section.settings.font_size_sub_letter_spacing | append: 'px' }};
+  font-family: var(--scoder-block-sub-title-font-family);
+  margin-bottom: 0;
+}
+.trending-product.trending-block-{{section.id}} .section-header {
+    padding-bottom: {{ section.settings.mg_bottom_title | append: 'px' }};
+}
+.trending-product.trending-block-{{section.id}} .price-item {
+    {% if section.settings.price_color != blank %}
+        color: {{ section.settings.price_color }};
+    {% else %}
+        color: var(--body-text-color);
+    {% endif %}
+}
+.trending-product.trending-block-{{section.id}} .price-item--sale {
+    {% if section.settings.decount_price_color != blank %}
+        color: {{ section.settings.decount_price_color }};
+    {% else %}
+        color: var(--heading-text-color);
+    {% endif %}
+}
+.trending-product.trending-block-{{section.id}} .section-header .title {
+  {% if section.settings.title_color != blank %}
+      color: {{ section.settings.title_color }};
+  {% else %}
+      color: var(--heading-text-color);
+  {% endif %}
+  letter-spacing: {{ section.settings.title_letter_spacing | append: 'px' }};
+  font-size: {{ section.settings.product_font_size_title | append: 'px' }};
+  font-weight:{{ section.settings.product_title_font_weight }};
+  
+}
+  
+
+{% if section.settings.title_style == "2" %}
+  {% if section.settings.description_text != blank %}
+    .trending-product.trending-block-{{section.id}} .section-title {
+        display: flex;
+        align-items: center;
+    }
+    .trending-product.trending-block-{{section.id}} .title {
+        position: relative;
+        padding-right: 25px;
+    }
+    .trending-product.trending-block-{{section.id}} .section-header .title:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 100%;
+        background: var(--heading-text-color);
+        opacity: 0.2;
+    }
+  {% endif %}
+  .trending-product.trending-block-{{section.id}} .section-desc {
+      padding-left: 25px;
+  }
+  body.layout_rtl .trending-product.trending-block-{{section.id}} .section-desc {
+      padding-right: 25px;
+      padding-left: 0px;
+  }
+  body.layout_rtl .trending-product.trending-block-{{section.id}} .section-header .title:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--heading-text-color);
+      opacity: 0.2;
+      right: unset;
+      
+  }
+  body.layout_rtl .trending-product.trending-block-{{section.id}} .title {
+      padding-right: 0px;
+      padding-left: 25px;
+  }
+{% endif %}
+
+
+.trending-product.trending-block-{{section.id}} .section-desc {
+    font-size: {{ section.settings.description | append: 'px' }};
+    line-height: {{ section.settings.description_line_height | append: 'px' }};
+    {% if section.settings.description_color != blank %}
+        color: {{ section.settings.description_color }};
+    {% else %}
+        color: var(--body-text-color);
+    {% endif %}
+    padding-top: {{ section.settings.description_mg_top_desktop | append: 'px' }};
+}  
+.trending-product.trending-block-{{section.id}} .card-title {
+    {% if section.settings.product_title_color != blank %}
+        color: {{ section.settings.product_title_color }};
+    {% else %}
+        color: var(--link-color);
+    {% endif %}
+  
+}
+.trending-product.trending-block-{{section.id}} .card-title:hover {
+    {% if section.settings.product_title_hover_color != blank %}
+        color: {{ section.settings.product_title_hover_color }};
+    {% else %}
+        color: var(--link-hover-color);
+    {% endif %}
+  
+}
+.trending-product.trending-block-{{section.id}} .section-header .align-center {
+    text-align: center;
+}
+
+{% if section.settings.button_style == '1'%}
+  .trending-product.trending-block-{{section.id}} .section-header .view_all {
+      font-size: {{ section.settings.button_text_font_size | append: 'px' }};
+      line-height: calc({{ section.settings.button_text_font_size | append: 'px' }} + 4px);
+      font-weight: {{ section.settings.button_text_font_weight }};
+      text-transform: {{ section.settings.button_text_text_transform }};
+      border-color: unset;
+      background-color:unset;
+      {% if section.settings.button_text_color != blank %}
+          color: {{ section.settings.button_text_color }};
+      {% else %}
+          color: var(--link-color);
+      {% endif %}
+      {%- if section.settings.button_underline != blank -%}
+          text-decoration: underline;
+      {%- endif -%}    
+  }
+{% endif %}
+{% if section.settings.button_style == '2'%}
+  .trending-product.trending-block-{{section.id}} .section-header .view_all {
+      font-size: {{ section.settings.button_text_font_size | append: 'px' }};
+      line-height: calc({{ section.settings.button_text_font_size | append: 'px' }} + 4px);
+      font-weight: {{ section.settings.button_text_font_weight }};
+      text-transform: {{ section.settings.button_text_text_transform }};
+      {% if section.settings.button_border_color != blank %}
+          border-color: {{ section.settings.button_border_color }};
+      {% else %}
+          border-color: var(--button-border-color);
+      {% endif %}
+      {% if section.settings.button_background_color != blank %}
+          background-color:{{ section.settings.button_background_color }};
+      {% else %}
+          background-color:var(--button-bg-color);
+      {% endif %}
+      {% if section.settings.button_text_color != blank %}
+          color:{{ section.settings.button_text_color }};
+      {% else %}
+          color:var(--button-color);
+      {% endif %}
+      {%- if section.settings.button_underline != blank -%}
+          text-decoration: underline;
+      {%- endif -%}    
+  }
+{% endif %}
+
+.trending-product.trending-block-{{section.id}} .section-header .view_all .icon-svg {
+    width: 19px;
+    display: inline-block;
+    margin-left: 5px;
+}
+.trending-product.trending-block-{{section.id}} .section-header .view_all .icon-svg path {
+    fill: var(--link-color);
+    transition: all 400ms ease;
+}
+
+{% if settings.button_hover_style == '2' %}
+  .trending-product.trending-block-{{section.id}} .section-header .view_all {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: unset;
+    display: unset;
+    border: unset;
+    border-radius: unset;
+    width: unset;
+    height: unset;
+    animation: unset;
+    opacity: unset;
+    visibility: unset;
+    background: {{ section.settings.button_backgroundhover_color}};
+    right: 100%;
+    z-index: -1;
+    transition: all 400ms ease;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover {
+      {% if section.settings.button_hover_text_color != blank %}
+          color: {{ section.settings.button_hover_text_color}};
+      {% else %}
+          color: var(--button-hover-color);
+      {% endif %}
+      {% if block.settings.button_borderhover_color != blank %}
+          border-color: {{ section.settings.button_borderhover_color }};
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover .icon-svg path {
+      {% if section.settings.button_hover_text_color != blank %}
+          fill: {{ section.settings.button_hover_text_color}};
+      {% else %}
+          fill: var(--button-hover-color);
+      {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover:before {
+    right: 0%;
+  }
+{% elsif settings.button_hover_style == '3' %}
+  .trending-product.trending-block-{{section.id}} .section-header .view_all {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -70%;
+    display: unset;
+    border: unset;
+    border-radius: unset;
+    animation: unset;
+    opacity: unset;
+    visibility: unset;
+    background: {{ section.settings.button_backgroundhover_color}};
+    z-index: -1;
+    transition: all 400ms ease;
+    clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+    width: 70%;
+    height: 100%;
+    transform: rotateY(180deg);
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -70%;
+    transform: unset;
+    display: unset;
+    border: unset;
+    border-radius: unset;
+    animation: unset;
+    opacity: unset;
+    visibility: unset;
+    background: {{ section.settings.button_backgroundhover_color}};
+    z-index: -1;
+    transition: all 400ms ease;
+    clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+    width: 70%;
+    height: 100%;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover {
+    {% if section.settings.button_hover_text_color != blank %}
+        color: {{ section.settings.button_hover_text_color}};
+    {% else %}
+        color: var(--button-hover-color);
+    {% endif %}
+    {% if block.settings.button_borderhover_color != blank %}
+        border-color: {{ section.settings.button_borderhover_color }};
+    {% else %}
+        border-color: var(--button-border-hover-color);
+    {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover .icon-svg path {
+      {% if section.settings.button_hover_text_color != blank %}
+          fill: {{ section.settings.button_hover_text_color}};
+      {% else %}
+          fill: var(--button-hover-color);
+      {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover:before {
+    left: calc(0% - 2px);
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover:after {
+    right: calc(0% - 2px);
+  }
+{% elsif settings.button_hover_style == '4' %}
+  .trending-product.trending-block-{{section.id}} .section-header .view_all {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -70%;
+    display: unset;
+    border: unset;
+    border-radius: unset;
+    animation: unset;
+    opacity: unset;
+    visibility: unset;
+    background: {{ section.settings.button_backgroundhover_color}};
+    z-index: -1;
+    transition: all 400ms ease;
+    clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+    width: 70%;
+    height: 100%;
+    transform: rotateY(180deg);
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -70%;
+    transform: unset;
+    display: unset;
+    border: unset;
+    border-radius: unset;
+    animation: unset;
+    opacity: unset;
+    visibility: unset;
+    background: {{ section.settings.button_backgroundhover_color}};
+    z-index: -1;
+    transition: all 400ms ease;
+    clip-path: polygon(0px 0%, 100% 0%, 100% 100%, 25px 100%);
+    width: 70%;
+    height: 100%;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover {
+      {% if section.settings.button_hover_text_color != blank %}
+          color: {{ section.settings.button_hover_text_color}};
+      {% else %}
+          color: var(--button-hover-color);
+      {% endif %}
+      {% if block.settings.button_borderhover_color != blank %}
+          border-color: {{ section.settings.button_borderhover_color }};
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover .icon-svg path {
+      {% if section.settings.button_hover_text_color != blank %}
+          fill: {{ section.settings.button_hover_text_color}};
+      {% else %}
+          fill: var(--button-hover-color);
+      {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover:before {
+    left: calc(0% - 2px);
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover:after {
+    right: calc(0% - 2px);
+  }
+{% elsif settings.button_hover_style == '5' %}
+  .trending-product.trending-block-{{section.id}} .section-header .view_all {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    display: unset;
+    border: unset;
+    animation: unset;
+    opacity: unset;
+    visibility: unset;
+    background: {{ section.settings.button_backgroundhover_color}};
+    z-index: -1;
+    transition: all 400ms ease;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+    border-radius: 100%;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    display: unset;
+    border: unset;
+    animation: unset;
+    opacity: unset;
+    visibility: unset;
+    background: {{ section.settings.button_backgroundhover_color}};
+    z-index: -1;
+    transition: all 400ms ease;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+    border-radius: 100%;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover {
+    {% if section.settings.button_hover_text_color != blank %}
+        color: {{ section.settings.button_hover_text_color}};
+    {% else %}
+        color: var(--button-hover-color);
+    {% endif %}
+    {% if block.settings.button_borderhover_color != blank %}
+        border-color: {{ section.settings.button_borderhover_color }};
+    {% else %}
+        border-color: var(--button-border-hover-color);
+    {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover .icon-svg path {
+      {% if section.settings.button_hover_text_color != blank %}
+          fill: {{ section.settings.button_hover_text_color}};
+      {% else %}
+          fill: var(--button-hover-color);
+      {% endif %}
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover:before {
+    -webkit-animation: criss-cross-left 0.8s both;
+    animation: criss-cross-left 0.8s both;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover:after {
+    -webkit-animation: criss-cross-right 0.8s both;
+    animation: criss-cross-right 0.8s both;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+  }
+  @-webkit-keyframes criss-cross-left {
+    0% {
+      left: -30px;
+    }
+    50% {
+      left: calc(50% - 10px);
+      width: 20px;
+      height: 20px;
+    }
+    100% {
+      left: 40%;
+      width: 375px;
+      height: 375px;
+    }
+  }
+  
+  @keyframes criss-cross-left {
+    0% {
+      left: -30px;
+    }
+    50% {
+      left: calc(50% - 10px);
+      width: 20px;
+      height: 20px;
+    }
+    100% {
+      left: 40%;
+      width: 375px;
+      height: 375px;
+    }
+  }
+  @-webkit-keyframes criss-cross-right {
+    0% {
+      right: -30px;
+    }
+    50% {
+      right: calc(50% - 10px);
+      width: 20px;
+      height: 20px;
+    }
+    100% {
+      right: calc(50% - 10px);
+      width: 375px;
+      height: 375px;
+    }
+  }
+  @keyframes criss-cross-right {
+    0% {
+      right: -30px;
+    }
+    50% {
+      right: calc(50% - 10px);
+      width: 20px;
+      height: 20px;
+    }
+    100% {
+      right: calc(50% - 10px);
+      width: 375px;
+      height: 375px;
+    }
+  }
+{% else %}
+  .trending-product.trending-block-{{section.id}} .section-header .view_all:hover .icon-svg path {
+      {% if section.settings.button_hover_text_color != blank %}
+          fill: {{ section.settings.button_hover_text_color}};
+      {% else %}
+          fill: var(--button-hover-color);
+      {% endif %}
+  }
+  {% if section.settings.button_style == '1'%}
+    .trending-product.trending-block-{{section.id}} .section-header .view_all:hover {
+        border-color: unset;
+        background-color:unset;
+        {% if section.settings.button_hover_text_color != blank %}
+            color:{{ section.settings.button_hover_text_color}};
+        {% else %}
+             color:var(--link-hover-color);
+        {% endif %}
+    }
+  {% endif %}
+  {% if section.settings.button_style == '2'%}
+    .trending-product.trending-block-{{section.id}} .section-header .view_all:hover {
+        {% if section.settings.button_borderhover_color != blank %}
+            border-color: {{ section.settings.button_borderhover_color }};
+        {% else %}
+            border-color: var(--button-border-hover-color);
+        {% endif %}
+        {% if section.settings.button_backgroundhover_color != blank %}
+            background-color:{{ section.settings.button_backgroundhover_color}};
+        {% else %}
+            background-color: var(--button-bg-hover-color);
+        {% endif %}
+        {% if section.settings.button_hover_text_color != blank %}
+            color:{{ section.settings.button_hover_text_color}};
+        {% else %}
+            color:var(--button-hover-color);
+        {% endif %}
+      }
+  {% endif %}
+{% endif %}
+
+.trending-block-{{section.id}} .products-carousel .slick-list {
+    width: 100%;
+}
+.trending-block-{{section.id}} .products-carousel.productGrid .product {
+    padding-bottom: 0;
+}
+.trending-block-{{section.id}} .products-carousel .slick-arrow {
+    top: calc(50% - 0px);
+}
+.trending-block-{{section.id}} .productGrid .product {
+    padding-left: {{ section.settings.product_cart_padding | append: 'px' }};
+    padding-right: {{ section.settings.product_cart_padding | append: 'px' }};
+    padding-bottom: calc({{ section.settings.product_cart_padding | append: 'px' }} * 2);
+}
+.trending-block-{{section.id}} .products-carousel {
+    margin-left: -{{ section.settings.product_cart_padding | append: 'px' }};
+    margin-right: -{{ section.settings.product_cart_padding | append: 'px' }};
+}
+.products-carousel.productGrid.column-4.slick-initialized.slick-slider {
+    margin-bottom: 0px;
+}
+
+.trending-product.trending-block-{{section.id}} .product-button .button {
+  {% if section.settings.product_button_color != blank %}
+      color: {{ section.settings.product_button_color }};
+  {% else %}
+      color: var(--button-color);
+  {% endif %}
+  {% if section.settings.product_button_bg_color != blank %}
+      background-color: {{ section.settings.product_button_bg_color }};
+  {% else %}
+      background-color: var(--button-bg-color);
+  {% endif %}
+  {% if section.settings.product_button_border_color != blank %}
+      border: {{ section.settings.product_button_border | append: 'px' }} solid {{ section.settings.product_button_border_color }};
+  {% else %}
+      border: {{ section.settings.product_button_border | append: 'px' }} solid var(--button-border-color);
+  {% endif %}
+  padding: {{ section.settings.product_button_top_bottom_padding | append: 'px' }} {{ section.settings.product_button_left_right_padding | append: 'px'  }};
+  border-radius: {{ section.settings.product_button_border_radius | append: 'px' }};
+  text-transform: {{ section.settings.product_text_transform }}; 
+  font-size: {{ section.settings.product_button_font_size | append: 'px' }};
+  width: 85%;
+ }
+
+.trending-product.trending-block-{{section.id}} .product-button .button:hover {
+  {% if section.settings.product_button_hover_color != blank %}
+       color: {{ section.settings.product_button_hover_color }};
+  {% else %}
+       color: var(--button-hover-color);
+  {% endif %}
+  {% if section.settings.product_button_bghover_color != blank %}
+      background-color: {{ section.settings.product_button_bghover_color }};
+  {% else %}
+      background-color: var(--button-bg-hover-color);
+  {% endif %}
+  {% if section.settings.product_button_borderhover_color != blank %}
+      border: {{ section.settings.product_button_border | append: 'px' }} solid {{ section.settings.product_button_borderhover_color }};
+  {% else %}
+      border: {{ section.settings.product_button_border | append: 'px' }} solid var(--button-border-hover-color);
+  {% endif %}
+  
+}
+
+.trending-block-{{section.id}} .container {
+  position: relative;
+}
+
+.trending-block-{{section.id}} .trending-product-inner {
+    {% if section.settings.background_image_conent != blank %}
+      background: url({{ background_image_conent | img_url: '1920x' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    {% else %}
+      background: {% if section.settings.background_gradient_conent != blank %}{{ section.settings.background_gradient_conent }}{% else %}{{ section.settings.background_color_conent }}{% endif %};
+    {% endif %}
+    padding-top: {{ section.settings.content_spacing_top | append: 'px' }};
+    padding-bottom: {{ section.settings.content_spacing_bottom | append: 'px' }};
+    padding-left: {{ section.settings.content_spacing_left | append: 'px' }};
+    padding-right: {{ section.settings.content_spacing_left | append: 'px' }};
+    position: relative;
+}
+
+.trending-block-{{section.id}} .vector_1 {
+    position: absolute;
+    {% if section.settings.vector_top != blank %}
+      top: {{ section.settings.vector_top }};
+    {% endif %}
+    {% if section.settings.vector_bottom != blank %}
+      bottom: {{ section.settings.vector_bottom }};
+    {% endif %}
+    {% if section.settings.vector_left != blank %}
+      left: {{ section.settings.vector_left }};
+    {% endif %}
+    {% if section.settings.vector_right != blank %}
+      right: {{ section.settings.vector_right }};
+    {% endif %}
+}
+.trending-block-{{section.id}} .vector_2 {
+    position: absolute;
+    {% if section.settings.vector_top_2 != blank %}
+      top: {{ section.settings.vector_top_2 }};
+    {% endif %}
+    {% if section.settings.vector_bottom_2 != blank %}
+      bottom: {{ section.settings.vector_bottom_2 }};
+    {% endif %}
+    {% if section.settings.vector_left_2 != blank %}
+      left: {{ section.settings.vector_left_2 }};
+    {% endif %}
+    {% if section.settings.vector_right_2 != blank %}
+      right: {{ section.settings.vector_right_2 }};
+    {% endif %}
+}
+body.layout_rtl .trending-product.trending-block-{{section.id}} .section-header .view_all .icon-svg {
+    transform: rotate(178deg);
+}
+
+
+@media (max-width: {{ settings.container_widht_desk }}){
+      .trending-block-{{section.id}} .products-carousel .slick-arrow.slick-prev {
+          left: 0px;
+      }
+      .trending-block-{{section.id}} .products-carousel .slick-arrow.slick-next {
+          right: 0px;
+      }
+}
+
+
+@media (max-width: 1199px) {
+    .trending-block-animation-{{section.id}} {
+        padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+        padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }  
+    .trending-block-{{section.id}} .trending-product-inner {
+        padding-top: {{ section.settings.content_spacing_top_tablet | append: 'px' }};
+        padding-bottom: {{ section.settings.content_spacing_bottom_tablet | append: 'px' }};
+        padding-left: {{ section.settings.content_spacing_left_tablet | append: 'px' }};
+        padding-right: {{ section.settings.content_spacing_left_tablet | append: 'px' }};
+    }
+}
+
+@media (max-width: 1024px) {
+  .trending-product.trending-block-{{section.id}} .section-header .banner-sub-title {
+    font-size: {{ section.settings.font_size_sub_title_tb | append: 'px' }};
+    padding-bottom: {{ section.settings.sub_title__space_top_tb | append: 'px' }};
+  }
+  .trending-product.trending-block-{{section.id}} .section-header .title {
+     font-size: {{ section.settings.product_font_size_title_tb | append: 'px' }};
+  }
+  .trending-product.trending-block-{{section.id}} .section-desc {
+      font-size: {{ section.settings.description_tb | append: 'px' }};
+      line-height: {{ section.settings.description_line_height_tb | append: 'px' }};
+      padding-top: {{ section.settings.description_mg_top_tablet | append: 'px' }};
+  }
+  .trending-block-{{section.id}} .vector_1 {
+      {% if section.settings.vector_tablet_top != blank %}
+        top: {{ section.settings.vector_tablet_top }};
+      {% endif %}
+      {% if section.settings.vector_tablet_bottom != blank %}
+        bottom: {{ section.settings.vector_tablet_bottom }};
+      {% endif %}
+      {% if section.settings.vector_tablet_left != blank %}
+        left: {{ section.settings.vector_tablet_left }};
+      {% endif %}
+      {% if section.settings.vector_tablet_right != blank %}
+        right: {{ section.settings.vector_tablet_right }};
+      {% endif %}
+  }
+  .trending-block-{{section.id}} .vector_2 {
+      {% if section.settings.vector_tablet_top_2 != blank %}
+        top: {{ section.settings.vector_tablet_top_2 }};
+      {% endif %}
+      {% if section.settings.vector_tablet_bottom_2 != blank %}
+        bottom: {{ section.settings.vector_tablet_bottom_2 }};
+      {% endif %}
+      {% if section.settings.vector_tablet_left_2 != blank %}
+        left: {{ section.settings.vector_tablet_left_2 }};
+      {% endif %}
+      {% if section.settings.vector_tablet_right_2 != blank %}
+        right: {{ section.settings.vector_tablet_right_2 }};
+      {% endif %}
+  }
+  
+}
+
+@media (max-width: 767px) {
+    .trending-block-animation-{{section.id}} {
+        padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+        padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    } 
+    .trending-product.trending-block-{{section.id}} .section-header {
+        padding-bottom: {{ section.settings.mg_bottom_title_mb | append: 'px' }};
+    }
+    .trending-product.trending-block-{{section.id}} .section-header .banner-sub-title {
+      font-size: {{ section.settings.font_size_sub_title_mb | append: 'px' }};
+      padding-bottom: {{ section.settings.sub_title__space_top_mb | append: 'px' }};
+    }
+    .trending-product.trending-block-{{section.id}} .section-header .title {
+       font-size: {{ section.settings.product_font_size_title_mb | append: 'px' }};
+    }
+    .trending-product.trending-block-{{section.id}} .section-desc {
+        font-size: {{ section.settings.description_mb | append: 'px' }};
+        line-height: {{ section.settings.description_line_height_mb | append: 'px' }};
+        padding-top: {{ section.settings.description_mg_top_mobile | append: 'px' }};
+    }
+    .trending-product.trending-block-{{section.id}} .product-button .button {
+        font-size: {{ section.settings.product_button_font_size_mb | append: 'px' }};
+        width:100%;
+        
+     }
+    {% if section.settings.description_text != blank %}
+      .trending-product.trending-block-{{section.id}} .section-title {
+        flex-wrap: wrap;
+      }
+      .trending-product.trending-block-{{section.id}} .section-header .title {
+        width: 100%;
+        padding-right: 0;
+      }
+      .trending-product.trending-block-{{section.id}} .section-header .title:before {
+        content: unset;
+      }
+      .trending-product.trending-block-{{section.id}} .section-desc {
+          width: 100%;
+      }
+      .trending-product.trending-block-{{section.id}} .productGrid .product {
+        padding-left: 7px;
+        padding-right: 7px;
+      }
+    {% endif %}
+    .trending-block-{{section.id}} .trending-product-inner {
+        padding-top: {{ section.settings.content_spacing_top_mobile | append: 'px' }};
+        padding-bottom: {{ section.settings.content_spacing_bottom_mobile | append: 'px' }};
+        padding-left: {{ section.settings.content_spacing_left_mobile | append: 'px' }};
+        padding-right: {{ section.settings.content_spacing_left_mobile | append: 'px' }};
+    }
+    .trending-block-{{section.id}} .vector_1 {
+        {% if section.settings.vector_mobile_top != blank %}
+          top: {{ section.settings.vector_mobile_top }};
+        {% endif %}
+        {% if section.settings.vector_mobile_bottom != blank %}
+          bottom: {{ section.settings.vector_mobile_bottom }};
+        {% endif %}
+        {% if section.settings.vector_mobile_left != blank %}
+          left: {{ section.settings.vector_mobile_left }};
+        {% endif %}
+        {% if section.settings.vector_mobile_right != blank %}
+          right: {{ section.settings.vector_mobile_right }};
+        {% endif %}
+    }
+    .trending-block-{{section.id}} .vector_2 {
+        {% if section.settings.vector_mobile_top_2 != blank %}
+          top: {{ section.settings.vector_mobile_top_2 }};
+        {% endif %}
+        {% if section.settings.vector_mobile_bottom_2 != blank %}
+          bottom: {{ section.settings.vector_mobile_bottom_2 }};
+        {% endif %}
+        {% if section.settings.vector_mobile_left_2 != blank %}
+          left: {{ section.settings.vector_mobile_left_2 }};
+        {% endif %}
+        {% if section.settings.vector_mobile_right_2 != blank %}
+          right: {{ section.settings.vector_mobile_right_2 }};
+        {% endif %}
+    }
+    body.layout_rtl .trending-product.trending-block-{{section.id}} .section-header .title:before {
+      content: "";
+      position: unset;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--heading-text-color);
+      opacity: 0.2;
+      right: unset;
+      
+  }
+  body.layout_rtl .trending-product.trending-block-{{section.id}} .title {
+      padding-left: 0px;
+      padding-bottom:12px;
+  }
+  body.layout_rtl .trending-product.trending-block-{{section.id}} .section-desc {
+      padding-right: 0px;
+  }
+}
+</style>

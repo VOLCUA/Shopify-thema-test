@@ -1,0 +1,185 @@
+.scoderCalculatorShipping{
+    position: relative;
+    margin: 0 0 22px 0;
+    min-height: var(--free-shipping-min-height);
+}
+
+.cart-container .scoderCalculatorShipping {
+    margin-bottom: 20px;
+}
+
+.previewModal .scoderCalculatorShipping{
+    margin-bottom: 0;
+}
+
+.cart-content-item .scoderCalculatorShipping{
+    margin-bottom: 18px;
+}
+
+.scoderCalculatorShipping .progress{
+    position: relative;
+    margin: 0 0 8px 0;
+    font-size: 0;
+    letter-spacing: 0;
+}
+
+.skin-8 .scoderCalculatorShipping .progress{
+    margin: 0 0 5px 0;
+}
+
+.quickCartWrap .scoderCalculatorShipping .progress{
+    margin: 0 0 6px 0;
+}
+
+.scoderCalculatorShipping .progress .progress_shipping{
+    height: var(--free-shipping-height);
+    background-color: var(--free-shipping-bg);
+    border: 0;
+    border-color: var(--free-shipping-bg);
+}
+
+/* .scoderCalculatorShipping .progress .progress-meter{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: var(--font-body-size);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: calc(var(--free-shipping-height) + 2px);
+    color: var(--color-white);
+} */
+
+.scoderCalculatorShipping .progress.progress-free .progress_shipping{
+    border-color: var(--free-shipping-bg-4);
+}
+
+.scoderCalculatorShipping .progress.progress-30 .progress_shipping{
+    border-color: var(--free-shipping-bg-1);
+}
+
+.scoderCalculatorShipping .progress.progress-60 .progress_shipping{
+    border-color: var(--free-shipping-bg-2);
+}
+
+.scoderCalculatorShipping .progress.progress-100 .progress_shipping{
+    border-color: var(--free-shipping-bg-3);
+}
+
+.scoderCalculatorShipping .progress .progress-meter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scoderCalculatorShipping .progress.progress-free .progress-meter{
+    background-color: var(--free-shipping-bg-4);
+}
+
+.scoderCalculatorShipping .progress.progress-30 .progress-meter{
+    background-color: var(--free-shipping-bg-1);
+}
+
+.scoderCalculatorShipping .progress.progress-60 .progress-meter{
+    background-color: var(--free-shipping-bg-2);
+}
+
+.scoderCalculatorShipping .progress.progress-100 .progress-meter{
+    background-color: var(--free-shipping-bg-3);
+}
+
+.scoderCalculatorShipping .message {
+    font-size: var(--font-body-size);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: calc(var(--body-line-height) + 2);
+    color: var(--free-shipping-color);
+}
+
+.skin-5 .scoderCalculatorShipping .message{
+    font-size: calc(var(--font-body-size) - 1px);
+}
+
+.skin-8 .scoderCalculatorShipping .message{
+    font-size: calc(var(--font-body-size) - 1px);
+    font-weight: var(--font-body-weight);
+    text-align: center;
+}
+
+
+.scoderCalculatorShipping .message .text{
+    text-transform: capitalize;
+    /* text-decoration: underline; */
+    text-underline-position: under;
+}
+
+.scoderCalculatorShipping .message.progress-free{
+    color: var(--free-shipping-bg-4);
+}
+
+.scoderCalculatorShipping .message.progress-30{
+    color: var(--free-shipping-bg-1);
+}
+
+.scoderCalculatorShipping .message.progress-60{
+    color: var(--free-shipping-bg-2);
+}
+
+.scoderCalculatorShipping .message.progress-100{
+    color: var(--free-shipping-bg-3);
+}
+
+.skin-2 .scoderCalculatorShipping .message,
+.skin-3 .scoderCalculatorShipping .message,
+.skin-4 .scoderCalculatorShipping .message,
+.skin-5 .scoderCalculatorShipping .message{
+    color: var(--free-shipping-color)!important;
+}
+
+.scoderCalculatorShipping.style-2{
+    text-align: center;
+}
+
+.scoderCalculatorShipping.style-2 .progress {
+    margin-bottom: 11px;
+}
+
+.skin-3 .scoderCalculatorShipping.style-2 .progress{
+    margin-bottom: 10px;
+}
+
+.scoderCalculatorShipping.style-2 .message .text{
+    text-decoration: none;
+    color: var(--free-shipping-color-2)!important;
+}
+
+.skin-3 .scoderCalculatorShipping.style-2 .message .text,
+.skin-4 .scoderCalculatorShipping.style-2 .message .text{
+    font-weight: var(--font-body-weight);
+}
+
+.skin-5 .scoderCalculatorShipping.style-2 .message .text{
+    text-decoration: underline;
+}
+
+.scoderCalculatorShipping.style-3 .progress .progress-meter{
+    text-align: center;
+    animation: 2s linear 0s infinite progress-bar-stripes;
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-size: 40px 40px;
+    transition: .9s linear;
+    transition-property: width,background-color;
+}
+
+@media (min-width: 768px) and (max-width: 1279px){
+    .cart-content-item .scoderCalculatorShipping {
+        width: 100%;
+        padding: 0px 10px;
+    }
+}
+
+@media (min-width: 1025px){
+     .quickCartWrap .scoderCalculatorShipping{
+        margin-bottom: 20px;
+    }
+}

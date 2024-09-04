@@ -1,0 +1,276 @@
+{%- liquid
+    assign colors_bg = section.settings.colors_bg
+    assign colors_bg_gradient = section.settings.colors_bg_gradient
+    assign padding_top = section.settings.mg_top_desktop | append: 'px'
+    assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+    assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+    assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+    assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+    assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+    assign container = section.settings.container
+    assign has_sidebar = false
+    assign show_sidebar = section.settings.show_sidebar
+    assign show_filter = section.settings.show_filter
+    assign sidebar_type = section.settings.sidebar_type
+    assign sidebar_position = section.settings.sidebar_position
+    assign show_sidebar_collapse = section.settings.show_sidebar_collapse
+    assign sidebar_collapse_default = section.settings.sidebar_collapse_default
+    if show_sidebar
+        if show_filter
+            assign has_sidebar = true
+            assign filter_swatch = section.settings.filter_swatch
+            assign filter_swatch_type = section.settings.filter_swatch_type
+            assign filter_rectangle = section.settings.filter_rectangle
+        elsif section.blocks.size > 0
+            assign has_sidebar = true
+        endif
+        if has_sidebar
+            assign sidebar_heading_font = section.settings.sidebar_heading_font
+            assign sidebar_heading_font_size = section.settings.sidebar_heading_font_size
+            assign sidebar_heading_font_weight = section.settings.sidebar_heading_font_weight
+            assign sidebar_heading_text_transform = section.settings.sidebar_heading_text_transform
+            assign enable_sticky = section.settings.enable_sticky
+            assign sidebar_layout = section.settings.sidebar_layout
+        endif
+    endif
+    assign sort_by = collection.sort_by | default: collection.default_sort_by
+    assign sort_options = collection.sort_options
+    assign layout = section.settings.layout
+    if cart.attributes.pagination != blank and cart.attributes.pagination
+        assign products_per_page = cart.attributes.pagination
+    else
+        assign products_per_page =  section.settings.products_per_page
+    endif
+    assign show_toolbar = section.settings.show_toolbar
+    if show_toolbar
+        assign show_sorting = section.settings.show_sorting
+        assign show_item_per_page = section.settings.show_item_per_page
+        assign show_view_as = section.settings.show_view_as
+    endif
+    assign show_infinite_scrolling = section.settings.show_infinite_scrolling
+-%}
+
+{% render 'component-product-listing-style' %}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'description' -%}
+          {%- if block.settings.show_bottom == "top" -%}
+            {%- liquid
+              assign description = collection.description
+            -%}
+            <style>
+              .collection-description {
+                padding-top: {{ block.settings.mg_top_desktop_des | append: 'px' }};
+                padding-bottom: {{ block.settings.mg_bottom_desktop_des | append: 'px' }};
+              }
+              .collection-description .collection-desc {
+                font-size: {{ block.settings.desc_title | append: 'px' }};
+                max-width: {{ block.settings.content_width | append: 'px' }};
+                color: {{ block.settings.desc_color }};
+                font-weight: {{ block.settings.desc_font_weight }};
+                margin-left: auto;
+                margin-right: auto;
+              }
+  
+              @media (max-widht: 1199px) {
+                .collection-description {
+                  padding-top: {{ block.settings.mg_top_tablet_des | append: 'px' }};
+                  padding-bottom: {{ block.settings.mg_bottom_tablet_des | append: 'px' }};
+                } 
+                .collection-description .collection-desc {
+                  font-size: {{ block.settings.desc_tb | append: 'px' }};
+                }
+              }
+  
+              @media (max-widht: 767px) {
+                .collection-description {
+                  padding-top: {{ block.settings.mg_top_mobile_des | append: 'px' }};
+                  padding-bottom: {{ block.settings.mg_bottom_mobile_des | append: 'px' }};
+                } 
+                .collection-description .collection-desc {
+                  font-size: {{ block.settings.desc_mb | append: 'px' }};
+                }
+              }
+            </style>
+            <div class="collection-description">
+              <div class="{% if container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+                <div class="collection-desc text-{{ block.settings.text_align }}">{{ description }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+<div class="collection-main-wrap collection-default" data-section-id="{{ section.id }}" data-section-type="collection" id="CollectionSection-{{ section.id }}" data-section="{{ section.id }}">
+    <div class="{% if container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+      <div class="collection-wrap-row">
+          {%- if has_sidebar -%}
+            <div class="collection-sidebar sidebar-{{ sidebar_position }}" id="scoder-sidebar">
+                <a href="javascript:void(0)" class="scoder-sidebar-close" data-close-sidebar role="button">
+                    <span class="visually-hidden">{{ 'general.common.close' | t }}</span>
+                    {% render 'icon-close' %}
+                </a>
+                <div class="scoder-sidebar-wrapper custom-scrollbar">
+                  {% render 'collection-sidebar',
+                      results: collection,
+                      section: section,
+                      sort_by: sort_by,
+                      sidebar_type: sidebar_type,
+                      show_filter: show_filter,
+                      show_sorting: show_sorting,
+                      show_collapse: show_sidebar_collapse,
+                      sidebar_collapse: sidebar_collapse_default,
+                      filter_swatch: filter_swatch,
+                      filter_swatch_type: filter_swatch_type,
+                      filter_rectangle: filter_rectangle
+                  %}
+                </div>
+            </div>
+          {%- endif -%}
+          <div class="collection-content" id="CollectionProductGrid">
+            {%- paginate collection.products by products_per_page -%}
+                {%- if show_toolbar -%}
+                  <div class="toolbar-main">
+                    {% render 'toolbar',
+                        has_sidebar: has_sidebar,
+                        show_sorting: show_sorting,
+                        show_item_per_page: show_item_per_page,
+                        show_view_as: show_view_as,
+                        products_per_page: products_per_page,
+                        layout: layout,
+                        sort_by: sort_by,
+                        sort_options: sort_options
+                    %}
+                    {%- if has_sidebar -%}
+
+                    {%- else -%}
+                      <div class="collection-sidebar sidebar-{{ sidebar_position }}">
+                        <a href="javascript:void(0)" class="scoder-sidebar-close" data-close-sidebar role="button">
+                            <span class="visually-hidden">{{ 'general.common.close' | t }}</span>
+                            {% render 'icon-close' %}
+                        </a>
+                        {% render 'collection-sidebar',
+                            results: collection,
+                            section: section,
+                            sort_by: sort_by,
+                            sidebar_type: sidebar_type,
+                            show_filter: show_filter,
+                            show_sorting: show_sorting,
+                            show_collapse: show_sidebar_collapse,
+                            sidebar_collapse: sidebar_collapse_default,
+                            filter_swatch: filter_swatch,
+                            filter_swatch_type: filter_swatch_type,
+                            filter_rectangle: filter_rectangle
+                        %}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+               {%- if collection.products.size == 0 -%}
+                  <div class="collection collection--empty" id="main-collection-product-grid" data-id="{{ section.id }}">
+                      <p class="collection-product-count ">
+                          {{ 'sections.collection_template.product_count' | t: count: collection.products_count, total: collection.all_products_count }}
+                      </p>
+                      <div class="collection-product-wrapper">
+                          <h2 class="title">
+                              {{ 'sections.collection_template.empty' | t }}<br>
+                              {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: "link-underline link" }}
+                          </h2>
+                      </div>
+                  </div>
+                {%- else -%}
+                  <div class="collection">
+                      <ul class="productListing productGrid {% if layout == '1' %}productList{% else %} column-{{ layout }}{% endif %} column-tb-{{ section.settings.layout_tablet }} column-mb-{{ section.settings.layout_mobile }} list-{{ layout }} list-unstyled" id="main-collection-product-grid" data-id="{{ section.id }}">
+                          {%- for product in collection.products -%}
+                              <li class="product">
+                                  {% render 'product-grid-layout',
+                                      product_card_product: product,
+                                      serial: forloop.index,
+                                      sectionId: section.id,
+                                      show_list: true,
+                                      loading: true,
+                                      layout: layout
+                                  %}
+                              </li>
+                          {%- endfor -%}
+                      </ul>
+                      {%- if paginate.pages > 1 -%}
+                          {% render 'pagination-listing',
+                              paginate: paginate,
+                              show_infinite_scrolling: show_infinite_scrolling,
+                              anchor: '',
+                              class: 'pagination-wrapper text-center' 
+                          %}
+                      {%- endif -%}
+                  </div>
+                {%- endif -%}
+            {%- endpaginate -%}
+          </div>
+      </div>
+    </div>
+    <div class="loading-overlay loading-overlay--custom">
+        <div class="loading-overlay__spinner">
+            <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+            </svg>
+        </div>
+    </div>
+</div>
+{%- for block in section.blocks -%}
+  {%- if block.type == 'description' -%}
+    {%- if block.settings.show_bottom == "bottom" -%}
+      {%- liquid
+        assign description = collection.description
+      -%}
+      {%- if description != blank -%}
+        <style>
+          .collection-description {
+            padding-top: {{ block.settings.mg_top_desktop_des | append: 'px' }};
+            padding-bottom: {{ block.settings.mg_bottom_desktop_des | append: 'px' }};
+          }
+          .collection-description .collection-desc {
+            font-size: {{ block.settings.desc_title | append: 'px' }};
+            max-width: {{ block.settings.content_width | append: 'px' }};
+            color: {{ block.settings.desc_color }};
+            font-weight: {{ block.settings.desc_font_weight }};
+            margin-left: auto;
+            margin-right: auto;
+          }
+  
+          @media (max-widht: 1199px) {
+            .collection-description {
+              padding-top: {{ block.settings.mg_top_tablet_des | append: 'px' }};
+              padding-bottom: {{ block.settings.mg_bottom_tablet_des | append: 'px' }};
+            } 
+            .collection-description .collection-desc {
+              font-size: {{ block.settings.desc_tb | append: 'px' }};
+            }
+          }
+  
+          @media (max-widht: 767px) {
+            .collection-description {
+              padding-top: {{ block.settings.mg_top_mobile_des | append: 'px' }};
+              padding-bottom: {{ block.settings.mg_bottom_mobile_des | append: 'px' }};
+            } 
+            .collection-description .collection-desc {
+              font-size: {{ block.settings.desc_mb | append: 'px' }};
+            }
+          }
+        </style>
+        <div class="collection-description">
+          <div class="{% if container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+            <div class="collection-desc text-{{ block.settings.text_align }}">{{ description }}</div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+      
+<script>
+  $(document).on('click', '.toolbar-main .toolbar-filters-btn', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      $('.toolbar-main .collection-sidebar').toggleClass('open');
+  });
+</script>

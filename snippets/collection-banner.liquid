@@ -1,0 +1,15 @@
+<div class="collection-banner{% if show_image_parallax %} collection-banner--parallax{% endif %}{% if show_bg_overlay %} collection-banner--overlay{% endif %}" {% if show_image_parallax %} style="background-image: url({{ image | img_url: '1920x' }});"{% endif %}>
+  <div class="{% if image_behavior != 'none' %} animate--{{ image_behavior }} animate-hidden{% endif %}">
+    <div class="animate-ambient-image">
+      {%- if image != blank -%}
+          <div class="image image-adapt">
+              <img srcset="{{ image | img_url: '1920x' }} 1x, {{ image | img_url: '1920x', scale: 2 }} 2x" src="{{ image | img_url: '1920x', crop: 'center' }}" alt="{{ image.alt | default: shop.name | escape }}" loading="lazy">
+          </div>
+      {%- else -%}
+          <div class="not_img" style="--height_not_img: 320px">
+            1920 x 320px
+          </div> 
+      {%- endif -%}
+    </div>
+  </div>
+</div>

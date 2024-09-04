@@ -1,0 +1,20 @@
+{%- liquid
+    assign desc = product.description
+    assign desc_color_text = block.settings.desc_color_text
+    assign word_number = block.settings.word_number
+-%}
+{% if product.metafields.c_f.short_description %}
+    {%- liquid
+        assign desc = product.metafields.c_f.short_description
+    -%}
+{% endif %}
+{%- if desc != blank -%}
+    <div class="productView-desc scoder-text-format">
+  <style>
+    :root {
+      --desc-color-text: {{ desc_color_text }}
+    }
+  </style>
+        {{ desc | strip_html | truncatewords: word_number }}
+    </div>
+{%- endif -%}

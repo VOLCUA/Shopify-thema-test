@@ -1,0 +1,786 @@
+<style>
+  {% if settings.type_font_1 == 'shopify_fonts' and settings.type_font_2 == 'shopify_fonts' %}
+      {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+      {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+      {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+      {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+      {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+      {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+
+      {% if settings.type_font_2_font.family != settings.type_font_1_font.family %}
+          {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+          {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+          {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+          {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+          
+          {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+                {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+      {% else %}
+                {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+      {% endif %}
+  {% elsif settings.type_font_1 != 'shopify_fonts' and settings.type_font_2 != 'shopify_fonts' %}
+        {%- assign font_1 = settings.type_font_1_name -%}
+        {%- capture font_name_1 -%}
+            {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+        {%- endcapture -%}
+        @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+              {% assign fonts_name = font_1 %}
+
+        {% if settings.type_font_1_name != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                  {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = font_1 %}
+        {% endif %}
+  {% elsif settings.type_font_1 == 'shopify_fonts' %}
+        {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+        {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+        {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+        {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+        {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+        {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+      
+        {% if base_font.family != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                    {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+        {% endif %}
+  {% else %}
+        {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+        {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+        {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+        {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+
+        {% if header_font.family != settings.type_font_1_name %}
+            {%- assign font_1 = settings.type_font_1_name -%}
+            {%- capture font_name_1 -%}
+                {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+                  {% assign fonts_name = font_1 %}
+        {% else %}
+                  {% assign fonts_name = header_font.family | append: ',' | append: header_font.fallback_families %}
+        {% endif %}
+
+        {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+             
+        {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+  {% endif %}
+  :root {
+      {% if section.settings.sub_heading_font == 'font_1' %}
+          --sub-title-font-family: {{fonts_name}};
+      {% else %}
+          --sub-title-font-family: {{fonts_name_2}};
+      {% endif %}
+  }
+  
+  .image-banner-block-{{section.id}}.image-banner {
+    margin-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    margin-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    position: relative;
+    background: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+  }
+  .image-banner-block-{{section.id}} .banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .image-banner-block-{{section.id}} .image-banner-box {
+      width: 100%;
+      height: 100%;
+  }
+  .image-banner-block-{{section.id}} .image-banner-box.is-parallax .image {
+      display: none;
+  }
+  .image-banner-block-{{section.id}} .image-banner-box .parallax-image {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+  }
+  {%- if section.settings.enable_overlay != blank -%}
+      .image-banner-block-{{section.id}} .banner-img:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: {{ section.settings.overlay_color }};
+        z-index: 1;
+        opacity: 0.{{ section.settings.overlay_opacity }};
+      }
+  {%- endif -%}
+  .image-banner-block-{{section.id}} .banner-img .adaptive_height {
+      height: 100%;
+  }
+  .image-banner-block-{{section.id}} .banner-img > div {
+      height: 100%;
+  }
+  .image-banner-block-{{section.id}} .banner-img .not_img {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .image-banner-block-{{section.id}}.image-banner .adaptive_height img {
+      cursor: auto;
+      object-fit: cover;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-img.mobile-img{
+      display:none;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-img.desktop-img{
+      display:block;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      padding-top: {{ section.settings.spacing_top_desktop | append: 'px' }};
+      padding-bottom: {{ section.settings.spacing_bottom_desktop | append: 'px' }};
+  }
+  .image-banner-block-{{section.id}}.image-banner.image-banner-style-2 .banner-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .image-banner-block-{{section.id}}.image-banner.image-banner-style-2 .image-banner-inner {
+    padding-top: {{ section.settings.adaptive_height_video | append: '%' }}; 
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-content .container {
+      height: 100%;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-content-inner {
+      display: flex;
+      height: 100%;
+      align-items: center;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-content-inner.content-box-center {
+      justify-content: center;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-content-inner.content-box-left {
+      justify-content: flex-start;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-content-inner.content-box-right {
+      justify-content: flex-end;
+  }
+  .image-banner-block-{{section.id}}.image-banner .content-align-left {
+      text-align: left;
+  }
+  .image-banner-block-{{section.id}}.image-banner .content-box {
+      max-width: {{ section.settings.content_width | append: 'px' }};
+  }
+  .image-banner-block-{{section.id}}.image-banner .content-align-center {
+      text-align: center;
+  }
+  .image-banner-block-{{section.id}}.image-banner .content-align-right {
+      text-align: right;
+  }
+  .image-banner-block-{{section.id}}.image-banner .banner-sub-title span{
+      border-bottom: {{ section.settings.border_width_2 | append: 'px' }} solid {{ section.settings.border_color_2 }};
+  }
+  .image-banner-block-{{section.id}} .image-banner-heading {
+      font-size: {{ section.settings.heading_title | append: 'px' }};
+      line-height:{{ section.settings.heading_title_line_height | append: 'px' }};
+      color: {{ section.settings.heading_color }};
+      padding-bottom: {{ section.settings.heading__space_top | append: 'px' }};
+      text-transform: {{ section.settings.heading_title_transform }};
+      font-weight: {{ section.settings.heading_title_font_weight }};
+      letter-spacing: {{ section.settings.heading_title_letter_spacing | append: 'px' }};
+      opacity: {{ section.settings.title_opacity | append: '%' }} !important;
+      position: relative;
+      z-index: -1;
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image{
+      margin-top: {{ section.settings.image_margin_top | append: 'px' }};
+      transform: unset !important;
+  }
+  .image-banner-block-{{section.id}} .image-banner-description {
+      font-size: {{ section.settings.description | append: 'px' }};
+      line-height: {{ section.settings.description_line_height | append: 'px' }};
+      color: {{ section.settings.description_color }};
+      padding-bottom: {{ section.settings.description__space_top | append: 'px' }};
+      letter-spacing: {{ section.settings.description_spacing }};
+      max-width:{{section.settings.content__width | append: 'px'}};
+      font-weight: {{section.settings.description_font_weight | append: 'px'}};
+  }
+  .image-banner-block-{{section.id}} .image-banner-button .button {
+      color: {{ section.settings.button_color }};
+      background-color: {{ section.settings.button_bg_color }};
+      border: {{ section.settings.button_border | append: 'px' }} solid {{ section.settings.button_border_color }};
+      letter-spacing: {{ section.settings.button_letter_spacing | append: 'px' }};
+      padding:{{ section.settings.btn_padding_top_bottom | append: 'px' }} {{ section.settings.btn_padding_left_right | append: 'px' }};
+      font-size:{{ section.settings.font_size_button | append: 'px' }};
+      border-bottom: {{ section.settings.button_border_bottom | append: 'px' }} solid {{ section.settings.button_border_color_bottom }};
+      font-weight:{{ section.settings.button_font_weight }};
+      height: {{ section.settings.button_height_width | append: 'px' }};
+      width: {{ section.settings.button_height_width | append: 'px' }};
+      border-radius: {{ section.settings.button_border_radius | append: 'px' }};
+      text-transform: {{ section.settings.button_text_transform }};
+      line-height:{{ section.settings.button_line_height | append: 'px'}};
+      display: block;
+  }
+  .image-banner-block-{{section.id}} .image-banner-button .button svg {
+    fill: {{ section.settings.button_color }};
+    transition: all 400ms ease;
+  }
+  
+  {% if settings.button_hover_style == '2' %}
+    .image-banner-block-{{section.id}} .image-banner-button .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      width: unset;
+      height: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      background: {{ section.settings.button_bghover_color }};
+      right: 100%;
+      z-index: -1;
+      transition: all 400ms ease;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover {
+      color: {{ section.settings.button_hover_color }};
+      border: {{ section.settings.button_border | append: 'px' }} solid {{ section.settings.button_borderhover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover svg {
+      fill: {{ section.settings.button_hover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover:before {
+      right: 0%;
+    }
+  {% elsif settings.button_hover_style == '3' %}
+    .image-banner-block-{{section.id}} .image-banner-button .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -70%;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      background: {{ section.settings.button_bghover_color }};
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+      transform: rotateY(180deg);
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -70%;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      background: {{ section.settings.button_bghover_color }};
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover {
+      color: {{ section.settings.button_hover_color }};
+      border: {{ section.settings.button_border | append: 'px' }} solid {{ section.settings.button_borderhover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover svg {
+      fill: {{ section.settings.button_hover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover:before {
+      left: calc(0% - 2px);
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover:after {
+      right: calc(0% - 2px);
+    }
+  {% elsif settings.button_hover_style == '4' %}
+    .image-banner-block-{{section.id}} .image-banner-button .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -70%;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      background: {{ section.settings.button_bghover_color }};
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+      transform: rotateY(180deg);
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -70%;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      background: {{ section.settings.button_bghover_color }};
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(0px 0%, 100% 0%, 100% 100%, 25px 100%);
+      width: 70%;
+      height: 100%;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover {
+      color: {{ section.settings.button_hover_color }};
+      border: {{ section.settings.button_border | append: 'px' }} solid {{ section.settings.button_borderhover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover svg {
+      fill: {{ section.settings.button_hover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover:before {
+      left: calc(0% - 2px);
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover:after {
+      right: calc(0% - 2px);
+    }
+  {% elsif settings.button_hover_style == '5' %}
+    .image-banner-block-{{section.id}} .image-banner-button .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -30px;
+      display: unset;
+      border: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      background: {{ section.settings.button_bghover_color }};
+      z-index: -1;
+      transition: all 400ms ease;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      border-radius: 100%;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -30px;
+      display: unset;
+      border: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      background: {{ section.settings.button_bghover_color }};
+      z-index: -1;
+      transition: all 400ms ease;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      border-radius: 100%;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover {
+      color: {{ section.settings.button_hover_color }};
+      border: {{ section.settings.button_border | append: 'px' }} solid {{ section.settings.button_borderhover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover svg {
+      fill: {{ section.settings.button_hover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover:before {
+      -webkit-animation: criss-cross-left 0.8s both;
+      animation: criss-cross-left 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover:after {
+      -webkit-animation: criss-cross-right 0.8s both;
+      animation: criss-cross-right 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+    @-webkit-keyframes criss-cross-left {
+      0% {
+        left: -30px;
+      }
+      50% {
+        left: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        left: 40%;
+        width: 375px;
+        height: 375px;
+      }
+    }
+    
+    @keyframes criss-cross-left {
+      0% {
+        left: -30px;
+      }
+      50% {
+        left: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        left: 40%;
+        width: 375px;
+        height: 375px;
+      }
+    }
+    @-webkit-keyframes criss-cross-right {
+      0% {
+        right: -30px;
+      }
+      50% {
+        right: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        right: calc(50% - 10px);
+        width: 375px;
+        height: 375px;
+      }
+    }
+    @keyframes criss-cross-right {
+      0% {
+        right: -30px;
+      }
+      50% {
+        right: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        right: calc(50% - 10px);
+        width: 375px;
+        height: 375px;
+      }
+    }
+  {% else %}
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover svg {
+      fill: {{ section.settings.button_hover_color }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button:hover {
+      color: {{ section.settings.button_hover_color }};
+      background-color: {{ section.settings.button_bghover_color }};
+      border: {{ section.settings.button_border | append: 'px' }} solid {{ section.settings.button_borderhover_color }};
+      border-bottom: {{ section.settings.button_border_bottom | append: 'px' }} solid {{ section.settings.button_borderhover_color_bottom }};
+      transform: scale(1.1);
+    }
+  {% endif %}
+  
+  .image-banner-block-{{section.id}} .modern-banner-image-2{
+     position:absolute;
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-right.align-bottom {
+      right: {{ section.settings.button_position_left_right}};
+      bottom: {{ section.settings.button_position_top_bottom }};
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-left.align-top {
+      left: {{ section.settings.button_position_left_right }};
+      top: {{ section.settings.button_position_top_bottom }};
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-left.align-center {
+      left: {{ section.settings.button_position_left_right }};
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-left.align-bottom {
+      left: {{ section.settings.button_position_left_right }};
+      bottom: {{ section.settings.button_position_top_bottom }};
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-center.align-top {
+      left: 50%;
+      top: {{ section.settings.button_position_top_bottom }};
+      transform: translate(-50%);
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-center.align-center {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-center.align-bottom {
+      left: 50%;
+      bottom: {{ section.settings.button_position_top_bottom }};
+      transform: translate(-50%);
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-right.align-top {
+      right: {{ section.settings.button_position_left_right }};
+      top: {{ section.settings.button_position_top_bottom }};
+  }
+  .image-banner-block-{{section.id}} .modern-banner-image-2.justify-right.align-center {
+      right: {{ section.settings.button_position_left_right }};
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  
+  @media (max-width: 1199px) {
+    .image-banner-block-{{section.id}}.image-banner .banner-content {
+        padding-top: {{ section.settings.spacing_top_tablet | append: 'px' }};
+        padding-bottom: {{ section.settings.spacing_bottom_tablet | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}}.image-banner .product--countdown {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .image-banner-block-{{section.id}}.image-banner .product-countdown-title {
+        width: 100%;
+        text-align: center;
+    }
+    .image-banner-block-{{section.id}}.image-banner.image-banner-style-2 .image-banner-inner {
+        padding-top: {{ section.settings.adaptive_height_video_tablet | append: '%' }}; 
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .image-banner-block-{{section.id}}.image-banner {
+      margin-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      margin-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}}.image-banner .banner-sub-title {
+        font-size: {{ section.settings.font_size_sub_title_tb | append: 'px' }};
+        line-height: calc({{ section.settings.font_size_sub_title_tb | append: 'px' }} + 4px);
+        padding-bottom: {{ section.settings.sub_title__space_top_tb | append: 'px' }};
+        margin: 0;
+    }
+    .image-banner-block-{{section.id}} .image-banner-heading {
+      font-size: {{ section.settings.heading_title_tb | append: 'px' }};
+      line-height: {{ section.settings.heading_title_line_height_tb | append: 'px' }};
+      padding-bottom: {{ section.settings.heading__space_top_tb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image{
+      margin-top: {{ section.settings.image_margin_top_tb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-description {
+      font-size: {{ section.settings.description_tb | append: 'px' }};
+      line-height: {{ section.settings.description_line_height_tb | append: 'px' }};
+      padding-bottom: {{ section.settings.description__space_top_tb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-box .parallax-image {
+        display: none;
+    }
+    .image-banner-block-{{section.id}} .image-banner-box.is-parallax .image {
+        display: block;
+    }
+    .image-banner-block-{{section.id}} .slide-show-content {
+        top: 50%;
+    }
+     .image-banner-block-{{section.id}} .image-countdown-block {
+        padding-bottom:{{ section.settings.countdown_space_top_tb | append: 'px' }}
+    }
+    .image-banner-block-{{section.id}}.image-banner .product-countdown-block {
+        padding-bottom: {{ section.settings.countdown_space_bottom_tb | append: 'px' }}
+    }
+    .image-banner-block-{{section.id}}.image-banner .product-countdown-title {
+        font-size: {{ section.settings.countdown_title_title_tb | append: 'px' }};
+        line-height: {{ section.settings.countdown_title_title_line_height_tb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}}.image-banner.image-banner-style-2 .image-banner-inner {
+        padding-top: {{ section.settings.adaptive_height_video_tablet | append: '%' }}; 
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button{
+        height:{{ section.settings.button_height_width_tb | append: 'px' }};
+        width:{{ section.settings.button_height_width_tb | append: 'px' }};
+        font-size: {{ section.settings.font_size_button_tb | append: 'px' }};
+    }
+    
+    .image-banner-block-{{section.id}} .image-banner-button.modern-banner-image-2 {
+      display: none;
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-left.align-top {
+        left: {{ section.settings.button_position_left_right_tb }};
+        top: {{ section.settings.button_position_top_bottom_tb }};
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-left.align-center {
+        left: {{ section.settings.button_position_left_right_tb }};
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-left.align-bottom {
+        left: {{ section.settings.button_position_left_right_tb }};
+        bottom: {{ section.settings.button_position_top_bottom_tb }};
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-center.align-top {
+        left: 50%;
+        top: {{ section.settings.button_position_top_bottom_tb }};
+        transform: translate(-50%);
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-center.align-center {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-center.align-bottom {
+        left: 50%;
+        bottom: {{ section.settings.button_position_top_bottom_tb }};
+        transform: translate(-50%);
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-right.align-top {
+        right: {{ section.settings.button_position_left_right_tb }};
+        top: {{ section.settings.button_position_top_bottom_tb }};
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2.justify-right.align-center {
+        right: {{ section.settings.button_position_left_right_tb }};
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+}
+
+  @media (max-width: 767px) {
+    .image-banner-block-{{section.id}}.image-banner {
+      margin-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      margin-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}}.image-banner .banner-content {
+        padding-top: {{ section.settings.spacing_top_mobile | append: 'px' }};
+        padding-bottom: {{ section.settings.spacing_bottom_mobile | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-button .button{
+        height:{{ section.settings.button_height_width_mb | append: 'px' }};
+        width:{{ section.settings.button_height_width_mb | append: 'px' }};
+        font-size: {{ section.settings.font_size_button_mb | append: 'px' }};
+        line-height: {{ section.settings.line_height_button_mb | append: 'px' }};
+        padding:25px;
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image-2{
+        position:unset;
+    }
+    .image-banner-block-{{section.id}} .image-banner-heading {
+        font-size: {{ section.settings.heading_title_mb | append: 'px' }};
+        line-height:{{ section.settings.heading_title_line_height_mb | append: 'px' }};
+        padding-bottom: {{ section.settings.heading__space_top_mb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}} .modern-banner-image{
+        margin-top: {{ section.settings.image_margin_top_mb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}} .image-banner-description {
+      font-size: {{ section.settings.description_mb | append: 'px' }};
+      line-height: {{ section.settings.description_line_height_mb | append: 'px' }};
+      padding-bottom: {{ section.settings.description__space_top_mb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}}.image-banner .content-box {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+    }
+    .image-banner-block-{{section.id}}.image-banner .banner-img.mobile-img{
+      display:block;
+    }
+    .image-banner-block-{{section.id}}.image-banner .banner-img.desktop-img{
+      display:none;
+    }
+    .image-banner-block-{{section.id}} .image-countdown-block {
+        padding-bottom:{{ section.settings.countdown_space_top_mb | append: 'px' }}
+    }
+    .image-banner-block-{{section.id}}.image-banner .product-countdown-block {
+       padding-bottom: {{ section.settings.countdown_space_bottom_mb | append: 'px' }}
+    }
+    .image-banner-block-{{section.id}}.image-banner .product-countdown-title {
+        font-size: {{ section.settings.countdown_title_title_mb | append: 'px' }};
+        line-height: {{ section.settings.countdown_title_title_line_height_mb | append: 'px' }};
+    }
+    .image-banner-block-{{section.id}}.image-banner .product-countdown-block .clock-item {
+        width: 60px;
+        margin: 0px 8px;
+        padding: 6px 4px;
+    }
+    
+    .image-banner .product-countdown-block .clock-item:before, .image-banner .product-countdown-block .clock-item:after {
+        right: -12px;
+    }
+    .image-banner-block-{{section.id}}.image-banner .product-countdown-block .clock-item .count {
+        /* display: block; */
+        font-size: 16px;
+        height:{{ section.settings.countdown_height_width_mb | append: 'px' }};
+        width:{{ section.settings.countdown_height_width_mb | append: 'px' }};
+        margin-bottom:{{ section.settings.info_space_bottom_mb | append: 'px' }};
+        
+    }
+    .image-banner-block-{{section.id}}.image-banner.image-banner-style-2 .banner-content {
+        position: relative;
+        top: unset;
+        left: unset;
+        transform: unset;
+    }
+    .image-banner-block-{{section.id}}.image-banner.image-banner-style-2 .image-banner-inner {
+        padding-top: 0px; 
+    }
+    
+  }
+</style>

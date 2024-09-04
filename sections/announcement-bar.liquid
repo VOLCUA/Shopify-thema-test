@@ -1,0 +1,315 @@
+{%- if section.settings.enable_announcement and section.blocks.size > 0 -%}
+    {%-liquid
+        assign arrow =  section.settings.arrow_active
+        assign hasCountDown = section.blocks | where: 'type', 'countdown'
+        assign hasCountDown = hasCountDown[0]
+        assign timeScroll = 5 | times: section.blocks.size
+    -%}
+
+    {% render 'announcement-style' %}
+
+    <div class="announcement-bar-main">
+      <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3">
+                <div class="announcement-left">
+                  <ul>
+                    {%- if section.settings.top_bar_location != blank -%}
+                      <li class="location-item">
+                        <div class="announcement-location">
+                            {% render 'icon-location' %}
+                            {{ section.settings.top_bar_location }}
+                        </div>
+                      </li>
+                    {%- endif -%}
+                    {%- if section.settings.top_bar_location != blank -%}
+                      <li>
+                        <div class="announcement-customer-content">
+                            {% render 'icon-phone' %}
+                            {{ section.settings.top_bar_no }}
+                        </div>
+                      </li>
+                    {%- endif -%}
+                  </ul>
+                </div>
+            </div>
+    
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <announcement-bar-component class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement' | t }}">
+                  <div class="container layout--{{ section.settings.layout }}">
+                      <div class="row">
+                         <div class="col-xl-12 col-lg-12 col-md-12">
+                              <div class="announcement-bar__item">
+                                  {%- for block in section.blocks -%}
+                                      {%- case block.type -%}
+                                          {%- when 'announcement' -%}
+                                              {%- if block.settings.text != blank -%}
+                                                  <div class="announcement-bar__message text-center" id="{{block.id}}">
+                                                          {{ block.settings.text }}
+                                                  </div>
+                                                  {%-liquid
+                                                      assign announcement_bar_text =  block.settings.text
+                                                  -%}
+                                              {%- endif -%}
+                                      {%- endcase -%}
+                                  {%- endfor -%}
+                              </div>
+                         </div>
+                      </div>
+                  </div>
+              </announcement-bar-component>
+            </div>
+    
+            <div class="col-xl-3 col-lg-3 col-md-3">
+                <div class="announcement-right">
+                    <ul>
+                      {% if settings.enable_multilang_shopify %}
+                        <li>
+                          {% render 'scoder-top-language' %}
+                        </li>
+                      {% endif %}
+                      {% if settings.enable_currencies %}
+                        <li>
+                          {% render 'scoder-top-currency' %}
+                        </li>
+                      {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    {%- if announcement_bar_text != blank -%}
+      <script>
+          $(".announcement-bar__item").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            speed: 400,
+            dots: false,
+            arrows: false,
+            fade: true,
+            autoplay: true,
+            autoplaySpeed: 5000
+          });
+      </script>
+      {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+    "name": "t:sections.announcement-bar.name",
+    "max_blocks": 12,
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enable_announcement",
+            "label": "t:sections.header.settings.header_layout.enable_announcement",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "border_bottom",
+            "label": "t:sections.layout.border_bottom",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "border_width",
+            "label": "t:sections.layout.border_width",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "border_opacity",
+            "label": "t:sections.image-banner.blocks.image.settings.content.border_opacity",
+            "min": 0,
+            "max": 99,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+          "id": "border_color",
+          "type": "color",
+          "default": "#222222",
+          "label": "t:sections.layout.border_color"
+        },
+        {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "color",
+            "id": "color_hover_text",
+            "label": "t:settings_schema.colors.settings.button_colors.texthover_color",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "color",
+            "id": "bg_color_text",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color",
+            "default": "#ffe8e8"
+        },
+        {
+            "type": "color_background",
+            "id": "bg_color_text_gradient",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:sections.announcement-bar.blocks.announcement.settings.text.font_size",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+          "type": "range",
+          "id": "font_lineheight_text",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "t:settings_schema.typography.settings.typography.label__1",
+          "default": 20
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+            "type": "header",
+            "content": "t:sections.main-product.settings.general.spacing"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "label": "t:sections.product_block.settings.general.label__3",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "t:sections.product_block.settings.general.label__4",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+          "type": "header",
+          "content": "t:sections.announcement-bar.customer_content"
+        },
+        {
+            "type": "html",
+            "id": "top_bar_no",
+            "label": "t:sections.announcement-bar.top_bar_no",
+            "default": "<p>Phone: <a href='tel:+1234567890'>+123 456 7890</a></p>"
+        },
+        {
+            "type": "html",
+            "id": "top_bar_location",
+            "label": "t:sections.announcement-bar.top_bar_location",
+            "default": "<p><a href='javascript:void(0)'>Location</a></p>"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.announcement-bar.dropdown"
+        },
+        {
+            "type": "color",
+            "id": "bg_color_dropdown",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "color",
+            "id": "text_color_dropdown",
+            "label": "t:settings_schema.colors.settings.colors_name.heading_color",
+            "default": "#222222"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "announcement",
+            "name": "t:sections.announcement-bar.blocks.announcement.name",
+            "settings": [
+                {
+                    "type": "html",
+                    "id": "text",
+                    "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label",
+                    "default": "<p>Welcome to our store</p>"
+                }
+            ]
+        }
+    ],
+    "default": {
+        "blocks": [
+            {
+                "type": "announcement"
+            }
+        ]
+    }
+}
+{% endschema %}
+
+

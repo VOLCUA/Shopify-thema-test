@@ -1,0 +1,126 @@
+.scoder-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.column-1 .collection-list-item {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.column-2 .collection-list-item {
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.column-3 .collection-list-item {
+    width: 33.33%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.column-4 .collection-list-item {
+    width: 25%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.column-5 .collection-list-item {
+    width: 20%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.collection-list-item .collections-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 0 30px;
+    border: unset!important;
+    transition: all 400ms ease;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+.collection-list-item .banner-item {
+    position: relative;
+    overflow: hidden;
+}
+.collection-list-item .banner-item .img-box {
+    padding-bottom: 0 !important;
+}
+.collection-list-item {
+    padding-bottom: 30px;
+}
+.collection-list-item.d-none {
+      display: none!important;
+}
+.collection-infinite-scroll .button[disabled] {
+    display: none;
+}
+.collection-list-item .banner-item .image {
+    overflow: hidden;
+}
+.collection-list-item .banner-item img {
+    transition: all 400ms ease;
+}
+.collection-list-item .banner-item:hover img {
+    transform: scale(1.1);
+}
+.collection-list-item .banner-item .image:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    z-index: 1;
+    opacity: 0;
+    transition: all 400ms ease;
+}
+.collection-list-item .banner-item:hover .image:before {
+    opacity: 0.3;
+}
+.collection-list-item .banner-item:hover .collections-wrapper {
+    top: 0%;
+}
+.collection-list-item .collections-wrapper > div {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+  .column-mobile-1 .collection-list-item {
+      width: 100%;
+  }
+  .column-mobile-2 .collection-list-item {
+      width: 50%;
+  }
+  .scoder-row {
+      margin-left: -5px;
+      margin-right: -5px;
+  }
+  .column-1 .collection-list-item {
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+  .column-2 .collection-list-item {
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+  .column-3 .collection-list-item {
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+  .column-4 .collection-list-item {
+      padding-left:5px;
+      padding-right:5px;
+  }
+  .column-5 .collection-list-item {
+      padding-left:5px;
+      padding-right:5px;
+  }
+  .collection-list-item {
+    padding-bottom: 10px;
+  }
+}

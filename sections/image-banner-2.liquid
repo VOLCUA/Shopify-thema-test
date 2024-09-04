@@ -1,0 +1,333 @@
+{% assign container = section.settings.container %}
+{%- liquid
+  assign preview_img = section.settings.image
+-%}
+
+{% render 'image-banner-style-2' %}
+
+<div class="image-banner image-banner-2 image-banner-block-{{section.id}} wow {{ section.settings.animations_type_image_banner }}">
+  <div class="{% if container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+    <div class="banner-img desktop-{%- if section.settings.image_slide_mb != blank -%}img{%- endif -%}">
+        <div class="image-banner-box {% if enable_parallax_image %}is-parallax{% endif %}">
+            {%- if enable_parallax_image -%}
+                <div class="parallax-image" style="background-image: url({{ preview_img | img_url: 'master' }});"></div>
+            {%- endif -%}
+            {%- if section.settings.image != blank -%}
+              {%- assign preview_img = section.settings.image -%}
+                <div class="image image-adapt adaptive_height" title="{{ preview_img.alt | default: shop.name | escape }}">
+                    <a {% if section.settings.image_banner_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ section.settings.image_banner_link }}"{% endif %}>
+                      <img {% render 'lazyload', preview_img: preview_img %} loading="lazy" />
+                    </a>
+                    {% if settings.enable_lazyload %}<span class="data-lazy-loading"></span>{% endif %}
+                </div>
+            {%- else -%}
+                <div class="not_img" style="--height_not_img: 545px">
+                  1920 x 545px
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "t:sections.image-banner.name_2",
+    "class": "sections-image-banner-block",
+    "settings": [
+      {
+          "type": "header",
+          "content": "t:sections.layout.content"
+      },
+      {
+          "type": "select",
+          "id": "animations_type_image_banner",
+          "label": "t:sections.animation.label_1",
+          "default": "none",
+          "options": [
+            {
+                "value": "none",
+                "label": "t:sections.animation.settings.type.option_0"
+            },
+            {
+                "value": "fadeIn",
+                "label": "fadeIn"
+            },
+            {
+                "value": "fadeInLeft",
+                "label": "fadeInLeft"
+            },
+            {
+                "value": "fadeInRight",
+                "label": "fadeInRight"
+            },
+            {
+                "value": "fadeInUp",
+                "label": "fadeInUp"
+            },
+            {
+                "value": "fadeInDown",
+                "label": "fadeInDown"
+            },
+            {
+                "value": "slideInLeft",
+                "label": "slideInLeft"
+            },
+            {
+                "value": "slideInRight",
+                "label": "slideInRight"
+            },
+            {
+                "value": "slideInUp",
+                "label": "slideInUp"
+            },
+            {
+                "value": "slideInDown",
+                "label": "slideInDown"
+            },
+            {
+                "value": "zoomIn",
+                "label": "zoomIn"
+            },
+            {
+                "value": "zoomInLeft",
+                "label": "zoomInLeft"
+            },
+            {
+                "value": "zoomInRight",
+                "label": "zoomInRight"
+            },
+            {
+                "value": "zoomInUp",
+                "label": "zoomInUp"
+            },
+            {
+                "value": "zoomInDown",
+                "label": "zoomInDown"
+            },
+            {
+                "value": "bounce",
+                "label": "bounce"
+            },
+            {
+                "value": "bounceIn",
+                "label": "bounceIn"
+            },
+            {
+                "value": "bounceInLeft",
+                "label": "bounceInLeft"
+            },
+            {
+                "value": "bounceInRight",
+                "label": "bounceInRight"
+            },
+            {
+                "value": "bounceInUp",
+                "label": "bounceInUp"
+            },
+            {
+                "value": "bounceInDown",
+                "label": "bounceInDown"
+            },
+            {
+                "value": "rotateIn",
+                "label": "rotateIn"
+            },
+            {
+                "value": "rotateInDownLeft",
+                "label": "rotateInDownLeft"
+            },
+            {
+                "value": "rotateInDownRight",
+                "label": "rotateInDownRight"
+            },
+            {
+                "value": "rotateInUpLeft",
+                "label": "rotateInUpLeft"
+            },
+            {
+                "value": "rotateInUpRight",
+                "label": "rotateInUpRight"
+            }
+          ]
+      },
+      {
+          "type" : "color",
+          "id" : "background_color",
+          "label" : "t:settings_schema.colors.settings.colors_name.background_color"
+      },
+      {
+          "type" : "color_background",
+          "id" : "background_gradient",
+          "label" : "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+      },
+      {
+          "type": "select",
+          "id": "container",
+          "label": "t:sections.layout.container.option",
+          "default": "fullwidth",
+          "options": [
+              {
+                  "value": "container",
+                  "label": "t:sections.layout.container.option1"
+              },
+              {
+                  "value": "fullwidth",
+                  "label": "t:sections.layout.container.option2"
+              }
+          ]
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.margin_top"
+      },
+      {
+          "type": "range",
+          "id": "mg_top_main_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 50
+      },
+      {
+          "type": "range",
+          "id": "mg_top_main_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 40
+      },
+      {
+          "type": "range",
+          "id": "mg_top_main_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 25
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.margin_bottom"
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_main_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 50
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_main_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 40
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_main_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 25
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.spacing_inner_top"
+      },
+      {
+          "type": "range",
+          "id": "mg_top_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 50
+      },
+      {
+          "type": "range",
+          "id": "mg_top_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 40
+      },
+      {
+          "type": "range",
+          "id": "mg_top_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 25
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.spacing_inner_bottom"
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 50
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 40
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 25
+      },
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.spotlight_block.blocks.image.name"
+      },
+      {
+          "type": "url",
+          "id": "image_banner_link",
+          "label": "t:sections.image-banner.blocks.image.settings.header__2.button_link"
+      }
+    ],
+    "presets": [
+      {
+          "name": "t:sections.image-banner.name_2"
+      }
+    ]
+}
+{% endschema %}

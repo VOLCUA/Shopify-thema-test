@@ -1,0 +1,182 @@
+{%- liquid
+    assign colors_bg = section.settings.colors_bg
+    assign colors_bg_gradient = section.settings.colors_bg_gradient
+    assign padding_top = section.settings.mg_top_desktop | append: 'px'
+    assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+    assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+    assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+    assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+    assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+    assign container = section.settings.container
+    assign has_sidebar = false
+    assign show_sidebar = section.settings.show_sidebar
+    assign show_filter = section.settings.show_filter
+    assign sidebar_type = section.settings.sidebar_type
+    assign sidebar_position = section.settings.sidebar_position
+    assign show_sidebar_collapse = section.settings.show_sidebar_collapse
+    assign sidebar_collapse_default = section.settings.sidebar_collapse_default
+    if show_sidebar
+        if show_filter
+            assign has_sidebar = true
+            assign filter_swatch = section.settings.filter_swatch
+            assign filter_swatch_type = section.settings.filter_swatch_type
+            assign filter_rectangle = section.settings.filter_rectangle
+        elsif section.blocks.size > 0
+            assign has_sidebar = true
+        endif
+        if has_sidebar
+            assign sidebar_heading_font = section.settings.sidebar_heading_font
+            assign sidebar_heading_font_size = section.settings.sidebar_heading_font_size
+            assign sidebar_heading_font_weight = section.settings.sidebar_heading_font_weight
+            assign sidebar_heading_text_transform = section.settings.sidebar_heading_text_transform
+            assign enable_sticky = section.settings.enable_sticky
+            assign sidebar_layout = section.settings.sidebar_layout
+        endif
+    endif
+    assign sort_by = collection.sort_by | default: collection.default_sort_by
+    assign sort_options = collection.sort_options
+    assign layout = section.settings.layout
+    if cart.attributes.pagination != blank and cart.attributes.pagination
+        assign products_per_page = cart.attributes.pagination
+    else
+        assign products_per_page =  section.settings.products_per_page
+    endif
+    assign show_toolbar = section.settings.show_toolbar
+    if show_toolbar
+        assign show_sorting = section.settings.show_sorting
+        assign show_item_per_page = section.settings.show_item_per_page
+        assign show_view_as = section.settings.show_view_as
+    endif
+    assign show_infinite_scrolling = section.settings.show_infinite_scrolling
+-%}
+<toolbar-item class="toolbar" data-toolbar data-id="{{ section.id }}">
+    {%- if has_sidebar -%}
+        <div class="toolbar-wrapper toolbar-mobile">
+            <div class="toolbar-item toolbar-sidebar" data-sidebar>
+                <span class="toolbar-icon icon-filter">
+                    {% render 'icon-sidebar' %}
+                    <span class='filter-text text'>
+                        {{ 'sections.collection_template.filter_button' | t }}
+                    </span>
+                </span>
+            </div>
+        </div>
+    {%- endif -%}
+    <div class="toolbar-wrapper{% unless has_sidebar %} toolbar-wrapper--flex{% endunless %}">
+        <div class="results-count"><span class="results" style="display: none;"><span class="count">{{ collection.products_count }}</span> {{ 'sections.collection_template.results' | t }}</span></div>
+        {%- if show_view_as -%}
+            <div class="toolbar-col toolbar-colLeft">
+                <label class="toolbar-label">
+                    {{ 'sections.collection_template.view_as' | t }}
+                </label>
+                <div class="toolbar-item toolbar-viewAs clearfix" data-view-as>
+                    <span class="toolbar-icon icon-mode icon-mode-list{% if layout == '1' %} active{% endif %}" data-col="1" role="button" aria-label="List" tabindex="0"></span>
+                    <span class="toolbar-icon icon-mode icon-mode-grid grid-2{% if layout == '2' %} active{% endif %}" data-col="2" role="button" aria-label="Grid 2" tabindex="0"></span>
+                    <span class="toolbar-icon icon-mode icon-mode-grid grid-3{% if layout == '3' %} active{% endif %}" data-col="3" role="button" aria-label="Grid 3" tabindex="0"></span>
+                    <span class="toolbar-icon icon-mode icon-mode-grid grid-4{% if layout == '4' %} active{% endif %}" data-col="4" role="button" aria-label="Grid 4" tabindex="0"></span>
+                    <span class="toolbar-icon icon-mode icon-mode-grid grid-5{% if layout == '5' %} active{% endif %}" data-col="5" role="button" aria-label="Grid 5" tabindex="0"></span>
+                </div>
+            </div>
+        {%- endif -%}
+        {%- if show_sorting or show_item_per_page -%}
+            <div class="toolbar-col toolbar-colRight">
+                {%- if show_item_per_page -%}
+                    <div class="toolbar-item toolbar-limitView clearfix" data-limited-view>
+                      
+                    </div>
+                {%- endif -%}
+                <div class="toolbar-right-cust">
+                  {%- if show_sorting -%}
+                      <div class="toolbar-item toolbar-sort clearfix" data-sorting>
+                          <label class="toolbar-label" data-ur>
+                              {{ 'sections.collection_template.sort_by_label' | t }}
+                          </label>
+                          <div class="toolbar-dropdown filter-sortby">
+                              <div class="label-tab hidden-on-mobile" data-toggle="dropdown" aria-expanded="false" role="button" tabindex="0">
+                                  {%- for option in sort_options -%}
+                                      {%- if option.value == sort_by -%}
+                                          <span class="label-text">
+                                              {{ option.name | escape }}
+                                          </span>
+                                      {%- endif -%}
+                                  {%- endfor -%}
+                                  <span class="scoder-icon-dropdown icon-dropdown" role="none">{% render 'icon-caret-dropdown' %}</span>
+                              </div>
+                              <ul class="dropdown-menu list-unstyled hidden-on-mobile">
+                                  {%- for option in sort_options -%}
+                                      <li {% if option.value == sort_by %}class="is-active"{% endif %} data-sort-by-item>
+                                          {% assign value = option.value | handleize %}
+                                          <span class="text" data-href="{{ value }}" data-value="{{ value }}">
+                                              {{ option.name | escape }}
+                                          </span>
+                                      </li>
+                                  {%- endfor -%}
+                              </ul>
+                              <div class="label-tab hidden-on-desktop" data-mobile="mobile" data-toggle="dropdown">
+                                  <span class="label-text">
+                                      {{ 'sections.collection_template.sort_button' | t }}
+                                  </span>
+                                  <span class="scoder-icon-dropdown icon-dropdown" role="none"></span>
+                              </div>
+                              
+                          </div>
+                      </div>
+                  {%- endif -%}
+                  {%- if has_sidebar -%}
+  
+                  {%- else -%}
+                    <div class="toolbar-item toolbar-filters clearfix" data-limited-view>
+                      <div class="toolbar-filters-btn" data-sidebar>
+                        <span>Filter</span>
+                        <span>{% render 'icon-filter' %}</span>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+            </div>
+        {%- endif -%}
+    </div>
+    <div class="toolbar-wrapper toolbar-mobile">
+        {%- if show_view_as -%}
+            <div class="toolbar-item toolbar-viewAs clearfix" data-view-as-mobile>
+                <span class="toolbar-icon icon-mode icon-mode-list{% if layout == '1' %} active{% endif %}" data-col="1" role="button" aria-label="List" tabindex="0"></span>
+                <span class="toolbar-icon icon-mode icon-mode-grid grid-2{% if layout == '2' %} active{% endif %}" data-col="2" role="button" aria-label="Grid 2" tabindex="0"></span>
+                <span class="toolbar-icon icon-mode icon-mode-grid grid-3{% if layout == '3' %} active{% endif %}" data-col="3" role="button" aria-label="Grid 3" tabindex="0"></span>
+                <span class="toolbar-icon icon-mode icon-mode-grid grid-4{% if layout == '4' %} active{% endif %}" data-col="4" role="button" aria-label="Grid 4" tabindex="0"></span>
+                <span class="toolbar-icon icon-mode icon-mode-grid grid-5{% if layout == '5' %} active{% endif %}" data-col="5" role="button" aria-label="Grid 5" tabindex="0"></span>
+            </div>
+        {%- endif -%}
+    </div>
+
+    <div class="dropdown-menu hidden-on-desktop" data-sorting data-mobile="mobile">
+        <div class="dropdown-menu-header">
+            <h3 class="dropdown-menu-title">
+                <span class="text">
+                    {{ 'sections.collection_template.sort_by_label' | t }}:
+                </span>
+            </h3>
+            <div class="icon-wrapper">
+                {% render 'icon-close-thin', class: 'close-mobile-modal' %}
+            </div>
+        </div>
+        <ul class="dropdown-menu-body list-unstyled">
+            {%- for option in sort_options -%}
+                <li {% if option.value == sort_by %}class="is-active"{% endif %} data-sort-by-item>
+                    {% assign value = option.value | handleize %}
+                    <span class="text" data-href="{{ value }}" data-value="{{ value }}">
+                        {{ option.name | escape }}
+                    </span>
+                </li>
+            {%- endfor -%}
+        </ul>
+    </div>
+</toolbar-item>
+
+<script src="{{ 'toolbar.js' | asset_url }}" defer="defer"></script>
+{%- if show_item_per_page -%}
+  <script>
+    $(document).ready(function(){
+      $(".pagination-page-total").appendTo(".toolbar-limitView");
+    });
+  </script>
+{%- endif -%}

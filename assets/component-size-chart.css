@@ -1,0 +1,62 @@
+.scoder-size-chart {
+    padding: 0 30px 30px 30px;
+}
+
+.scoder-size-chart img {
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.scoder-size-chart-popup .scoder-popup-wrapper {
+    padding: 0;
+}
+
+.scoder-size-chart-popup .scoder-popup-wrapper .scoder-popup-header {
+    border-bottom: 1px solid #e6e6e6;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    margin-bottom: 0;
+}
+
+.scoder-size-chart-popup .scoder-popup-wrapper .scoder-popup-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.scoder-size-chart-popup .scoder-popup-wrapper .scoder-size-chart {
+    padding: 0 20px 30px;
+}
+
+body.size-chart-show {
+    overflow: hidden;
+}
+
+body.size-chart-show .background-overlay {
+    opacity: 1;
+    pointer-events: all;
+}
+
+body.size-chart-show .scoder-size-chart-popup.is-show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 9999;
+    width: calc(100% - 40px);
+}
+
+@media (min-width: 1280px) {
+    .scoder-size-chart-popup .scoder-popup-wrapper .scoder-popup-content {
+        padding: 30px 50px 0;
+    }
+}
+
+@media (max-width: 767px) {
+  .scoder-size-chart-popup .scoder-popup-wrapper .scoder-size-chart {
+    padding: 20px 20px 20px;
+  }
+  .scoder-ask-an-expert-popup .ask-an-expert {
+      margin-bottom: 0;
+  }
+}

@@ -1,0 +1,66 @@
+{%- liquid
+  assign colors_bg = section.settings.colors_bg
+  assign colors_bg_gradient = section.settings.colors_bg_gradient
+-%}
+
+<style>
+  :root {
+    {% if colors_bg != blank or colors_bg_gradient != blank %}
+        --body-bg: {% if colors_bg_gradient != blank %}{{ colors_bg_gradient }}{% else %}{{ colors_bg }}{% endif %};
+    {% endif %}
+
+    {% if sidebar_heading_font == 'font_1' %}
+        --sidebar-heading-font: var(--font-heading-family);
+    {% elsif sidebar_heading_font == 'font_2' %}
+        --sidebar-heading-font: var(--font-body-family);
+    {% endif %}
+
+    --sidebar-heading-font-size: {{ section.settings.sidebar_heading_font_size | append: 'px' }};
+    --sidebar-heading-text-transform: {{ section.settings.sidebar_heading_text_transform }};
+    --sidebar-heading-font-weight: {{ section.settings.sidebar_heading_font_weight }};
+    --sidebar-heading-colors: {{ section.settings.sidebar_heading_colors }};
+    --sidebar-heading-space-bottom: {{ section.settings.sidebar_heading_space_bottom | append: 'px' }};
+    --sidebar-heading-space-bottom-tb: {{ section.settings.sidebar_heading_font_size | append: 'px' }};
+    --sidebar-heading-space-bottom-mb: {{ section.settings.sidebar_heading_font_size | append: 'px' }};
+    {%- for block in section.blocks -%}
+      --sidebar-button-font-size: {{ block.settings.button_font_size | append: 'px' }};
+      --sidebar-button-border: {{ block.settings.button_border | append: 'px' }};
+      --sidebar-button-text-color: {{ block.settings.button_color }};
+      --sidebar-button-bg-color: {{ block.settings.button_bg_color | color_modify: 'alpha', 0.8 }};
+      --sidebar-button-text-hover-color: {{ block.settings.button_hover_color }};
+      --sidebar-button-bg-hover-color: {{ block.settings.button_bghover_color | color_modify: 'alpha', 0.8 }};
+      --sidebar-button-border-color: {{ block.settings.button_border_color | color_modify: 'alpha', 0.8 }};
+      --sidebar-button-boder-hover-color: {{ block.settings.button_borderhover_color | color_modify: 'alpha', 0.8 }};
+    {%- endfor -%}
+
+    
+  }
+
+
+.search-main-part {
+  padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+  padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+}
+
+.search-main-part .container-full {
+  padding: 0px 15px;
+}
+{% if colors_bg != blank or colors_bg_gradient != blank %}
+  .search-main-part {
+    background: var(--body-bg);
+  }
+{% endif %}
+
+@media (max-width: 1199px) {
+  .search-main-part {
+    padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+  }
+}
+@media (max-width: 767px) {
+  .search-main-part {
+    padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+  }
+}
+</style>

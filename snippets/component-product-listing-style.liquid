@@ -1,0 +1,65 @@
+{%- liquid
+  assign colors_bg = section.settings.colors_bg
+  assign colors_bg_gradient = section.settings.colors_bg_gradient
+  assign container = section.settings.container
+  assign sidebar_heading_font = section.settings.sidebar_heading_font
+-%}
+
+<style>
+  :root {
+    {% if colors_bg != blank or colors_bg_gradient != blank %}
+        --body-bg: {% if colors_bg_gradient != blank %}{{ colors_bg_gradient }}{% else %}{{ colors_bg }}{% endif %};
+    {% endif %}
+
+    {% if sidebar_heading_font == 'font_1' %}
+        --sidebar-heading-font: var(--font-heading-family);
+    {% elsif sidebar_heading_font == 'font_2' %}
+        --sidebar-heading-font: var(--font-body-family);
+    {% endif %}
+
+    --sidebar-heading-font-size: {{ section.settings.sidebar_heading_font_size | append: 'px' }};
+    --sidebar-heading-text-transform: {{ section.settings.sidebar_heading_text_transform }};
+    --sidebar-heading-font-weight: {{ section.settings.sidebar_heading_font_weight }};
+    --sidebar-heading-colors: {{ section.settings.sidebar_heading_colors }};
+    --sidebar-heading-space-bottom: {{ section.settings.sidebar_heading_space_bottom | append: 'px' }};
+    --sidebar-heading-space-bottom-tb: {{ section.settings.sidebar_heading_space_bottom_tb | append: 'px' }};
+    --sidebar-heading-space-bottom-mb: {{ section.settings.sidebar_heading_space_bottom_mb | append: 'px' }};
+
+    
+  }
+{% assign card-product__group_position = settings.group_quickview_wishlist_top_bottom %}
+{% if card-product__group_position == 'bottom'%}
+  .card-product__group {
+    top: unset !important;
+    bottom: var(--postion-top-badge);
+  }
+{% endif %}
+.collection-main-wrap .container-full {
+  padding: 0px 15px;
+}
+{% if colors_bg != blank or colors_bg_gradient != blank %}
+  .collection-main-wrap {
+    background: var(--body-bg);
+  }
+{% endif %}
+.collection-main-wrap {
+  padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+  padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+}
+
+@media (max-width: 1199px) {
+  .collection-main-wrap {
+      padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+  }
+}
+
+@media (max-width: 767px) {
+  .collection-main-wrap {
+      padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+  }
+}
+
+
+</style>

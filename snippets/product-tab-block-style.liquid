@@ -1,0 +1,423 @@
+<style>
+  {% if settings.type_font_1 == 'shopify_fonts' and settings.type_font_2 == 'shopify_fonts' %}
+      {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+      {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+      {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+      {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+      {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+      {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+
+      {% if settings.type_font_2_font.family != settings.type_font_1_font.family %}
+          {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+          {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+          {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+          {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+          
+          {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+                {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+      {% else %}
+                {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+      {% endif %}
+  {% elsif settings.type_font_1 != 'shopify_fonts' and settings.type_font_2 != 'shopify_fonts' %}
+        {%- assign font_1 = settings.type_font_1_name -%}
+        {%- capture font_name_1 -%}
+            {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+        {%- endcapture -%}
+        @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+              {% assign fonts_name = font_1 %}
+
+        {% if settings.type_font_1_name != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                  {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = font_1 %}
+        {% endif %}
+  {% elsif settings.type_font_1 == 'shopify_fonts' %}
+        {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+        {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+        {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+        {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+        {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+        {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+      
+        {% if base_font.family != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                    {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+        {% endif %}
+  {% else %}
+        {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+        {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+        {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+        {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+
+        {% if header_font.family != settings.type_font_1_name %}
+            {%- assign font_1 = settings.type_font_1_name -%}
+            {%- capture font_name_1 -%}
+                {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+                  {% assign fonts_name = font_1 %}
+        {% else %}
+                  {% assign fonts_name = header_font.family | append: ',' | append: header_font.fallback_families %}
+        {% endif %}
+
+        {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+             
+        {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+  {% endif %}
+  :root {
+      {% if section.settings.product_sub_heading_font == 'font_1' %}
+          --tab-product-block-title-font-family: {{fonts_name}};
+      {% else %}
+          --tab-product-block-title-font-family: {{fonts_name_2}};
+      {% endif %}
+
+      {% if section.settings.sub_heading_font == 'font_1' %}
+          --tab-title-font-type-cat-slide: {{fonts_name}};
+      {% else %}
+          --tab-title-font-type-cat-slide: {{fonts_name_2}};
+      {% endif %}
+  }
+  
+  {%- liquid
+    assign blog_bg_image = section.settings.background_image
+  -%}
+
+
+  .product-tab-block-section.product-tab-block-{{section.id}} .card-title {
+    {% if section.settings.product_title_color != blank %}
+      color: {{ section.settings.product_title_color }};
+    {% else %}
+      color: var(--product-title-color);
+    {% endif %}
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .card-title:hover {
+    color: var(--product-title-hover-color);
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} {
+      padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+      {% if section.settings.background_image != blank %}
+        background: url({{ blog_bg_image | img_url: '1920x' }});
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      {% else %}
+        background: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+      {% endif %}
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .container-full {
+          padding-left: {{ section.settings.padding_full_width | append: 'px' }};
+          padding-right: {{ section.settings.padding_full_width | append: 'px' }};
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .section-header .banner-sub-title {
+      font-size: {{ section.settings.font_size_sub_title | append: 'px' }};
+      line-height: {{ section.settings.sub_title_line_height | append: 'px' }};
+      {% if section.settings.sub_title_color != blank %}
+         color: {{ section.settings.sub_title_color }};
+      {% else %}
+          color: var(--heading-text-color);
+      {% endif %}
+      text-transform: {{ section.settings.product_title_transform }};
+      font-weight: {{ section.settings.sub_title_font_weight }};
+      padding-bottom: {{ section.settings.sub_title__space_top | append: 'px' }};
+      letter-spacing: {{ section.settings.font_size_sub_letter_spacing | append: 'px' }};
+      font-family: var(--tab-title-font-type-cat-slide);
+      margin-bottom: 0;
+    }
+  .product-tab-block-section.product-tab-block-{{section.id}} .section-header .title {
+    font-family: var(--tab-product-block-title-font-family);
+    {% if section.settings.title_color != blank %}
+        color: {{ section.settings.title_color }};
+    {% else %}
+         color: var(--heading-text-color);
+    {% endif %}
+    letter-spacing: {{ section.settings.title_letter_spacing | append: 'px' }};
+    {% if section.settings.product_font_size_title == 0 %}
+       font-size: var(--font-h3-size);
+    {% else %}
+       font-size: {{ section.settings.product_font_size_title | append: 'px' }};
+    {% endif %}
+    font-weight:{{ section.settings.product_title_font_weight }};
+    
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .section-header {
+      padding-bottom: {{ section.settings.mg_bottom_title | append: 'px' }};
+  }
+
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: {{ section.settings.product_tab_align }};
+      margin: 0px -15px;
+      margin-top: {{ section.settings.sub_title__space_top1 | append: 'px' }};
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li {
+      padding: 0px 15px;
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li .tab-links {
+    font-size: {{ section.settings.tab_font_size | append: 'px' }};
+    {% if section.settings.tab_color != blank %}
+        color: {{ section.settings.tab_color }};
+    {% else %}
+        color: var(--link-color);
+    {% endif %}
+    position: relative;
+    padding-bottom: 3px;
+    font-weight: {{ section.settings.tab_font_weight }};
+    text-transform: {{ section.settings.tab_transform }};
+    letter-spacing: {{ section.settings.tab_font_size_sub_letter_spacing | append: 'px' }};
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li .tab-links:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      {% if section.settings.tab_color_hover != blank %}
+         background: {{ section.settings.tab_color_hover }};
+      {% else %}
+         background: var(--link-hover-color);
+      {% endif %}
+      transition: all 400ms ease;
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li .tab-links.active,
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li .tab-links:hover {
+    {% if section.settings.tab_color_hover != blank %}
+        color: {{ section.settings.tab_color_hover }};
+    {% else %}
+        color: var(--link-hover-color);
+    {% endif %}
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li .tab-links.active:before,
+  .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li .tab-links:hover:before {
+      width: 100%;
+  }
+
+  .product-tab-block-section.product-tab-block-{{section.id}} .tab-content.active {
+      display: block;
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .tab-content {
+      display: none;
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .price-item {
+      {% if section.settings.price_color != blank %}
+           color: {{ section.settings.price_color }};
+      {% else %}
+           color: var(--body-text-color);
+      {% endif %}
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .price-item--sale {
+      {% if section.settings.decount_price_color != blank %}
+           color: {{ section.settings.decount_price_color }};
+      {% else %}
+           color: var(--link-color);
+      {% endif %}
+      
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}}  .card-product__group-item button, .card-product__group-item .button-ATC{
+        border-radius: {{ section.settings.action_border_radius | append: 'px' }};   
+    }
+  .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group.group-right .card-action .variants button{
+       border-radius: {{ section.settings.action_border_radius | append: 'px' }};
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .product-item::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    {% if section.settings.box_color != blank %}
+        box-shadow: 1px 3px 23px 2px {{ section.settings.box_color}};
+    {% else %}
+        box-shadow: 1px 3px 23px 2px var(--heading-text-color);
+    {% endif %}
+    
+    opacity: 0;
+    transition: ease 400ms all;
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .card-information {
+      position: relative;
+  }
+  .product-tab-block-section.product-tab-block-{{section.id}} .product-item:hover::before{
+        opacity: 0.{{ section.settings.box_shadow_opacity }};
+  }
+
+ {% if section.settings.action_style_button == '2'%}
+    .product-tab-block-section.product-tab-block-{{section.id}} .card-product .card-product__group.group-right{
+          right: unset;
+          transform: translate(-50%, -50%);
+          display:flex;
+          align-items: center;
+          left: calc(50% - 38px);
+          top: 110%;
+          right: unset !important;
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group-item.add-to-cart-form.card-action>form {
+        top: 110%;
+        left: calc(50% + 38px);
+        right: unset !important;
+        transform: translate(-50%, -50%);
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product .card-product__group-item button span.visually-hidden{
+         top: -60%;
+         transform: translate(-50% , -60%);
+         left: 50%;
+         right:unset;
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product .card-product__group.group-right .card-action .variants .product-card-add-to:before{
+          top: -60%;
+          transform: translate(-50% , -60%);
+          left: 50%;
+          right:unset;
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product .card-product__group.group-right .card-action .variants .product-card-add-to:after{
+          left: 50%;
+          top: -40%;
+          transform: rotate(90deg);
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product  .card-product__group-item button span.visually-hidden:before{
+          left: 50%;
+          bottom: -25%;
+          transform: rotate(90deg);
+          top:unset;
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}}  .productGrid .product-item:hover .card-product__group.group-right{
+          right: unset;
+          top: 50%; 
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .productGrid .product-item:hover .card-product__group-item.add-to-cart-form.card-action > form {
+          top: 50%;
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group-item{
+         padding: 5px 5px;
+         display: inline-block;
+       }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-action.has-compare{
+          display: inline-block;
+          padding: 0px 0px 0px 5px;
+      }
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group.group-right .card-action .variants button{
+           margin-top:0px;  
+       }
+       .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group-item form span.visually-hidden {
+            top: calc(-100% - 0px);
+            right: unset;
+            left: 50%;
+            transform: translate(-50%);
+            border: unset;
+        }
+       .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group-item form span.visually-hidden:before {
+            left: 50%;
+            top: calc(100% + 2px);
+            transform: translateY(-50%) rotate(180deg);
+            border-style: solid;
+            border-width: 0px 5px 5px 5px;
+            border-color: transparent transparent #111 transparent;
+        }
+        .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group-item.group-right.add-to-cart-form.card-action.has-compare {
+            line-height: 0 !important;
+            padding: 0;
+            margin: 0;
+            display: block;
+        }
+    {% endif %}   
+  }
+
+  @media (max-width: 1199px) {
+      .product-tab-block-section.product-tab-block-{{section.id}} {
+          padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+          padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+      } 
+  }
+
+  @media (max-width: 1024px) {
+    .product-tab-block-section.product-tab-block-{{section.id}} .section-header .title {
+       {% if section.settings.product_font_size_title_tb == 0 %}
+         font-size: var(--font-h3-size-tb);
+      {% else %}
+         font-size: {{ section.settings.product_font_size_title_tb | append: 'px' }};
+      {% endif %}
+    }
+    .product-tab-block-section.product-tab-block-{{section.id}} {
+       padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }
+    {% if section.settings.action_style_button == '2'%}
+      .product-tab-block-section.product-tab-block-{{section.id}} .card-product .card-product__group.group-right{
+            left: calc(50% - 30px);
+        }
+        .product-tab-block-section.product-tab-block-{{section.id}} .card-product__group-item.add-to-cart-form.card-action>form {
+          top: 110%;
+          left: calc(50% + 30px);
+        }
+    {% endif %} 
+    .product-tab-block-section.product-tab-block-{{section.id}} .section-header .banner-sub-title {
+      font-size: {{ section.settings.font_size_sub_title_tb | append: 'px' }};
+        line-height: {{ section.settings.sub_title_line_height_tb | append: 'px' }};
+        padding-bottom: {{ section.settings.sub_title__space_top_tb | append: 'px' }};
+    }
+    .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs {
+        margin-top: {{ section.settings.sub_title__space_top_tb1 | append: 'px' }};
+    }
+  }
+
+  @media (max-width: 767px) {
+    .product-tab-block-section.product-tab-block-{{section.id}} {
+        padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+        padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    } 
+    .product-tab-block-section.product-tab-block-{{section.id}} .section-header .title {
+       {% if section.settings.product_font_size_title_mb == 0 %}
+         font-size: var(--font-h3-size-mb);
+      {% else %}
+         font-size: {{ section.settings.product_font_size_title_mb | append: 'px' }};
+      {% endif %}
+    }
+    .product-tab-block-section.product-tab-block-{{section.id}} .section-header {
+        padding-bottom: {{ section.settings.mg_bottom_title_mb | append: 'px' }};
+    }
+    .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs {
+      justify-content: {{ section.settings.product_tab_align_mobile }};
+      padding-top: 15px;
+      margin-top: {{ section.settings.sub_title__space_top_mb1 | append: 'px' }};
+    }
+    .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li {
+       padding: 0px 7px 5px;
+    }
+    .product-tab-block-section.product-tab-block-{{section.id}} .list-product-tabs li .tab-links {
+        font-size: {{ section.settings.tab_font_mb | append: 'px' }};
+    }
+    .product-tab-block-section.product-tab-block-{{section.id}} .section-header .banner-sub-title {
+      font-size: {{ section.settings.font_size_sub_title_mb | append: 'px' }};
+        line-height: {{ section.settings.sub_title_line_height_mb | append: 'px' }};
+        padding-bottom: {{ section.settings.sub_title__space_top_mb | append: 'px' }}
+    }
+  }
+</style>

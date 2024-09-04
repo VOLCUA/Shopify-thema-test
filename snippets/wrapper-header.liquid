@@ -1,0 +1,23 @@
+{% section 'announcement-bar' %}
+{%- case settings.header_layout -%}
+	{%- when '01' -%}
+		{% section 'header' %}
+	{%- when '02' -%}
+		{% section 'header-02' %}
+  {%- when '03' -%}
+		{% section 'header-03' %}
+  {%- when '04' -%}
+		{% section 'header-04' %}
+  {%- when '05' -%}
+		{% section 'header-05' %}
+{%- endcase -%}
+
+{%- unless settings.enable_currencies -%}
+    <script src='//cdn.shopify.com/s/javascripts/currencies.js' defer="defer"></script>
+    {%- if settings.currency_format_enable -%}
+        <script src="{{ 'jquery.currencies-format.min.js' | asset_url }}" defer="defer"></script>
+    {%- else -%}
+        <script src="{{ 'jquery.currencies.min.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    <script type="text/javascript">let shopCurrency="{{ shop.currency }}"</script>
+{%- endunless -%}

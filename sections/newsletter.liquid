@@ -1,0 +1,1166 @@
+{%- liquid
+  assign background_color = section.settings.background_color
+  assign background_gradient = section.settings.background_gradient
+  assign background_image = section.settings.background_image
+
+  assign input_placeholder = section.settings.section_placeholder
+  assign button_text = section.settings.button_text
+-%}
+
+<style>
+  .newsletter-section {
+    margin-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    margin-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    padding-top: {{ section.settings.spacing_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.spacing_bottom_desktop | append: 'px' }};
+    {% if background_image != blank %}
+      background: url({{ background_image | img_url: '1920x' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-color: transparent;
+    {% else %}
+      background: {% if background_gradient != blank %}{{ background_gradient }}{% else %}{{ background_color }}{% endif %};
+    {% endif %}
+    animation-delay: {{ section.settings.animation_delay }}
+  }
+  .newsletter-section .newsletter-title {
+    font-size: {{ section.settings.heading_title | append: 'px' }};
+    line-height: 1.2;
+    {% if section.settings.heading_color != blank %}
+       color: {{ section.settings.heading_color }};
+    {% else %}
+        color: var(--heading-text-color);
+    {% endif %}
+    font-weight: {{ section.settings.heading_font_weight }};
+    text-transform: {{ section.settings.heading_text_transform }};
+    letter-spacing: {{ section.settings.heading_title_letter_spacing | append: 'px' }};
+  }
+  .newsletter-description {
+      font-size: {{ section.settings.description_font_size | append: 'px' }};
+      line-height: 1.7;
+      {% if section.settings.description_color != blank %}
+         color: {{ section.settings.description_color }};
+      {% else %}
+          color: var(--body-text-color);
+      {% endif %}
+  }
+  .newsletter-section .button {
+      width: {{ section.settings.button_width | append: 'px' }};
+      {% if section.settings.button_text_color != blank %}
+         color: {{ section.settings.button_text_color }};
+      {% else %}
+          color: var(--button-color);
+      {% endif %}
+      {% if section.settings.button_border_color != blank %}
+           border-color: {{ section.settings.button_border_color }};
+      {% else %}
+          border-color: var(--button-border-color);
+      {% endif %}
+      {% if section.settings.button_background_color != blank %}
+         background: {{ section.settings.button_background_color }};
+      {% else %}
+          background: var(--button-bg-color);
+      {% endif %}
+  }
+  {% if settings.button_hover_style == '2' %}
+    .newsletter-section .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .newsletter-section .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      width: unset;
+      height: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.button_background_color_hover != blank %}
+         background: {{ section.settings.button_background_color_hover }};
+      {% else %}
+        background: var(--button-bg-hover-color);
+      {% endif %}
+      right: 100%;
+      z-index: -1;
+      transition: all 400ms ease;
+    }
+    .newsletter-section .button:hover {
+      {% if section.settings.button_text_color_hover != blank %}
+         color: {{ section.settings.button_text_color_hover }};
+      {% else %}
+        color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.button_border_color_hover != blank %}
+         border-color: {{ section.settings.button_border_color_hover }};
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .newsletter-section .button:hover:before {
+      right: 0%;
+    }
+  {% elsif settings.button_hover_style == '3' %}
+    .newsletter-section .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .newsletter-section .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -70%;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.button_background_color_hover != blank %}
+         background: {{ section.settings.button_background_color_hover }};
+      {% else %}
+        background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+      transform: rotateY(180deg);
+    }
+    .newsletter-section .button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -70%;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.button_background_color_hover != blank %}
+         background: {{ section.settings.button_background_color_hover }};
+      {% else %}
+        background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+    }
+    .newsletter-section .button:hover {
+      {% if section.settings.button_text_color_hover != blank %}
+         color: {{ section.settings.button_text_color_hover }};
+      {% else %}
+        color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.button_border_color_hover != blank %}
+         border-color: {{ section.settings.button_border_color_hover }};
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .newsletter-section .button:hover:before {
+      left: calc(0% - 2px);
+    }
+    .newsletter-section .button:hover:after {
+      right: calc(0% - 2px);
+    }
+  {% elsif settings.button_hover_style == '4' %}
+    .newsletter-section .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .newsletter-section .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -70%;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.button_background_color_hover != blank %}
+         background: {{ section.settings.button_background_color_hover }};
+      {% else %}
+        background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+      transform: rotateY(180deg);
+    }
+    .newsletter-section .button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -70%;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.button_background_color_hover != blank %}
+         background: {{ section.settings.button_background_color_hover }};
+      {% else %}
+        background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(0px 0%, 100% 0%, 100% 100%, 25px 100%);
+      width: 70%;
+      height: 100%;
+    }
+    .newsletter-section .button:hover {
+      {% if section.settings.button_text_color_hover != blank %}
+         color: {{ section.settings.button_text_color_hover }};
+      {% else %}
+        color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.button_border_color_hover != blank %}
+         border-color: {{ section.settings.button_border_color_hover }};
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .newsletter-section .button:hover:before {
+      left: calc(0% - 2px);
+    }
+    .newsletter-section .button:hover:after {
+      right: calc(0% - 2px);
+    }
+  {% elsif settings.button_hover_style == '5' %}
+    .newsletter-section .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .newsletter-section .button:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -30px;
+      display: unset;
+      border: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.button_background_color_hover != blank %}
+         background: {{ section.settings.button_background_color_hover }};
+      {% else %}
+        background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      border-radius: 100%;
+    }
+    .newsletter-section .button:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -30px;
+      display: unset;
+      border: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.button_background_color_hover != blank %}
+         background: {{ section.settings.button_background_color_hover }};
+      {% else %}
+        background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      border-radius: 100%;
+    }
+    .newsletter-section .button:hover {
+      {% if section.settings.button_text_color_hover != blank %}
+         color: {{ section.settings.button_text_color_hover }};
+      {% else %}
+        color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.button_border_color_hover != blank %}
+         border-color: {{ section.settings.button_border_color_hover }};
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .newsletter-section .button:hover:before {
+      -webkit-animation: criss-cross-left 0.8s both;
+      animation: criss-cross-left 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+    .newsletter-section .button:hover:after {
+      -webkit-animation: criss-cross-right 0.8s both;
+      animation: criss-cross-right 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+    @-webkit-keyframes criss-cross-left {
+      0% {
+        left: -30px;
+      }
+      50% {
+        left: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        left: 40%;
+        width: 375px;
+        height: 375px;
+      }
+    }
+    
+    @keyframes criss-cross-left {
+      0% {
+        left: -30px;
+      }
+      50% {
+        left: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        left: 40%;
+        width: 375px;
+        height: 375px;
+      }
+    }
+    @-webkit-keyframes criss-cross-right {
+      0% {
+        right: -30px;
+      }
+      50% {
+        right: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        right: calc(50% - 10px);
+        width: 375px;
+        height: 375px;
+      }
+    }
+    @keyframes criss-cross-right {
+      0% {
+        right: -30px;
+      }
+      50% {
+        right: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        right: calc(50% - 10px);
+        width: 375px;
+        height: 375px;
+      }
+    }
+  {% else %}
+    .newsletter-section .button:hover {
+        {% if section.settings.button_text_color_hover != blank %}
+           color: {{ section.settings.button_text_color_hover }};
+        {% else %}
+          color: var(--button-hover-color);
+        {% endif %}
+        {% if section.settings.button_border_color_hover != blank %}
+           border-color: {{ section.settings.button_border_color_hover }};
+        {% else %}
+            border-color: var(--button-border-hover-color);
+        {% endif %}
+        {% if section.settings.button_background_color_hover != blank %}
+           background: {{ section.settings.button_background_color_hover }};
+        {% else %}
+          background: var(--button-bg-hover-color);
+        {% endif %}
+    }
+  {% endif %}
+  
+  .newsletter-form__field-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      max-width: 580px;
+      margin-left: auto;
+  }
+  .newsletter-section .field {
+      width: calc(100% - {{ section.settings.button_width | append: 'px' }});
+      padding-right: {{ section.settings.form_gap | append: 'px' }};
+      padding-bottom: 0px;
+  }
+  .newsletter-section .field input {
+      padding: 13px 20px;
+      {% if section.settings.input_border_color != blank %}
+         border: 1px solid {{ section.settings.input_border_color }};
+      {% else %}
+          border: 1px solid var(--form-input-border);
+      {% endif %}
+      background: {{ section.settings.input_background_color }};
+      width: 100%;
+      font-size: 18px;
+      height: 50px;
+  }
+  .newsletter-section .field__input::placeholder {
+    color: {{ section.settings.input_placeholder_color }};
+  }
+  .newsletter-section .field__input:-ms-input-placeholder {
+    color: {{ section.settings.input_placeholder_color }};
+  }
+  .newsletter-section .field__input::-ms-input-placeholder {
+    color: {{ section.settings.input_placeholder_color }};
+  }
+  .newsletter-form__message {
+      margin: 10px 0 0;
+  }
+  .form__message {
+      display: flex;
+      align-items: center;
+      color: {{ section.settings.heading_color }};
+      outline: 0;
+      box-shadow: none;
+      justify-content: center;
+  }
+  .form__message .icon {
+      width: 20px;
+      height: 20px;
+      margin: 0 10px 0 0;
+  }
+
+  @media (max-width: 1199px) {
+    .newsletter-section {
+      margin-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      margin-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+      padding-top: {{ section.settings.spacing_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.spacing_bottom_tablet | append: 'px' }};
+    }
+    .newsletter-section .newsletter-title {
+      font-size: {{ section.settings.heading_title_tb | append: 'px' }};
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .newsletter-section .newsletter-title {
+      font-size: {{ section.settings.heading_title_tb | append: 'px' }};
+      text-align: center;
+      padding-bottom: 15px;
+    }
+    .newsletter-description {
+      font-size: {{ section.settings.description_font_tb | append: 'px' }};
+      line-height: 1.3;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+    .newsletter-form__field-wrapper {
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .newsletter-section {
+      margin-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      margin-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+      padding-top: {{ section.settings.spacing_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.spacing_bottom_mobile | append: 'px' }};
+    }
+    .newsletter-section .newsletter-title {
+      font-size: {{ section.settings.heading_title_mb | append: 'px' }};
+    }
+    .newsletter-description {
+      font-size: {{ section.settings.description_font_mb | append: 'px' }};
+    }
+    .newsletter-section .field {
+      width: 100%;
+      padding-bottom: 15px;
+    }
+    .newsletter-section .button {
+      margin: 0 auto;
+    }
+    .newsletter-form__field-wrapper {
+      max-width: 400px;
+    }
+  }
+</style>
+
+<div class="newsletter-section newsletter-block-{{section.id}} wow {{ section.settings.animations_type }} delay-{{ section.settings.animation_delay | replace: ".", "_" }}">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="row align-item-center">
+        <div class="col-xl-3 col-lg-3 col-md-12">
+          {%- if section.settings.heading != blank -%}
+              <h2 class="newsletter-title">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-12">
+          {%- if section.settings.description_text != blank -%}
+              <div class="newsletter-description">{{ section.settings.description_text }}</div>
+          {%- endif -%}
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12">
+          <div class="section-form-wrapper">
+            <newsletter-form class="newsletter-section-form newsletter-section-block">
+                {%- form 'customer', id: 'NewsletterSection', class: 'newsletter-block newsletter-form' -%}
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <div class="newsletter-form__field-wrapper">
+                        <div class="field">
+                            <input
+                                id="NewsletterForm--{{ section.id }}"
+                                type="email"
+                                name="contact[email]"
+                                class="field__input form-input-placeholder"
+                                value="{{ form.email }}"
+                                aria-required="true"
+                                autocorrect="off"
+                                autocapitalize="off"
+                                autocomplete="email"
+                                {% if form.errors %}
+                                    autofocus
+                                    aria-invalid="true"
+                                    aria-describedby="ContactFooter-error"
+                                {% elsif form.posted_successfully? %}
+                                    aria-describedby="ContactFooter-success"
+                                {% endif %}
+                                placeholder="{{ input_placeholder }}"
+                                aria-required="true"
+                                required
+                            >
+                        </div>
+                        <button 
+                                type="submit" 
+                                class="button newsletter-form__button" 
+                                name="commit" 
+                                id="Subscribe-{{ section.id }}" 
+                                aria-label="{{ 'newsletter.button_label' | t }}" 
+                                >  
+                            {{ button_text }}
+                        </button>
+                    </div>
+                    {%- if form.errors -%}
+                        <div class="newsletter-form__message newsletter-form__message--error form__message" id="ContactFooter-error">
+                            {% render 'icon-error' %}{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+                        </div>
+                    {%- endif -%}
+                    {%- if form.posted_successfully? -%}
+                    <script>
+                        $(document).ready(function() {
+                            var newsletterSuccessPopup = (function() {
+                                var popup = $('.newsletter-success-modal');
+                                var close = popup.find('.close');
+                                var success = popup.find('.success');
+                                var error = popup.find('.error');
+                                var overlay = $('.background-overlay');
+                                popup.show();
+                                overlay.show();
+                                error.hide();
+                                success.show();
+                                $.cookie('emailSubcribeModal', 'closed', {
+                                    expires: 1,
+                                    path: '/'
+                                });
+                                close.off('click').on('click', function() {
+                                    popup.fadeOut();
+                                    overlay.hide();
+                                });
+                                overlay.off('click').on('click', function() {
+                                    popup.fadeOut();
+                                    overlay.hide();
+                                });
+                            })();
+                            var newURL = location.href.split("?")[0];
+                            window.history.pushState('object', document.title, newURL);
+                        })
+                    </script>
+                    {% else %}
+                        <script>
+                            $(document).ready(function() {
+                                if (window.location.href.indexOf('newsletter&form_type=customer') > -1) {
+                                    var newsletterSuccessPopup = (function() {
+                                        var popup = $('.newsletter-success-modal');
+                                        var close = popup.find('.close');
+                                        var success = popup.find('.success');
+                                        var error = popup.find('.error');
+                                        var overlay = $('.background-overlay');
+                                        popup.show();
+                                        overlay.show();
+                                        error.show();
+                                        success.hide();
+                                        $.cookie('emailSubcribeModal', 'closed', {
+                                            expires: 1,
+                                            path: '/'
+                                        });
+                                        close.off('click').on('click', function() {
+                                            popup.fadeOut();
+                                            overlay.hide();
+                                        });
+                                        overlay.off('click').on('click', function() {
+                                            popup.fadeOut();
+                                            overlay.hide();
+                                        });
+                                    })();
+                                    var newURL = location.href.split("?")[0];
+                                    window.history.pushState('object', document.title, newURL);
+                                }
+                            })
+                        </script>
+                    {%- endif -%}
+                {%- endform -%}
+            </newsletter-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "t:sections.newsletter.name",
+    "class": "section-newsletter",
+    "settings": [
+        {
+            "type": "header",
+            "content": "t:sections.layout.content"
+        },
+        {
+            "type" : "color",
+            "id" : "background_color",
+            "label" : "t:settings_schema.colors.settings.colors_name.background_color",
+            "default" : "#f6f6f6"
+        },
+        {
+            "type" : "color_background",
+            "id" : "background_gradient",
+            "label" : "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+        },
+        {
+            "type" : "image_picker",
+            "id" : "background_image",
+            "label" : "t:settings_schema.colors.settings.colors_name.background_image"
+        },
+        {
+          "type": "select",
+          "id": "animations_type",
+          "label": "t:sections.animation.label_1",
+          "default": "none",
+          "options": [
+            {
+                "value": "none",
+                "label": "t:sections.animation.settings.type.option_0"
+            },
+            {
+                "value": "fadeIn",
+                "label": "fadeIn"
+            },
+            {
+                "value": "fadeInLeft",
+                "label": "fadeInLeft"
+            },
+            {
+                "value": "fadeInRight",
+                "label": "fadeInRight"
+            },
+            {
+                "value": "fadeInUp",
+                "label": "fadeInUp"
+            },
+            {
+                "value": "fadeInDown",
+                "label": "fadeInDown"
+            },
+            {
+                "value": "slideInLeft",
+                "label": "slideInLeft"
+            },
+            {
+                "value": "slideInRight",
+                "label": "slideInRight"
+            },
+            {
+                "value": "slideInUp",
+                "label": "slideInUp"
+            },
+            {
+                "value": "slideInDown",
+                "label": "slideInDown"
+            },
+            {
+                "value": "zoomIn",
+                "label": "zoomIn"
+            },
+            {
+                "value": "zoomInLeft",
+                "label": "zoomInLeft"
+            },
+            {
+                "value": "zoomInRight",
+                "label": "zoomInRight"
+            },
+            {
+                "value": "zoomInUp",
+                "label": "zoomInUp"
+            },
+            {
+                "value": "zoomInDown",
+                "label": "zoomInDown"
+            },
+            {
+                "value": "bounce",
+                "label": "bounce"
+            },
+            {
+                "value": "bounceIn",
+                "label": "bounceIn"
+            },
+            {
+                "value": "bounceInLeft",
+                "label": "bounceInLeft"
+            },
+            {
+                "value": "bounceInRight",
+                "label": "bounceInRight"
+            },
+            {
+                "value": "bounceInUp",
+                "label": "bounceInUp"
+            },
+            {
+                "value": "bounceInDown",
+                "label": "bounceInDown"
+            },
+            {
+                "value": "rotateIn",
+                "label": "rotateIn"
+            },
+            {
+                "value": "rotateInDownLeft",
+                "label": "rotateInDownLeft"
+            },
+            {
+                "value": "rotateInDownRight",
+                "label": "rotateInDownRight"
+            },
+            {
+                "value": "rotateInUpLeft",
+                "label": "rotateInUpLeft"
+            },
+            {
+                "value": "rotateInUpRight",
+                "label": "rotateInUpRight"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "animation_delay",
+          "label": "t:sections.animation.label_2",
+          "default": "0s",
+          "info": "t:sections.animation.label_3"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.margin_top"
+        },
+        {
+            "type": "range",
+            "id": "mg_top_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "range",
+            "id": "mg_top_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 40
+        },
+        {
+            "type": "range",
+            "id": "mg_top_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 25
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.margin_bottom"
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 40
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 25
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.spacing_inner_top"
+        },
+        {
+            "type": "range",
+            "id": "spacing_top_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 100
+        },
+        {
+            "type": "range",
+            "id": "spacing_top_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 80
+        },
+        {
+            "type": "range",
+            "id": "spacing_top_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "header",
+            "content": "t:sections.layout.spacing_inner_bottom"
+        },
+        {
+            "type": "range",
+            "id": "spacing_bottom_desktop",
+            "label": "t:sections.layout.mg_desktop.label",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 100
+        },
+        {
+            "type": "range",
+            "id": "spacing_bottom_tablet",
+            "label": "t:sections.layout.mg_tablet.label",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 80
+        },
+        {
+            "type": "range",
+            "id": "spacing_bottom_mobile",
+            "label": "t:sections.layout.mg_mobile.label",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 50
+        },
+        {
+            "type": "header",
+            "content": "t:sections.image-banner.blocks.image.settings.header__2.title"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "t:sections.image-banner.blocks.image.settings.content.label__1",
+            "default": "NEWSLETTER"
+        },
+        {
+            "type": "range",
+            "id": "heading_title",
+            "label": "t:settings_schema.typography.settings.typography.title_font_size",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "heading_title_tb",
+            "label": "t:settings_schema.typography.settings.typography.title_font_size_tb",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 30
+        },
+        {
+            "type": "range",
+            "id": "heading_title_mb",
+            "label": "t:settings_schema.typography.settings.typography.title_font_size_mb",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 22
+        },
+        {
+            "type": "range",
+            "id": "heading_title_letter_spacing",
+            "label": "t:settings_schema.typography.settings.typography.label__2",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 0
+        },
+        {
+          "id": "heading_color",
+          "type": "color",
+          "label": "t:settings_schema.colors.settings.colors_text.label__1"
+        },
+        {
+          "type": "select",
+          "id": "heading_font_weight",
+          "label": "t:settings_schema.typography.settings.font_weight.label",
+          "default": "600",
+          "options": [
+            {
+              "value": "400",
+              "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+              "value": "500",
+              "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+              "value": "600",
+              "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+              "value": "700",
+              "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+              "value": "800",
+              "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+              "value": "900",
+              "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "heading_text_transform",
+          "label": "t:settings_schema.typography.settings.text_transform.label",
+          "default": "uppercase",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:settings_schema.typography.settings.text_transform.options__1"
+            },
+            {
+              "value": "capitalize",
+              "label": "t:settings_schema.typography.settings.text_transform.options__2"
+            },
+            {
+              "value": "uppercase",
+              "label": "t:settings_schema.typography.settings.text_transform.options__3"
+            },
+            {
+              "value": "lowercase",
+              "label": "t:settings_schema.typography.settings.text_transform.options__4"
+            }
+          ]
+        },
+        {
+            "type": "header",
+            "content": "t:sections.image-banner.blocks.image.settings.header__2.description"
+        },
+        {
+            "type": "textarea",
+            "id": "description_text",
+            "label": "t:sections.image-banner.blocks.image.settings.content.label__2",
+            "default": "Subscribe to the weekly newsletter for all the latest updates"
+        },
+        {
+            "id": "description_color",
+            "type": "color",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1"
+        },
+        {
+            "type": "range",
+            "id": "description_font_size",
+            "label": "t:settings_schema.typography.settings.typography.font_size",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 18
+        },
+        {
+            "type": "range",
+            "id": "description_font_tb",
+            "label": "t:settings_schema.typography.settings.typography.font_size_tb",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 16
+        },
+        {
+            "type": "range",
+            "id": "description_font_mb",
+            "label": "t:settings_schema.typography.settings.typography.font_size_mb",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 14
+        },
+        {
+            "type": "header",
+            "content": "t:sections.image-banner.blocks.image.settings.content.label__18"
+        },
+        {   
+            "type": "text",
+            "id": "section_placeholder",
+            "label": "t:sections.newsletter.placeholder_text",
+            "default": "Your Email..."
+        },
+        {
+            "type": "color",
+            "id": "input_placeholder_color",
+            "label": "t:settings_schema.colors.settings.colors_placeholder.label",
+            "default": "#777777"
+        },
+        {
+            "type": "color",
+            "id": "input_background_color",
+            "label": "t:settings_schema.colors.settings.input_colors_bg.label"
+        },
+        {
+            "type": "color",
+            "id": "input_border_color",
+            "label": "t:settings_schema.colors.settings.input_colors_bg.label_1"
+        },
+        {
+            "type": "range",
+            "id": "form_gap",
+            "label": "t:sections.footer.blocks.newsletter.settings.spacing_input",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "default": 15,  
+            "unit": "px"
+        },
+        {
+            "type" : "text",
+            "id" : "button_text",
+            "label" : "t:sections.newsletter.button",
+            "default" : "Subscribe"
+        },
+        {
+            "type": "range",
+            "id": "button_width",
+            "label": "t:sections.newsletter.button_width",
+            "min": 100,
+            "max": 600,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 190
+        },
+        {
+            "type" : "color",
+            "id" : "button_text_color",
+            "label": "t:settings_schema.colors.settings.colors_name.color"
+        },
+        {
+            "type" : "color",
+            "id" : "button_border_color",
+            "label": "t:settings_schema.colors.settings.colors_name.border_color"
+        },
+        {
+            "type" : "color",
+            "id" : "button_background_color",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color"
+        },
+        {
+            "type" : "color",
+            "id" : "button_text_color_hover",
+            "label": "t:settings_schema.colors.settings.colors_name.color_hover"
+        },
+        {
+            "type" : "color",
+            "id" : "button_border_color_hover",
+            "label": "t:settings_schema.colors.settings.colors_name.border_hover"
+        },
+        {
+            "type" : "color",
+            "id" : "button_background_color_hover",
+            "label": "t:settings_schema.colors.settings.colors_name.background_hover"
+        }
+      ],
+    "presets": [
+    {
+        "name": "t:sections.newsletter.name"
+    }]
+}
+{% endschema %}

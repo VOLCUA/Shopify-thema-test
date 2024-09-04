@@ -1,0 +1,132 @@
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+<style>
+  .main-page-{{ section.id }} {
+    padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+  }
+  .main-page-{{ section.id }}.defalt-page ul {
+      padding-left: 18px;
+      margin-bottom: 20px;
+  }
+  .main-page-{{ section.id }}.defalt-page ul li {
+      list-style: disc;
+  }
+  .main-page-{{ section.id }}.defalt-page .main-page-title {
+    padding-bottom: 15px;
+  }
+  .main-page-{{ section.id }}.defalt-page .rte h1,
+  .main-page-{{ section.id }}.defalt-page .rte h2,
+  .main-page-{{ section.id }}.defalt-page .rte h3,
+  .main-page-{{ section.id }}.defalt-page .rte h4,
+  .main-page-{{ section.id }}.defalt-page .rte h5,
+  .main-page-{{ section.id }}.defalt-page .rte h6{
+      margin-bottom: 10px;
+  }
+  @media (max-width: 1199px) {
+    .main-page-{{ section.id }} {
+      padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }
+  }
+  @media (max-width: 767px) {
+    .main-page-{{ section.id }} {
+      padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    }
+  }
+</style>
+
+{% unless template.suffix contains 'landing' %}
+<div class="page-width main-page-{{ section.id }} defalt-page page-width--narrow{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+	<div class="container">
+	  <h1 class="main-page-title page-header{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+	    {{ page.title | escape }}
+	  </h1>
+	  <div class="rte{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+	    {{ page.content }}
+	  </div>
+  	</div>
+</div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+        "type": "header",
+        "content": "t:sections.layout.margin_top"
+    },
+    {
+        "type": "range",
+        "id": "mg_top_desktop",
+        "label": "t:sections.layout.mg_desktop.label",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "t:sections.layout.mg_desktop.unit",
+        "default": 50
+    },
+    {
+        "type": "range",
+        "id": "mg_top_tablet",
+        "label": "t:sections.layout.mg_tablet.label",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "t:sections.layout.mg_desktop.unit",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "mg_top_mobile",
+        "label": "t:sections.layout.mg_mobile.label",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "t:sections.layout.mg_desktop.unit",
+        "default": 25
+    },
+    {
+        "type": "header",
+        "content": "t:sections.layout.margin_bottom"
+    },
+    {
+        "type": "range",
+        "id": "mg_bottom_desktop",
+        "label": "t:sections.layout.mg_desktop.label",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "t:sections.layout.mg_desktop.unit",
+        "default": 50
+    },
+    {
+        "type": "range",
+        "id": "mg_bottom_tablet",
+        "label": "t:sections.layout.mg_tablet.label",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "t:sections.layout.mg_desktop.unit",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "mg_bottom_mobile",
+        "label": "t:sections.layout.mg_mobile.label",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "t:sections.layout.mg_desktop.unit",
+        "default": 25
+    }
+  ]
+}
+{% endschema %}
+
+

@@ -1,0 +1,16 @@
+<div class="scoder-popup scoder-term-condition-popup scoder-popup-topDown" data-term-condition-popup id="scoder-term-condition-popup">
+  <div class="scoder-popup-wrapper">
+      <div class="scoder-popup-header">
+          <button type="button" class="scoder-popup-close clearfix" data-close-term-condition-popup aria-label="{{ 'general.common.close' | t }}">
+              {% render 'icon-close' %}
+              {{ 'general.common.close' | t }}
+          </button>
+          <h5 class="scoder-popup-title text-center">
+              {{ 'sections.term_condition' | t }}
+          </h5>
+      </div>
+      <div class="scoder-popup-content scoder-popup-scroll custom-scrollbar">
+          {{settings.global_checkbox_content}}
+      </div>
+  </div>    
+</div>

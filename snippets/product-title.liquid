@@ -1,0 +1,64 @@
+{%- liquid 
+    assign title_font_size = block.settings.title_font_size
+    assign title_font_size_tb = block.settings.title_font_size_tb
+    assign title_font_size_mb = block.settings.title_font_size_mb
+   
+    assign title_top_spacing = block.settings.title_top_spacing
+    assign title_top_spacing_tablet = block.settings.title_top_spacing_tablet
+    assign title_top_spacing_mobile = block.settings.title_top_spacing_mobile
+
+    assign title_bottom_spacing = block.settings.title_bottom_spacing
+    assign title_bottom_spacing_tablet = block.settings.title_bottom_spacing_tablet
+    assign title_bottom_spacing_mobile = block.settings.title_bottom_spacing_mobile
+   
+    assign title_color_title = block.settings.color_title
+    assign title_text_transform = block.settings.title_text_transform
+    assign title_font_weight = block.settings.title_font_weight
+-%}
+{%- if check_show_share == '3' -%}
+    <style>
+      :root {
+        --title-color-title: {{ title_color_title }};
+        --title-text-transform: {{ title_text_transform }};
+        --title-font-weight: {{ title_font_weight }};
+        --title-font-size: {{ title_font_size | append: 'px' }};
+        --title-font-size-tb: {{ title_font_size_tb | append: 'px' }};
+        --title-font-size-mb: {{ title_font_size_mb | append: 'px' }};
+        --title-top-spacing: {{ title_top_spacing | append: 'px' }};
+        --title-top-spacing-tb: {{ title_top_spacing_tablet | append: 'px' }};
+        --title-top-spacing-mb: {{ title_top_spacing_mobile | append: 'px' }};
+        --title-bottom-spacing: {{ title_bottom_spacing | append: 'px' }};
+        --title-bottom-spacing-tb: {{ title_bottom_spacing_tablet | append: 'px' }};
+        --title-bottom-spacing-mb: {{ title_bottom_spacing_mobile | append: 'px' }};
+      }
+    </style>
+    <div class="scoder-share-3">
+        <h1 class="productView-title">
+            <span>
+                {{ product.title | escape }}
+            </span>
+        </h1>
+    </div>
+{%- else -%}
+    <style>
+      :root {
+        --title-color-title: {{ title_color_title }};
+        --title-text-transform: {{ title_text_transform }};
+        --title-font-weight: {{ title_font_weight }};
+        --title-font-size: {{ title_font_size | append: 'px' }};
+        --title-font-size-tb: {{ title_font_size_tb | append: 'px' }};
+        --title-font-size-mb: {{ title_font_size_mb | append: 'px' }};
+        --title-top-spacing: {{ title_top_spacing | append: 'px' }};
+        --title-top-spacing-tb: {{ title_top_spacing_tablet | append: 'px' }};
+        --title-top-spacing-mb: {{ title_top_spacing_mobile | append: 'px' }};
+        --title-bottom-spacing: {{ title_bottom_spacing | append: 'px' }};
+        --title-bottom-spacing-tb: {{ title_bottom_spacing_tablet | append: 'px' }};
+        --title-bottom-spacing-mb: {{ title_bottom_spacing_mobile | append: 'px' }};
+      }
+    </style>
+    <h1 class="productView-title">
+        <span>
+            {{ product.title | escape }}
+        </span>
+    </h1>
+{%- endif -%}

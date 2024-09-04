@@ -1,0 +1,485 @@
+{%- liquid
+  assign blog_bg = section.settings.blog_bg
+  assign blog_bg_gradient = section.settings.blog_bg_gradient
+  assign blog_bg_image = section.settings.blog_bg_image
+-%}
+
+<style>
+  :root {
+    --block_title_align: {{ section.settings.block_title_align }};
+    --block_title_align_bm: {{ section.settings.block_title_align_mobile }};
+    --block_title_mg_bottom_title: {{ section.settings.mg_bottom_title | append: 'px' }};
+    --block_title_mg_bottom_tb_title: {{ section.settings.mg_bottom_title_tb | append: 'px' }};
+    --block_title_mg_bottom_mb_title: {{ section.settings.mg_bottom_title_mb | append: 'px' }};
+
+    --contact-info-title-size: {{ section.settings.title_size | append: 'px' }};
+    --contact-info-title-size-tb: {{ section.settings.title_size_tb | append: 'px' }};
+    --contact-info-title-size-mb: {{ section.settings.title_size_mb | append: 'px' }};
+    --contact-info-title-font-weight: {{ section.settings.heading_font_weight }};
+    --contact-info-title-text-transform: {{ section.settings.heading_text_transform }};
+  }
+  
+  .contact-page {
+    padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    {% if blog_bg_image != blank %}
+      background: url({{ blog_bg_image | img_url: '1920x' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-color: transparent;
+    {% else %}
+      background: {% if blog_bg_gradient != blank %}{{ blog_bg_gradient }}{% else %}{{ blog_bg }}{% endif %};
+    {% endif %}
+  }
+
+  @media (max-width: 1199px) {
+    .contact-page {
+      padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }
+  }
+  @media (max-width: 767px) {
+    .contact-page {
+      padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    }
+  }
+</style>
+
+<link rel="stylesheet" href="{{ 'component-contact.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-contact.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="contact-page">
+  <div data-section-id="{{ section.id }}" data-section-type="contact" id="ContactSection-{{ section.id }}" data-section="{{ section.id }}">
+    <div class="{% if section.settings.container == 'fullwidth' %}container-full{% else %}container{% endif %}">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8">
+          {%- if section.settings.block_title_title != blank -%}
+            <div class="section-header">
+              <div class="row align-item-center">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                  <div class="section-title text-{{ section.settings.block_title_align }} text-mb-{{ section.settings.block_title_align_mobile }}">
+                    <h3 class="title">
+                        <span class="text">{{ section.settings.block_title_title | escape }}</span>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+          <div class="contact-form-main">
+            {% render 'contact-form',
+                section: section
+            %}
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4">
+          <div class="contact-info-part">
+            {%- if section.settings.show_contact_info_1 != blank -%}
+              <div class="contact-info-box">
+                <div class="info-title">{{ section.settings.contact_info_title_1 }}</div>
+                <div class="info-desc">{{ section.settings.contact_info_text_1 }}</div>
+              </div>
+            {% endif %}
+            {%- if section.settings.show_contact_info_2 != blank -%}
+              <div class="contact-info-box">
+                <div class="info-title">{{ section.settings.contact_info_title_2 }}</div>
+                <div class="info-desc">{{ section.settings.contact_info_text_2 }}</div>
+              </div>
+            {% endif %}
+            {%- if section.settings.show_contact_info_3 != blank -%}
+              <div class="contact-info-box">
+                <div class="info-title">{{ section.settings.contact_info_title_3 }}</div>
+                <div class="info-desc">{{ section.settings.contact_info_text_3 }}</div>
+              </div>
+            {% endif %}
+            {%- if section.settings.show_contact_info_4 != blank -%}
+              <div class="contact-info-box">
+                <div class="info-title">{{ section.settings.contact_info_title_4 }}</div>
+                <div class="info-desc">{{ section.settings.contact_info_text_4 }}</div>
+              </div>
+            {% endif %}
+            {%- if section.settings.show_social != blank -%}
+              <div class="contact-info-box">
+                {% render 'scoder-social-media-icons' %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+	{
+      "name": "t:sections.main_contact.name",
+      "settings": [
+          {
+              "type": "header",
+              "content": "t:sections.layout.content"
+          },
+          {
+              "type": "select",
+              "id": "container",
+              "label": "t:sections.layout.container.option",
+              "default": "container",
+              "options": [
+                  {
+                      "value": "container",
+                      "label": "t:sections.layout.container.option1"
+                  },
+                  {
+                      "value": "fullwidth",
+                      "label": "t:sections.layout.container.option2"
+                  }
+              ]
+          },
+          {
+              "type" : "color",
+              "id" : "blog_bg",
+              "label" : "t:settings_schema.colors.settings.colors_name.background_color",
+              "default" : "#fff"
+          },
+          {
+              "type" : "color_background",
+              "id" : "blog_bg_gradient",
+              "label" : "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+          },
+          {
+              "type" : "image_picker",
+              "id" : "blog_bg_image",
+              "label" : "t:settings_schema.colors.settings.colors_name.background_image"
+          },
+          {
+              "type": "header",
+              "content": "t:sections.layout.margin_top"
+          },
+          {
+              "type": "range",
+              "id": "mg_top_desktop",
+              "label": "t:sections.layout.mg_desktop.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 50
+          },
+          {
+              "type": "range",
+              "id": "mg_top_tablet",
+              "label": "t:sections.layout.mg_tablet.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 40
+          },
+          {
+              "type": "range",
+              "id": "mg_top_mobile",
+              "label": "t:sections.layout.mg_mobile.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 25
+          },
+          {
+              "type": "header",
+              "content": "t:sections.layout.margin_bottom"
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_desktop",
+              "label": "t:sections.layout.mg_desktop.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 50
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_tablet",
+              "label": "t:sections.layout.mg_tablet.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 40
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_mobile",
+              "label": "t:sections.layout.mg_mobile.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 25
+          },
+          {
+              "type": "header",
+              "content": "t:sections.layout.section_heading"
+          },
+          {
+              "type": "text",
+              "id": "block_title_title",
+              "label": "t:sections.image-banner.blocks.image.settings.content.label__1",
+              "default": "Get In Touch"
+          },
+          {
+              "type": "select",
+              "id": "block_title_align",
+              "label": "t:sections.product_block.settings.general.label__7",
+              "options": [
+              {
+                  "value": "left",
+                  "label": "t:sections.product_block.settings.general.options__7"
+              },
+              {
+                  "value": "center",
+                  "label": "t:sections.product_block.settings.general.options__8"
+              },
+              {
+                  "value": "right",
+                  "label": "t:sections.product_block.settings.general.options__9"
+              }],
+              "default": "left"
+          },
+          {
+              "type": "select",
+              "id": "block_title_align_mobile",
+              "label": "t:sections.product_block.settings.general.label__11",
+              "options": [
+              {
+                  "value": "left",
+                  "label": "t:sections.product_block.settings.general.options__7"
+              },
+              {
+                  "value": "center",
+                  "label": "t:sections.product_block.settings.general.options__8"
+              },
+              {
+                  "value": "right",
+                  "label": "t:sections.product_block.settings.general.options__9"
+              }],
+              "default": "left"
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_title",
+              "label": "t:sections.layout.mg_bottom_title.label",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 40
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_title_tb",
+              "label": "t:sections.layout.mg_bottom_title.label_tb",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 30
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_title_mb",
+              "label": "t:sections.layout.mg_bottom_title.label_mb",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 15
+          },
+          {
+              "type": "header",
+              "content": "t:sections.main_contact.settings.header__1"
+          },
+          {
+              "type": "checkbox",
+              "id": "show_contact_info_1",
+              "label": "t:sections.main_contact.settings.contact_info.label__1",
+              "default": true 
+          },
+          {
+              "type": "text",
+              "id": "contact_info_title_1",
+              "label": "t:sections.main_contact.settings.contact_info.label__2",
+              "default": "Address"
+          },
+          {
+              "type": "textarea",
+              "id": "contact_info_text_1",
+              "label": "t:sections.main_contact.settings.contact_info.label__3",
+              "default": "19 LE Gounlburn St, America 1108NKB."
+          },
+          {
+              "type": "header",
+              "content": "t:sections.main_contact.settings.header__2"
+          },
+          {
+              "type": "checkbox",
+              "id": "show_contact_info_2",
+              "label": "t:sections.main_contact.settings.contact_info.label__1",
+              "default": true 
+          },
+          {
+              "type": "text",
+              "id": "contact_info_title_2",
+              "label": "t:sections.main_contact.settings.contact_info.label__2",
+              "default": "Phone"
+          },
+          {
+              "type": "textarea",
+              "id": "contact_info_text_2",
+              "label": "t:sections.main_contact.settings.contact_info.label__3",
+              "default": "+123 456 7890"
+          },
+          {
+              "type": "header",
+              "content": "t:sections.main_contact.settings.header__3"
+          },
+          {
+              "type": "checkbox",
+              "id": "show_contact_info_3",
+              "label": "t:sections.main_contact.settings.contact_info.label__1",
+              "default": true 
+          },
+          {
+              "type": "text",
+              "id": "contact_info_title_3",
+              "label": "t:sections.main_contact.settings.contact_info.label__2",
+              "default": "Email"
+          },
+          {
+              "type": "textarea",
+              "id": "contact_info_text_3",
+              "label": "t:sections.main_contact.settings.contact_info.label__3",
+              "default": "Info@gmail.com"
+          },
+          {
+              "type": "header",
+              "content": "t:sections.main_contact.settings.header__4"
+          },
+          {
+              "type": "checkbox",
+              "id": "show_contact_info_4",
+              "label": "t:sections.main_contact.settings.contact_info.label__1",
+              "default": false 
+          },
+          {
+              "type": "text",
+              "id": "contact_info_title_4",
+              "label": "t:sections.main_contact.settings.contact_info.label__2"
+          },
+          {
+              "type": "textarea",
+              "id": "contact_info_text_4",
+              "label": "t:sections.main_contact.settings.contact_info.label__3"
+          },
+          {
+              "type": "header",
+              "content": "t:sections.image-banner.blocks.image.settings.header__2.title"
+          },
+          {
+              "type": "range",
+              "id": "title_size",
+              "label": "t:settings_schema.typography.settings.typography.title_font_size",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 24
+          },
+          {
+              "type": "range",
+              "id": "title_size_tb",
+              "label": "t:settings_schema.typography.settings.typography.title_font_size_tb",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 22
+          },
+          {
+              "type": "range",
+              "id": "title_size_mb",
+              "label": "t:settings_schema.typography.settings.typography.title_font_size_mb",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 20
+          },
+          {
+            "type": "select",
+            "id": "heading_font_weight",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "400",
+            "options": [
+              {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+              },
+              {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+              },
+              {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+              },
+              {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+              },
+              {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+              },
+              {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "heading_text_transform",
+            "label": "t:settings_schema.typography.settings.text_transform.label",
+            "default": "none",
+            "options": [
+              {
+                "value": "none",
+                "label": "t:settings_schema.typography.settings.text_transform.options__1"
+              },
+              {
+                "value": "capitalize",
+                "label": "t:settings_schema.typography.settings.text_transform.options__2"
+              },
+              {
+                "value": "uppercase",
+                "label": "t:settings_schema.typography.settings.text_transform.options__3"
+              },
+              {
+                "value": "lowercase",
+                "label": "t:settings_schema.typography.settings.text_transform.options__4"
+              }
+            ]
+          },
+          {
+              "type": "checkbox",
+              "id": "show_social",
+              "label": "t:sections.footer.settings.social_media_link.show_social",
+              "default": true
+          }
+      ]
+	}
+{% endschema %}

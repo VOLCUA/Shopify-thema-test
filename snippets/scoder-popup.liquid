@@ -1,0 +1,55 @@
+{%- if settings.show_someone_purchase or settings.show_gdpr_cookie_consent -%}
+<div class="footbar-fixed">
+	<div class="footbar-fixed-right">
+        {% if settings.someone_purchase_position == 'right' %}
+            {% render 'scoder-someone-purchase' %}
+        {% endif %}
+        {% if settings.gdpr_cookie_consent_type == 'right' %}
+            {% render 'scoder-gdpr-cookie-consent' %}
+        {% endif %}
+    </div>
+	<div class="clearfix"></div>
+    <div class="footbar-fixed-left {% if settings.gdpr_cookie_consent_type == 'right' and settings.someone_purchase_position == 'left' %}cookie_someone_right{% endif %}">
+        {% if settings.someone_purchase_position == 'left' %}
+            {% render 'scoder-someone-purchase' %}
+        {% endif %}
+        {% if settings.gdpr_cookie_consent_type == 'left' %}
+            {% render 'scoder-gdpr-cookie-consent' %}
+        {% endif %}
+    </div>
+</div>
+{%- endif -%}
+
+{% render 'scoder-newsletter-success-popup' %}
+
+{% render 'scoder-popup-search' %}
+
+{%- if settings.show_global_checkbox -%}
+    {% render 'scoder-term-condition-popup' %}
+{%- endif -%}
+
+{%- if settings.show_quick_view -%}
+	{% render 'scoder-quick-view-popup' %}
+{%- endif -%}
+
+{%- if settings.show_newsletter_popup -%}
+	{% render 'scoder-newsletter-popup' %}
+{%- endif -%}
+
+{%- if settings.show_ask_an_expert -%}
+	{% render 'scoder-ask-an-expert-popup' %}
+{%- endif -%}
+
+{%- if settings.show_notify_form -%}
+	{% render 'scoder-notify-me-popup' %}
+{%- endif -%}
+{%- if settings.quick_shop_type == '1' -%}
+  {% render 'scoder-popup-card-mobile' %}
+{%- elsif  settings.quick_shop_type == '2' -%}
+  {% render 'scoder-quickshop-popup' %}
+{%- endif -%}
+{% render 'scoder-popup-warning' %}
+
+{% render 'scoder-video-popup' %}
+
+{% render 'scoder-product-custom-information' %}

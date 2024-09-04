@@ -1,0 +1,1264 @@
+{%- liquid
+  assign blog_bg = section.settings.blog_bg
+  assign blog_bg_gradient = section.settings.blog_bg_gradient
+  assign blog_bg_image = section.settings.blog_bg_image
+-%}
+
+<style>
+  :root {
+    --faq-item-title-size: {{ section.settings.title_size | append: 'px' }};
+    --faq-item-title-size-tb: {{ section.settings.title_size_tb | append: 'px' }};
+    --faq-item-title-size-mb: {{ section.settings.title_size_mb | append: 'px' }};
+    --faq-item-title-font-weight: {{ section.settings.heading_font_weight }};
+    --faq-item-title-text-transform: {{ section.settings.heading_text_transform }};
+
+    --faq-tab-bg: {{ section.settings.colors_bg }};
+    --faq-tab-border-color: {{ section.settings.border_color }};
+    --faq-tab-text-color: {{ section.settings.text_color }};
+    --faq-tab-bg-active: {{ section.settings.colors_bg_active }};
+    --faq-tab-border-color-active: {{ section.settings.border_color_active }};
+    --faq-tab-text-color-active: {{ section.settings.text_color_active }};
+  }
+  
+  .faq-page {
+    padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    {% if blog_bg_image != blank %}
+      background: url({{ blog_bg_image | img_url: '1920x' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-color: transparent;
+    {% else %}
+      background: {% if blog_bg_gradient != blank %}{{ blog_bg_gradient }}{% else %}{{ blog_bg }}{% endif %};
+    {% endif %}
+  }
+  
+  {% if settings.button_hover_style == '2' %}
+    .faq-cat-list ul li .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .faq-cat-list ul li .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      width: unset;
+      height: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.colors_bg_active != blank %}
+         background: var(--faq-tab-bg-active);
+      {% else %}
+          background: var(--button-bg-hover-color);
+      {% endif %}
+      right: 100%;
+      z-index: -1;
+      transition: all 400ms ease;
+    }
+    .faq-cat-list ul li .button:hover, .faq-cat-list ul li.active .button {
+      {% if section.settings.text_color_active != blank %}
+         color: var(--faq-tab-text-color-active);
+      {% else %}
+          color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.border_color_active != blank %}
+          border-color: var(--faq-tab-border-color-active);
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .faq-cat-list ul li .button:hover:before, .faq-cat-list ul li.active .button:before {
+      right: 0%;
+    }
+  {% elsif settings.button_hover_style == '3' %}
+    .faq-cat-list ul li .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .faq-cat-list ul li .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -70%;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.colors_bg_active != blank %}
+         background: var(--faq-tab-bg-active);
+      {% else %}
+          background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+      transform: rotateY(180deg);
+    }
+    .faq-cat-list ul li .button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -70%;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.colors_bg_active != blank %}
+         background: var(--faq-tab-bg-active);
+      {% else %}
+          background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+    }
+    .faq-cat-list ul li .button:hover, .faq-cat-list ul li.active .button {
+      {% if section.settings.text_color_active != blank %}
+         color: var(--faq-tab-text-color-active);
+      {% else %}
+          color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.border_color_active != blank %}
+          border-color: var(--faq-tab-border-color-active);
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .faq-cat-list ul li .button:hover:before, .faq-cat-list ul li.active .button:before {
+      left: calc(0% - 2px);
+    }
+    .faq-cat-list ul li .button:hover:after, .faq-cat-list ul li.active .button:after {
+      right: calc(0% - 2px);
+    }
+  {% elsif settings.button_hover_style == '4' %}
+    .faq-cat-list ul li .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .faq-cat-list ul li .button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -70%;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.colors_bg_active != blank %}
+         background: var(--faq-tab-bg-active);
+      {% else %}
+          background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+      width: 70%;
+      height: 100%;
+      transform: rotateY(180deg);
+    }
+    .faq-cat-list ul li .button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -70%;
+      transform: unset;
+      display: unset;
+      border: unset;
+      border-radius: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.colors_bg_active != blank %}
+         background: var(--faq-tab-bg-active);
+      {% else %}
+          background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      clip-path: polygon(0px 0%, 100% 0%, 100% 100%, 25px 100%);
+      width: 70%;
+      height: 100%;
+    }
+    .faq-cat-list ul li .button:hover, .faq-cat-list ul li.active .button {
+      {% if section.settings.text_color_active != blank %}
+         color: var(--faq-tab-text-color-active);
+      {% else %}
+          color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.border_color_active != blank %}
+          border-color: var(--faq-tab-border-color-active);
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .faq-cat-list ul li .button:hover:before, .faq-cat-list ul li.active .button:before {
+      left: calc(0% - 2px);
+    }
+    .faq-cat-list ul li .button:hover:after, .faq-cat-list ul li.active .button:after {
+      right: calc(0% - 2px);
+    }
+  {% elsif settings.button_hover_style == '5' %}
+    .faq-cat-list ul li .button {
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .faq-cat-list ul li .button:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -30px;
+      display: unset;
+      border: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.colors_bg_active != blank %}
+         background: var(--faq-tab-bg-active);
+      {% else %}
+          background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      border-radius: 100%;
+    }
+    .faq-cat-list ul li .button:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -30px;
+      display: unset;
+      border: unset;
+      animation: unset;
+      opacity: unset;
+      visibility: unset;
+      {% if section.settings.colors_bg_active != blank %}
+         background: var(--faq-tab-bg-active);
+      {% else %}
+          background: var(--button-bg-hover-color);
+      {% endif %}
+      z-index: -1;
+      transition: all 400ms ease;
+      width: 20px;
+      height: 20px;
+      transform: translateY(-50%);
+      border-radius: 100%;
+    }
+    .faq-cat-list ul li .button:hover, .faq-cat-list ul li.active .button {
+      {% if section.settings.text_color_active != blank %}
+         color: var(--faq-tab-text-color-active);
+      {% else %}
+          color: var(--button-hover-color);
+      {% endif %}
+      {% if section.settings.border_color_active != blank %}
+          border-color: var(--faq-tab-border-color-active);
+      {% else %}
+          border-color: var(--button-border-hover-color);
+      {% endif %}
+    }
+    .faq-cat-list ul li .button:hover:before, .faq-cat-list ul li.active .button:before {
+      -webkit-animation: criss-cross-left 0.8s both;
+      animation: criss-cross-left 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+    .faq-cat-list ul li .button:hover:after, .faq-cat-list ul li.active .button:after {
+      -webkit-animation: criss-cross-right 0.8s both;
+      animation: criss-cross-right 0.8s both;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+    @-webkit-keyframes criss-cross-left {
+      0% {
+        left: -30px;
+      }
+      50% {
+        left: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        left: 40%;
+        width: 375px;
+        height: 375px;
+      }
+    }
+    
+    @keyframes criss-cross-left {
+      0% {
+        left: -30px;
+      }
+      50% {
+        left: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        left: 40%;
+        width: 375px;
+        height: 375px;
+      }
+    }
+    @-webkit-keyframes criss-cross-right {
+      0% {
+        right: -30px;
+      }
+      50% {
+        right: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        right: calc(50% - 10px);
+        width: 375px;
+        height: 375px;
+      }
+    }
+    @keyframes criss-cross-right {
+      0% {
+        right: -30px;
+      }
+      50% {
+        right: calc(50% - 10px);
+        width: 20px;
+        height: 20px;
+      }
+      100% {
+        right: calc(50% - 10px);
+        width: 375px;
+        height: 375px;
+      }
+    }
+  {% else %}
+    .faq-cat-list ul li .button:hover, .faq-cat-list ul li.active .button {
+        {% if section.settings.colors_bg_active != blank %}
+           background: var(--faq-tab-bg-active);
+        {% else %}
+            background: var(--button-bg-hover-color);
+        {% endif %}
+        {% if section.settings.text_color_active != blank %}
+           color: var(--faq-tab-text-color-active);
+        {% else %}
+            color: var(--button-hover-color);
+        {% endif %}
+        {% if section.settings.border_color_active != blank %}
+            border-color: var(--faq-tab-border-color-active);
+        {% else %}
+            border-color: var(--button-border-hover-color);
+        {% endif %}
+    }
+  {% endif %}
+
+  .faqs-item .title {
+      font-size: var(--faq-item-title-size);
+      font-weight: var(--faq-item-title-font-weight);
+      text-transform: var(--faq-item-title-text-transform);
+      color: var(--heading-text-color);
+      cursor: pointer;
+      border-bottom: 1px solid var(--form-input-border);
+      transition: all 400ms ease;
+      padding: 18px 10px;
+  }
+  .faqs-item .collapse {
+      display: none;
+  }
+  .faq-cat-list {
+      width: 380px;
+  }
+  .faq-cat-content {
+      width: calc(100% - 380px);
+      margin-top: -18px;
+  }
+  .faq-cat-content .faqs-paragraph {
+      display: none;
+  }
+  .faq-cat-list ul {
+      width: fit-content;
+  }
+  .faq-cat-list ul li {
+      margin-bottom: 25px;
+  }
+  .faq-cat-list ul li .button {
+      text-transform: none;
+      {% if section.settings.border_color != blank %}
+         border-color: var(--faq-tab-border-color);
+      {% else %}
+        border-color: var(--button-border-color);
+      {% endif %}
+      {% if section.settings.colors_bg != blank %}
+         background: var(--faq-tab-bg);
+      {% else %}
+          background: var(--button-bg-color);
+      {% endif %}
+      {% if section.settings.text_color != blank %}
+         color: var(--faq-tab-text-color);
+      {% else %}
+          color: var(--button-color);
+      {% endif %}
+      
+      display: block;
+      text-align: center;
+  }
+  .faq-title {
+      position: relative;
+  }
+  
+  .faq-title .icon-plus {
+      display: block;
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+  }
+  .faq-title .icon-plus:before {
+      content: "";
+      width: 100%;
+      height: 2px;
+      background: var(--heading-text-color);
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      transition: all 400ms ease;
+  }
+  .faq-title .icon-plus:after {
+      content: "";
+      width: 2px;
+      height: 100%;
+      background: var(--heading-text-color);
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%);
+      transition: all 400ms ease;
+  }
+  .faq-title.active .icon-plus:after {
+      transform: translate(-50%) rotate(90deg);
+  }
+  .faqs-item .active .title {
+      border-color: var(--heading-text-color);
+  }
+  .faq-collapse-content {
+      padding: 0 10px;
+      padding-top: 18px;
+  }
+
+  @media (max-width: 1199px) {
+    .faq-page {
+      padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }
+    .faq-cat-list {
+        width: 300px;
+    }
+    .faq-cat-content {
+      width: calc(100% - 300px);
+    }
+  }
+  @media (max-width: 1024px) {
+    .faqs-item .title {
+        font-size: var(--faq-item-title-size-tb);
+    }
+    .faq-cat-list {
+        width: 250px;
+    }
+    .faq-cat-content {
+        width: calc(100% - 250px);
+    }
+  }
+  @media (max-width: 767px) {
+    .faq-page {
+      padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    }
+    .faqs-item .title {
+        font-size: var(--faq-item-title-size-mb);
+    }
+    .faq-cat-list {
+        width: 100%;
+    }
+    .faq-cat-list ul {
+        width: unset;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0px -10px;
+    }
+    .faq-cat-list ul li {
+        padding: 0px 10px;
+    }
+    .faq-cat-content {
+        width: 100%;
+    }
+  }
+</style>
+
+<div class="faq-page" data-section-id="{{ section.id }}" data-section-type="faqs" id="FaqsSection-{{ section.id }}" data-section="{{ section.id }}">
+  <div class="{% if section.settings.container == 'fullwidth' %}container-full{% else %}container{% endif %}">
+    {%- if section.blocks.size > 0 -%}
+      <div class="row">
+        <div class="faq-cat-list wow {{ section.settings.animations_type_tab }}">
+          <ul>
+              {%- for block in section.blocks -%}
+                  {%- liquid
+                      assign title = block.settings.title
+                  -%}
+                  {%- if title != blank -%}
+                      <li data-value="paragraph-{{ title | handleize }}">
+                          <span class="button text">{{ title | escape }}</span>
+                      </li>
+                  {%- endif -%}
+              {%- endfor -%}
+          </ul>
+        </div>
+        <div class="faq-cat-content wow {{ section.settings.animations_type_content }}">
+          {%- for block in section.blocks -%}
+              {%- liquid
+                  assign title = block.settings.title
+              -%}
+              <div class="faqs-paragraph" id="paragraph-{{ title | handleize }}">
+                      <div class="faqs-body">
+                          <div class="faqs-row">
+                              {%- for i in (1..10) -%}
+                                  {% capture cap_question %}question_{{ i }}{% endcapture %}
+                                  {% capture cap_answer %}answer_{{ i }}{% endcapture %}
+    
+                                  {%- liquid
+                                      assign question = block.settings[cap_question]
+                                      assign answer = block.settings[cap_answer]
+                                  -%}
+    
+                                  {%- if question != blank -%}
+                                      <div class="faqs-item">
+                                              <div class="card-header faq-title collapsed" id="question-{{ block.id }}-{{ forloop.index }}" data-toggle="collapse" data-target="#collapse-{{ block.id }}-{{ forloop.index }}" aria-expanded="true" aria-controls="collapse-{{ block.id }}-{{ forloop.index }}">
+                                                  <div class="title" role="button" tabindex="0">
+                                                      {{ question }}
+                                                  </div>
+                                                  <span class="icon-plus arrow" role="none"></span>
+                                              </div>
+                                              <div id="collapse-{{ block.id }}-{{ forloop.index }}" class="collapse faq-collapse-content" data-parent="#accordion">
+                                                  <div class="card-body" id="answer-{{ block.id }}-{{ forloop.index }}">
+                                                      <div class="">
+                                                          {{ answer }}
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                      </div>
+                                  {%- endif -%}
+                              {%- endfor -%}
+                          </div>
+                      </div>
+                  </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.faq-cat-list li:first-child').addClass('active');
+    $('.faqs-paragraph').first().css( "display", "block" );
+    $('.faq-cat-list li').on('click', function(){
+        var target = $(this).attr('data-value');
+        $('.faq-cat-list li').removeClass('active');
+        $(this).addClass('active');
+        $("#"+target).fadeIn('slow').siblings(".faqs-paragraph").hide();
+        return false;
+    });
+
+    $('.faqs-item:first-child .faq-title').addClass('active');
+    $('.faqs-item:first-child .faq-collapse-content').css( "display", "block" );
+    
+    $(function() {
+      $('.faq-title').click(function(j) {
+        
+        var dropDown = $(this).closest('.faqs-item').find('.faq-collapse-content');
+        $(this).closest('.faqs-row').find('.faq-collapse-content').not(dropDown).slideUp();
+        
+        if ($(this).hasClass('active')) {
+          $(this).removeClass('active');
+        } else {
+          $(this).closest('.faqs-row').find('.faq-title.active').removeClass('active');
+          $(this).addClass('active');
+        }
+        
+        dropDown.stop(false, true).slideToggle();
+        j.preventDefault();
+      });
+    });
+  });
+</script>
+
+{% schema %}
+    {
+        "name": "t:sections.main_faqs.name",
+        "settings":
+        [
+          {
+            "type": "header",
+            "content": "t:sections.layout.content"
+          },
+          {
+              "type": "select",
+              "id": "container",
+              "label": "t:sections.layout.container.option",
+              "default": "container",
+              "options": [
+                  {
+                      "value": "container",
+                      "label": "t:sections.layout.container.option1"
+                  },
+                  {
+                      "value": "fullwidth",
+                      "label": "t:sections.layout.container.option2"
+                  }
+              ]
+          },
+          {
+            "type" : "color",
+            "id" : "blog_bg",
+            "label" : "t:settings_schema.colors.settings.colors_name.background_color",
+            "default" : "#fff"
+          },
+          {
+              "type" : "color_background",
+              "id" : "blog_bg_gradient",
+              "label" : "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+          },
+          {
+              "type" : "image_picker",
+              "id" : "blog_bg_image",
+              "label" : "t:settings_schema.colors.settings.colors_name.background_image"
+          },
+          {
+              "type": "header",
+              "content": "t:sections.layout.margin_top"
+          },
+          {
+              "type": "range",
+              "id": "mg_top_desktop",
+              "label": "t:sections.layout.mg_desktop.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 50
+          },
+          {
+              "type": "range",
+              "id": "mg_top_tablet",
+              "label": "t:sections.layout.mg_tablet.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 40
+          },
+          {
+              "type": "range",
+              "id": "mg_top_mobile",
+              "label": "t:sections.layout.mg_mobile.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 25
+          },
+          {
+              "type": "header",
+              "content": "t:sections.layout.margin_bottom"
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_desktop",
+              "label": "t:sections.layout.mg_desktop.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 50
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_tablet",
+              "label": "t:sections.layout.mg_tablet.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 40
+          },
+          {
+              "type": "range",
+              "id": "mg_bottom_mobile",
+              "label": "t:sections.layout.mg_mobile.label",
+              "min": 0,
+              "max": 100,
+              "step": 5,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 25
+          },
+          {
+              "type": "header",
+              "content": "t:sections.image-banner.blocks.image.settings.header__2.title"
+          },
+          {
+              "type": "range",
+              "id": "title_size",
+              "label": "t:settings_schema.typography.settings.typography.title_font_size",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 24
+          },
+          {
+              "type": "range",
+              "id": "title_size_tb",
+              "label": "t:settings_schema.typography.settings.typography.title_font_size_tb",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 22
+          },
+          {
+              "type": "range",
+              "id": "title_size_mb",
+              "label": "t:settings_schema.typography.settings.typography.title_font_size_mb",
+              "min": 0,
+              "max": 50,
+              "step": 1,
+              "unit": "t:sections.layout.mg_desktop.unit",
+              "default": 20
+          },
+          {
+            "type": "select",
+            "id": "heading_font_weight",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "400",
+            "options": [
+              {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+              },
+              {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+              },
+              {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+              },
+              {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+              },
+              {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+              },
+              {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "heading_text_transform",
+            "label": "t:settings_schema.typography.settings.text_transform.label",
+            "default": "none",
+            "options": [
+              {
+                "value": "none",
+                "label": "t:settings_schema.typography.settings.text_transform.options__1"
+              },
+              {
+                "value": "capitalize",
+                "label": "t:settings_schema.typography.settings.text_transform.options__2"
+              },
+              {
+                "value": "uppercase",
+                "label": "t:settings_schema.typography.settings.text_transform.options__3"
+              },
+              {
+                "value": "lowercase",
+                "label": "t:settings_schema.typography.settings.text_transform.options__4"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "animations_type_content",
+            "label": "t:sections.animation.label_1",
+            "default": "none",
+            "options": [
+              {
+                  "value": "none",
+                  "label": "t:sections.animation.settings.type.option_0"
+              },
+              {
+                  "value": "fadeIn",
+                  "label": "fadeIn"
+              },
+              {
+                  "value": "fadeInLeft",
+                  "label": "fadeInLeft"
+              },
+              {
+                  "value": "fadeInRight",
+                  "label": "fadeInRight"
+              },
+              {
+                  "value": "fadeInUp",
+                  "label": "fadeInUp"
+              },
+              {
+                  "value": "fadeInDown",
+                  "label": "fadeInDown"
+              },
+              {
+                  "value": "slideInLeft",
+                  "label": "slideInLeft"
+              },
+              {
+                  "value": "slideInRight",
+                  "label": "slideInRight"
+              },
+              {
+                  "value": "slideInUp",
+                  "label": "slideInUp"
+              },
+              {
+                  "value": "slideInDown",
+                  "label": "slideInDown"
+              },
+              {
+                  "value": "zoomIn",
+                  "label": "zoomIn"
+              },
+              {
+                  "value": "zoomInLeft",
+                  "label": "zoomInLeft"
+              },
+              {
+                  "value": "zoomInRight",
+                  "label": "zoomInRight"
+              },
+              {
+                  "value": "zoomInUp",
+                  "label": "zoomInUp"
+              },
+              {
+                  "value": "zoomInDown",
+                  "label": "zoomInDown"
+              },
+              {
+                  "value": "bounce",
+                  "label": "bounce"
+              },
+              {
+                  "value": "bounceIn",
+                  "label": "bounceIn"
+              },
+              {
+                  "value": "bounceInLeft",
+                  "label": "bounceInLeft"
+              },
+              {
+                  "value": "bounceInRight",
+                  "label": "bounceInRight"
+              },
+              {
+                  "value": "bounceInUp",
+                  "label": "bounceInUp"
+              },
+              {
+                  "value": "bounceInDown",
+                  "label": "bounceInDown"
+              },
+              {
+                  "value": "rotateIn",
+                  "label": "rotateIn"
+              },
+              {
+                  "value": "rotateInDownLeft",
+                  "label": "rotateInDownLeft"
+              },
+              {
+                  "value": "rotateInDownRight",
+                  "label": "rotateInDownRight"
+              },
+              {
+                  "value": "rotateInUpLeft",
+                  "label": "rotateInUpLeft"
+              },
+              {
+                  "value": "rotateInUpRight",
+                  "label": "rotateInUpRight"
+              }
+            ]
+          },
+          {
+              "type": "header",
+              "content": "t:sections.main_faqs.option_1"
+          },
+          {
+            "id": "colors_bg",
+            "type": "color",
+            "label": "t:sections.main_faqs.option_2"
+          },
+          {
+            "id": "border_color",
+            "type": "color",
+            "label": "t:sections.main_faqs.option_3"
+          },
+          {
+            "id": "text_color",
+            "type": "color",
+            "label": "t:sections.main_faqs.option_4"
+          },
+          {
+            "id": "colors_bg_active",
+            "type": "color",
+            "label": "t:sections.main_faqs.option_5"
+          },
+          {
+            "id": "border_color_active",
+            "type": "color",
+            "label": "t:sections.main_faqs.option_6"
+          },
+          {
+            "id": "text_color_active",
+            "type": "color",
+            "label": "t:sections.main_faqs.option_7"
+          },
+          {
+            "type": "select",
+            "id": "animations_type_tab",
+            "label": "t:sections.animation.label_1",
+            "default": "none",
+            "options": [
+              {
+                  "value": "none",
+                  "label": "t:sections.animation.settings.type.option_0"
+              },
+              {
+                  "value": "fadeIn",
+                  "label": "fadeIn"
+              },
+              {
+                  "value": "fadeInLeft",
+                  "label": "fadeInLeft"
+              },
+              {
+                  "value": "fadeInRight",
+                  "label": "fadeInRight"
+              },
+              {
+                  "value": "fadeInUp",
+                  "label": "fadeInUp"
+              },
+              {
+                  "value": "fadeInDown",
+                  "label": "fadeInDown"
+              },
+              {
+                  "value": "slideInLeft",
+                  "label": "slideInLeft"
+              },
+              {
+                  "value": "slideInRight",
+                  "label": "slideInRight"
+              },
+              {
+                  "value": "slideInUp",
+                  "label": "slideInUp"
+              },
+              {
+                  "value": "slideInDown",
+                  "label": "slideInDown"
+              },
+              {
+                  "value": "zoomIn",
+                  "label": "zoomIn"
+              },
+              {
+                  "value": "zoomInLeft",
+                  "label": "zoomInLeft"
+              },
+              {
+                  "value": "zoomInRight",
+                  "label": "zoomInRight"
+              },
+              {
+                  "value": "zoomInUp",
+                  "label": "zoomInUp"
+              },
+              {
+                  "value": "zoomInDown",
+                  "label": "zoomInDown"
+              },
+              {
+                  "value": "bounce",
+                  "label": "bounce"
+              },
+              {
+                  "value": "bounceIn",
+                  "label": "bounceIn"
+              },
+              {
+                  "value": "bounceInLeft",
+                  "label": "bounceInLeft"
+              },
+              {
+                  "value": "bounceInRight",
+                  "label": "bounceInRight"
+              },
+              {
+                  "value": "bounceInUp",
+                  "label": "bounceInUp"
+              },
+              {
+                  "value": "bounceInDown",
+                  "label": "bounceInDown"
+              },
+              {
+                  "value": "rotateIn",
+                  "label": "rotateIn"
+              },
+              {
+                  "value": "rotateInDownLeft",
+                  "label": "rotateInDownLeft"
+              },
+              {
+                  "value": "rotateInDownRight",
+                  "label": "rotateInDownRight"
+              },
+              {
+                  "value": "rotateInUpLeft",
+                  "label": "rotateInUpLeft"
+              },
+              {
+                  "value": "rotateInUpRight",
+                  "label": "rotateInUpRight"
+              }
+            ]
+          }
+        ],
+        "blocks": [
+            {
+                "type" : "paragraph",
+                "name" : "t:sections.main_faqs.blocks.paragraph.name",
+                "settings":
+                [
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__1"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "title",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.information.label__1",
+                        "default": "FAQ Tab"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__2"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_1",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1",
+                        "default": "Where can I subscribe to your newsletter?"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_1",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2",
+                        "default": "<p>We often send out our newsletter with news and great offers. We will never disclose your data to third parties and you can unsubscribe from the newsletter at any time.</p>"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__3"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_2",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1",
+                        "default": "Where can I edit my billing and shipping address?"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_2",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2",
+                        "default": "<p>If you created a new account after or while ordering you can edit both addresses (for billing and shipping) in your </p>"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__4"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_3",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1",
+                        "default": "Can I order a free sample copy of a magazine?"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_3",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2",
+                        "default": "<p>Unfortunately, we’re unable to offer free samples. As a retailer, we buy all magazines from their publishers at the regular trade price. However, you could contact the publisher directly.</p>"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__5"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_4",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1",
+                        "default": "Are unsold magazines sent back to the publisher?"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_4",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2",
+                        "default": "<p>We usually sell all copies of the magazines offered in our shop. Some publishers and distributors offer the retailer the option of returning any unsold magazines. However, because our range includes magazines from countries such as Australia, the USA and the United Kingdom, sending them back would involve considerable effort in terms of logistics and would also be very expensive. We therefore choose not to return any unsold magazines. At the same time, this allows us to also offer our customers older or out-of-print magazines.</p>"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__6"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_5",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1",
+                        "default": "Where can I find your disclaimer and privacy policy?"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_5",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2",
+                        "default": "<p>All data will be treated as strictly confidential and will not be disclosed to third parties. Take a look on our disclaimer and Privacy Policy.</p>"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__7"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_6",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_6",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__8"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_7",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_7",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__9"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_8",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_8",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__10"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_9",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_9",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2"
+                    },
+                    {
+                        "type": "header",
+                        "content": "t:sections.main_faqs.blocks.paragraph.settings.header__11"
+                    },
+                    {
+                        "type" : "text",
+                        "id" : "question_10",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__1"
+                    },
+                    {
+                        "type" : "html",
+                        "id" : "answer_10",
+                        "label" : "t:sections.main_faqs.blocks.paragraph.settings.question.label__2"
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "t:sections.main_faqs.name",
+            "blocks": [
+              {
+                  "type": "paragraph"
+              },
+              {
+                  "type": "paragraph"
+              },
+              {
+                  "type": "paragraph"
+              }
+            ]
+        }]
+    }
+{% endschema %}

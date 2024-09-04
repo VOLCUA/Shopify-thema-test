@@ -1,0 +1,109 @@
+{%- assign contact_form_id = 'ContactForm-' | append: section.id -%}
+
+{%- form 'contact', id: contact_form_id, class: 'contact-form' -%}
+	{%- if form.posted_successfully? -%}
+        <div class="form-message">
+            <div class="alertBox alertBox--success">
+                <p class="alertBox-message">
+                    {{ 'templates.contact.form.post_success' | t }}
+                </p>
+            </div>
+        </div>
+	{%- elsif form.errors -%}
+        <div class="form-message">
+            <div class="alertBox alertBox--error">
+                <p class="alertBox-message">
+                    <ul>
+                        {% for field in form.errors %}
+                          <li>
+                              {{ form.errors.translated_fields[field] | capitalize }} - {{ form.errors.messages[field] }}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                </p>
+            </div>
+        </div>
+	{%- endif -%}
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="field">
+            <input class="form-input form-input-placeholder"
+            	type="text"
+            	id="contactFormName-{{ section.id }}"
+            	name="contact[name]"
+            	autocomplete="name"
+            	autocapitalize="words"
+            	value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            	placeholder="{{ 'templates.contact.form.firstname' | t }}"
+                aria-required="true"
+                required
+            >
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="field">
+            <input class="form-input form-input-placeholder"
+            	type="text"
+            	id="contactFormLastName-{{ section.id }}"
+            	name="contact[lastname]"
+            	autocomplete="lastname"
+            	autocapitalize="words"
+            	value="{% if form.lastname %}{{ form.lastname }}{% elsif customer %}{{ customer.lastname }}{% endif %}"
+            	placeholder="{{ 'templates.contact.form.lastname' | t }}"
+                aria-required="true"
+                required
+            >
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="field{% if form.errors contains "email" %} form-field--error{% endif %}">
+            <input class="form-input form-input-placeholder{% if form.errors contains "email" %} error{% endif %}"
+            	type="email"
+            	name="contact[email]"
+            	id="contactFormEmail-{{ section.id }}"
+            	spellcheck="false"
+            	autocomplete="email"
+            	autocorrect="off"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                aria-required="true"
+                {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="ContactForm-email-error"
+                {% endif %}
+            	placeholder="{{ 'templates.contact.form.email' | t }}"
+                required
+            >
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="field">
+            <input class="form-input form-input-placeholder"
+            	type="tel"
+            	id="ContactFormPhone-{{ section.id }}"
+            	name="contact[phone]"
+            	autocomplete="tel"
+            	pattern="[0-9]*"
+            	value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            	placeholder="{{ 'templates.contact.form.phone' | t }}"
+                aria-required="true"
+                required
+            >
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="field">
+          	<textarea class="form-input form-input-placeholder" rows="4" name="contact[body]" id="contactFormMessage-{{ section.id }}" 
+                placeholder="{{ 'templates.contact.form.comment' | t }}"
+                aria-required="true"
+                aria-invalid="true"
+                required
+            >{{- form.body -}}</textarea>
+        </div>
+      </div>
+    </div>
+	
+  <div class="form-actions">
+        <button class="button button--primary">{{ 'templates.contact.form.send' | t }}</button>
+    </div>
+{%- endform -%}

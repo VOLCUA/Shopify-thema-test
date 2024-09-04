@@ -1,0 +1,34 @@
+{%- for block in section.blocks -%}
+  {%- if block.type == 'category' -%}
+    {% render 'scoder-side-all-categories',
+        block: block,
+        show_collapse: show_collapse,
+        sidebar_collapse: sidebar_collapse
+    %}
+  {%- elsif block.type == 'recent_post' -%}
+      {% render 'scoder-side-recent-post',
+          block: block,
+          show_collapse: show_collapse,
+          sidebar_collapse: sidebar_collapse
+      %}
+  {%- elsif block.type == 'recent_tag' -%}
+      {% render 'scoder-side-recent-tag',
+          block: block,
+          show_collapse: show_collapse,
+          sidebar_collapse: sidebar_collapse
+      %}
+  {%- elsif block.type == 'social' -%}
+    {% render 'scoder-side-social-media',
+          block: block,
+          show_collapse: show_collapse,
+          sidebar_collapse: sidebar_collapse
+    %}
+  {%- endif -%}
+{%- endfor -%}
+<script>
+  $(document).ready(function(){
+    $(".toolbar-icon.icon-filter, .blog-layout-default .page-sidebar .close").click(function(){
+      $("body").toggleClass("open-mobile-sidebar");
+    });
+  });
+</script>

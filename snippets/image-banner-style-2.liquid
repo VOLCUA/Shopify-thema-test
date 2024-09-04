@@ -1,0 +1,36 @@
+<style>
+  
+  .image-banner-block-{{section.id}}.image-banner.image-banner-2 {
+    margin: 0 !important;
+    margin-top: {{ section.settings.mg_top_main_desktop | append: 'px' }} !important;
+    margin-bottom: {{ section.settings.mg_bottom_main_desktop | append: 'px' }} !important;
+    padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    position: relative;
+    background: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+  }
+  .image-banner-block-{{section.id}}.image-banner-2 .banner-img.desktop- {
+      position: unset;
+  }
+  .image-banner-2 .adaptive_height img {
+      position: unset;
+  }
+
+  @media (max-width: 1199px) {
+    .image-banner-block-{{section.id}}.image-banner.image-banner-2 {
+      margin-top: {{ section.settings.mg_top_main_tablet | append: 'px' }} !important;
+      margin-bottom: {{ section.settings.mg_bottom_main_tablet | append: 'px' }} !important;
+      padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }
+  }
+
+  @media (max-width: 767px) {
+    .image-banner-block-{{section.id}}.image-banner.image-banner-2 {
+      margin-top: {{ section.settings.mg_top_main_mobile | append: 'px' }} !important;
+      margin-bottom: {{ section.settings.mg_bottom_main_mobile | append: 'px' }} !important;
+      padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    }
+  }
+</style>

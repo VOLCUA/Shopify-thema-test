@@ -1,0 +1,373 @@
+{%- liquid
+  assign background_color = section.settings.background_color
+  assign background_gradient = section.settings.background_gradient
+  assign background_image = section.settings.background_image
+-%}
+
+<style>
+  {% if settings.type_font_1 == 'shopify_fonts' and settings.type_font_2 == 'shopify_fonts' %}
+      {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+      {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+      {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+      {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+      {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+      {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+
+      {% if settings.type_font_2_font.family != settings.type_font_1_font.family %}
+          {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+          {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+          {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+          {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+          
+          {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+                {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+      {% else %}
+                {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+      {% endif %}
+  {% elsif settings.type_font_1 != 'shopify_fonts' and settings.type_font_2 != 'shopify_fonts' %}
+        {%- assign font_1 = settings.type_font_1_name -%}
+        {%- capture font_name_1 -%}
+            {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+        {%- endcapture -%}
+        @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+              {% assign fonts_name = font_1 %}
+
+        {% if settings.type_font_1_name != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                  {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = font_1 %}
+        {% endif %}
+  {% elsif settings.type_font_1 == 'shopify_fonts' %}
+        {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+        {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+        {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+        {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+        {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+        {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+      
+        {% if base_font.family != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                    {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+        {% endif %}
+  {% else %}
+        {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+        {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+        {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+        {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+
+        {% if header_font.family != settings.type_font_1_name %}
+            {%- assign font_1 = settings.type_font_1_name -%}
+            {%- capture font_name_1 -%}
+                {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+                  {% assign fonts_name = font_1 %}
+        {% else %}
+                  {% assign fonts_name = header_font.family | append: ',' | append: header_font.fallback_families %}
+        {% endif %}
+
+        {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+             
+        {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+  {% endif %}
+  :root {
+      {% if section.settings.heading_font_family == 'font_1' %}
+          --footer-title-font-family: {{fonts_name}};
+      {% else %}
+          --footer-title-font-family: {{fonts_name_2}};
+      {% endif %}
+  }
+  footer.footer {
+    {% if background_image != blank %}
+      background: url({{ background_image | img_url: '1920x' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-color: transparent;
+    {% else %}
+      background: {% if background_gradient != blank %}{{ background_gradient }}{% else %}{{ background_color }}{% endif %};
+    {% endif %}
+  }
+  .footer-section {
+    margin-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    margin-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    padding-top: {{ section.settings.spacing_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.spacing_bottom_desktop | append: 'px' }};
+    {% if section.settings.footer_border_top %}
+        border-top: 1px solid {{ section.settings.footer_border_top_color }};
+    {% endif %}
+  }
+  .footer-desc-box ul li {
+      padding: 7px 0px;
+  }
+  .footer-desc-box ul li:first-child {
+      padding-top: 0px;
+  }
+  .footer-desc-box ul li:last-child {
+      padding-bottom: 0px;
+  }
+  .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0px -15px;
+      justify-content: space-between;
+  }
+  .footer-block__heading {
+      font-size: {{ section.settings.heading_title | append: 'px' }};
+      line-height: 1.2;
+      font-weight: {{ section.settings.heading_title_font_weight }};
+      text-transform: {{ section.settings.heading_title_text_transform }};
+      color: {{ section.settings.heading_color }};
+      padding-bottom: {{ section.settings.heading__space_bottom | append: 'px' }};
+      font-family: var(--footer-title-font-family);
+  }
+  .footer-desc-box ul li,
+  .footer-desc-box ul li a,
+  .footer-block__list ul li a {
+      font-size: {{ section.settings.text_font_size | append: 'px' }};
+      color: {{ section.settings.text_color }};
+  }
+  .footer-social-media ul li:first-child {
+        padding-left: 0 !important;
+  }
+  .footer-social-media ul li:last-child {
+        padding-right: 0 !important;
+  }
+
+  .footer-desc-box ul li a:hover,
+  .footer-block__list ul li a:hover {
+      color: {{ section.settings.text_color_hover }};
+  }
+  .footer-desc-box ul li, .footer-block__list ul li {
+      padding: {{ section.settings.spacing_desktop | append: 'px' }} 0px;
+  }
+  .footer-desc-box ul li:first-child, .footer-block__list ul li:first-child {
+      padding-top: 0px;
+  }
+  .footer-desc-box ul li:last-child, .footer-block__list ul li:last-child {
+      padding-bottom: 0px;
+  }
+  .footer-bottom {
+      padding-top: {{ section.settings.pdtop_footer_bottom | append: 'px' }};
+      padding-bottom: {{ section.settings.pdbottom_footer_bottom | append: 'px' }};
+      {% if section.settings.border_top %}
+        border-top: 1px solid {{ section.settings.border_top_color }};
+      {% endif %}
+      background: {% if section.settings.footer_bottom_bg_gradient != blank %}{{ footer_bottom_bg_gradient }}{% else %}{{ section.settings.footer_bottom_bg }}{% endif %};
+      color: {{ section.settings.footer_bottom_color }}
+  }
+  .footer__payment ul {
+      display: flex;
+      flex-wrap: wrap;
+  }
+  .footer__payment.payment-align-center ul {
+      justify-content: center;
+  }
+  .footer__payment ul .list-payment__item {
+      padding: 3px {{ section.settings.payment_icon_padding | append: 'px' }};
+  }
+  .footer__payment ul .list-payment__item:first-child {
+      padding-left: 0px;
+  }
+  body.layout_rtl .footer__payment ul .list-payment__item:first-child {
+      padding-right: 0;
+      padding-left: {{ section.settings.payment_icon_padding | append: 'px' }};
+  }
+  .footer__payment ul .list-payment__item:last-child {
+      padding-right: 0px;
+  }
+  body.layout_rtl .footer__payment ul .list-payment__item:last-child {
+      padding-left: 0;
+      padding-right: {{ section.settings.payment_icon_padding | append: 'px' }};
+  }
+  .footer__payment ul .list-payment__item svg {
+      display: block;
+      width: {{ section.settings.payment_icon_width | append: 'px' }};
+      height: auto;
+      border:{{ section.settings.border_width | append: 'px' }} solid {{ section.settings.border_color }};
+      border-radius:{{ section.settings.payment_button_border_radius | append: 'px' }};
+  }
+  .footer-block__details .footer-social-media + .footer__payment {
+      padding-top: 15px;
+  }
+  .footer-bottom .footer__payment ul {
+      justify-content: flex-end;
+  }
+  .footer-bottom .footer-social-media ul {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+  }
+  .footer-bottom .footer-social-media ul li {
+      padding: 0px 12px;
+  }
+  .footer-bottom .footer-social-media ul li a {
+      display: block;
+  }
+  .footer-bottom .footer-social-media ul li a svg {
+      display: block;
+      fill: {{ section.settings.footer_bottom_color }};
+      transition: all 400ms ease;
+  }
+  .footer-bottom .footer-social-media ul li a:hover svg {
+      fill: var(--link-hover-color);
+  }
+  .footer__copyright {
+      font-size: {{ section.settings.font_size_copyright | append: 'px' }};
+  }
+  .footer__copyright a {
+      text-decoration: underline;
+      color: {{ section.settings.footer_link_color }};
+  } 
+  .footer__copyright a:hover{
+    color: {{ section.settings.footer_link_color_hover }};
+  }
+  .footer-copyright__list ul {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+  }
+  .footer-copyright__list ul li {
+      padding-left: 24px;
+  }
+  .footer-copyright__list ul li:first-child {
+    padding-left: 0;
+  }
+  .footer-copyright__list ul li a {
+      font-size: {{ section.settings.text_font_size | append: 'px' }};
+      color: {{ section.settings.text_color }};
+  }
+  .footer-copyright__list ul li a:hover {
+    color: {{ section.settings.text_color_hover }};
+  }
+
+  @media (max-width: 1199px) {
+    .footer-section {
+      margin-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      margin-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+      padding-top: {{ section.settings.spacing_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.spacing_bottom_tablet | append: 'px' }};
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .footer-block__heading {
+        font-size: {{ section.settings.heading_title_tb | append: 'px' }};
+        padding-bottom: {{ section.settings.heading__space_bottom_tb | append: 'px' }};
+    }
+    .footer-desc-box ul li, .footer-block__list ul li {
+        padding: {{ section.settings.spacing_tablet | append: 'px' }} 0px;
+    }
+    .footer-desc-box ul li,
+    .footer-desc-box ul li a,
+    .footer-block__list ul li a {
+        font-size: {{ section.settings.text_font_tb | append: 'px' }};
+    }
+    .footer-bottom .copyright {
+        order: 2;
+    }
+    .footer-bottom .payment {
+        order: 1;
+        padding-bottom: 15px;
+    }
+    .footer-bottom .copyright .footer__copyright {
+        text-align: center;
+    }
+    .footer-bottom .payment ul {
+        justify-content: center;
+    }
+    .footer-block__newsletter .button.icon-btn:before {
+      content: unset;
+    }
+    .footer-copyright__list ul {
+        justify-content: center;
+        padding-bottom: 10px;
+    }
+    
+    
+  }
+  @media (max-width: 767px) {
+    .footer-section {
+      margin-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      margin-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+      padding-top: {{ section.settings.spacing_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.spacing_bottom_mobile | append: 'px' }};
+    }
+    .footer-block__heading {
+        font-size: {{ section.settings.heading_title_mb | append: 'px' }};
+        padding-bottom: {{ section.settings.heading__space_bottom_mb | append: 'px' }};
+    }
+    .footer-desc-box ul li, .footer-block__list ul li {
+        padding: {{ section.settings.spacing_mobile | append: 'px' }} 0px;
+    }
+    .footer-block__list ul li a {
+        font-size: {{ section.settings.text_font_mb | append: 'px' }};
+    }
+    /* New Css */
+    .footer-block-box {
+        display: none;
+        padding-top: {{ section.settings.heading__space_bottom_mb | append: 'px' }};
+    }
+    .footer-block__heading {
+        position: relative;
+        padding-bottom: 0;
+    }
+    .footer-block__heading:before, .footer-block__heading:after {
+      content: "";
+      position: absolute;
+      background: {{ section.settings.heading_color }};
+      top: calc(50% - 0px);
+      transform: translateY(-50%);
+      transition: all 400ms ease;
+    }
+    .footer-block__heading:before {
+        width: 12px;
+        height: 2px;
+        right: 0;
+    }
+    .footer-block__heading:after {
+        width: 2px;
+        height: 12px;
+        right: 5px;
+    }
+    .footer-block__heading.active:after {
+        transform: translateY(-50%) rotate(90deg);
+    }
+    .layout_rtl .footer-block__heading:before{
+      right: unset;
+      left: 0px;
+    }
+    .layout_rtl .footer-block__heading:after {
+        right: unset;
+        left: 5px;
+    }
+  }
+</style>

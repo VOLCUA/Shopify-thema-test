@@ -1,0 +1,6 @@
+
+{%- if settings.show_quick_cart -%}
+	{% unless template contains 'cart' %}
+		{% render 'scoder-cart-sidebar' %}
+	{% endunless %}
+{%- endif -%}

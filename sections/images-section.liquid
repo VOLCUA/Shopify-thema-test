@@ -1,0 +1,1278 @@
+<div class="image-luxury-main luxury-block-{{section.id}}">
+  <div class="{% if section.settings.container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+    <div class="row">
+      <div class="luxury-left wow {{ section.settings.animations_type_image1 }}">
+        <div class="luxury-img-box">
+          {%- if section.settings.text_1 != blank -%}
+            <div class="luxury-left-text">
+              {{ section.settings.text_1 }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.left_image != blank -%}
+              {%- assign preview_img_1 = section.settings.left_image -%}
+              <div class="image image-adapt {% if section.settings.image_behavior1 != 'none' %} animate--{{ section.settings.image_behavior1 }} animate-hidden{% endif %}">
+                  <div class="animate-ambient-image">
+                    <img {% render 'lazyload', preview_img: preview_img_1 %} loading="lazy" />
+                  </div>
+                  {% if settings.enable_lazyload %}<span class="data-lazy-loading"></span>{% endif %}
+              </div>
+          {%- else -%}
+              <div class="not_img" style="--height_not_img: 484px">
+                825 x 484px
+              </div>  
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="luxury-center wow {{ section.settings.animations_type_image2 }}">
+        <div class="luxury-img-box">
+          {%- if section.settings.center_image != blank -%}
+              {%- assign preview_img_2 = section.settings.center_image -%}
+              <div class="image image-adapt">
+                <div class="{%- if section.settings.moveUpDown != blank -%} animate--moveUpDown{%- endif -%}">
+                    <img {% render 'lazyload', preview_img: preview_img_2 %} loading="lazy" />
+                </div>
+                  {% if settings.enable_lazyload %}<span class="data-lazy-loading"></span>{% endif %}
+              </div>
+          {%- else -%}
+              <div class="not_img" style="--height_not_img: 422px">
+                248 x 422px
+              </div>  
+          {%- endif -%}
+          <div class="luxury-center-text">
+            {{ section.settings.text_2 }}
+          </div>
+        </div>
+      </div>
+      <div class="luxury-right wow {{ section.settings.animations_type_image3 }}">
+        <div class="luxury-img-box">
+          {%- if section.settings.right_image != blank -%}
+              {%- assign preview_img_3 = section.settings.right_image -%}
+              <div class="image image-adapt {% if section.settings.image_behavior2 != 'none' %} animate--{{ section.settings.image_behavior2 }} animate-hidden{% endif %}">
+                  <div class="animate-ambient-image">
+                    <img {% render 'lazyload', preview_img: preview_img_3 %} loading="lazy" />
+                  </div>
+                  {% if settings.enable_lazyload %}<span class="data-lazy-loading"></span>{% endif %}
+              </div>
+          {%- else -%}
+              <div class="not_img" style="--height_not_img: 699px">
+                580 x 699px
+              </div>  
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  {% if settings.type_font_1 == 'shopify_fonts' and settings.type_font_2 == 'shopify_fonts' %}
+      {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+      {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+      {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+      {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+  
+      {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+  
+      {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+  
+      {% if settings.type_font_2_font.family != settings.type_font_1_font.family %}
+          {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+          {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+          {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+          {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+          
+          {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+  
+                {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+      {% else %}
+                {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+      {% endif %}
+  {% elsif settings.type_font_1 != 'shopify_fonts' and settings.type_font_2 != 'shopify_fonts' %}
+        {%- assign font_1 = settings.type_font_1_name -%}
+        {%- capture font_name_1 -%}
+            {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+        {%- endcapture -%}
+        @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+              {% assign fonts_name = font_1 %}
+  
+        {% if settings.type_font_1_name != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                  {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = font_1 %}
+        {% endif %}
+  {% elsif settings.type_font_1 == 'shopify_fonts' %}
+        {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+        {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+        {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+        {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+  
+        {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+  
+        {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+      
+        {% if base_font.family != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                    {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+        {% endif %}
+  {% else %}
+        {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+        {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+        {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+        {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+  
+        {% if header_font.family != settings.type_font_1_name %}
+            {%- assign font_1 = settings.type_font_1_name -%}
+            {%- capture font_name_1 -%}
+                {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+                  {% assign fonts_name = font_1 %}
+        {% else %}
+                  {% assign fonts_name = header_font.family | append: ',' | append: header_font.fallback_families %}
+        {% endif %}
+  
+        {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+             
+        {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+  {% endif %}
+
+  :root {
+      {% if section.settings.text_1_font == 'font_1' %}
+          --text-1-font-family: {{fonts_name}};
+      {% else %}
+          --text-1-font-family: {{fonts_name_2}};
+      {% endif %}
+
+      {% if section.settings.text_2_font == 'font_1' %}
+          --text-2-font-family: {{fonts_name}};
+      {% else %}
+          --text-2-font-family: {{fonts_name_2}};
+      {% endif %}
+      
+  }
+  
+  .luxury-block-{{section.id}} {
+    padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    {% if section.settings.background_gradient != blank or section.settings.background_color != blank %}
+      background: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+    {% endif %}
+  }
+  .image-luxury-main .row {
+      margin-left: 0;
+      margin-right: 0;
+  }
+  .luxury-left {
+      padding-left: 0;
+      width: 44%;
+      animation-delay: {{ section.settings.animation_delay_image1 }}
+  }
+  .luxury-left-text {
+      font-size: {{ section.settings.font_size_text_1 | append: 'px' }};
+      line-height: {{ section.settings.text_1_line_height | append: 'px' }};
+      {% if section.settings.text_1_color != blank %}
+          color: {{ section.settings.text_1_color }};
+      {% else %}
+          color: var(--body-text-color);
+      {% endif %}
+      font-weight: {{ section.settings.text_1_font_weight }};
+      text-transform: {{ section.settings.text_1_transform }};
+      letter-spacing: {{ section.settings.text_1_spacing | append: 'px' }};
+      padding-top: {{ section.settings.text_1_space | append: 'px' }};
+      padding-bottom: {{ section.settings.text_1_space | append: 'px' }};
+      font-family: var(--text-1-font-family);
+      width: 100%;
+  }
+  .luxury-img-box img {
+      display: block;
+  }
+  .luxury-right {
+      padding-right: 0;
+      width: 30%;
+      animation-delay: {{ section.settings.animation_delay_image3 }}
+  }
+  .luxury-center {
+      width: 26%;
+      padding-top: 100px;
+      padding-bottom: 100px;
+      display: flex;
+      animation-delay: {{ section.settings.animation_delay_image2 }}
+  }
+  .luxury-img-box {
+      position: relative;
+  }
+  .luxury-right .luxury-img-box {
+      height: 100%;
+      padding-bottom: 100px;
+  }
+  .luxury-right .image {
+      height: 100%;
+  }
+  .luxury-right .image img {
+      height: 100%;
+      object-fit: cover;
+  }
+    .luxury-center-text {
+      font-size: {{ section.settings.font_size_text_2 | append: 'px' }};
+      line-height: {{ section.settings.text_2_line_height | append: 'px' }};
+      {% if section.settings.text_2_color != blank %}
+          color: {{ section.settings.text_2_color }};
+      {% else %}
+          color: var(--heading-text-color);
+      {% endif %}
+      font-weight: {{ section.settings.text_2_font_weight }};
+      text-transform: {{ section.settings.text_2_transform }};
+      letter-spacing: {{ section.settings.text_2_spacing | append: 'px' }};
+      font-family: var(--text-2-font-family);
+      padding-top: 100px;
+      width: 100%;
+      text-align: center;
+  }
+  .luxury-center .image {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+  }
+  .luxury-center .luxury-img-box {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-self: flex-end;
+  }
+  .luxury-left .luxury-img-box {
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+  }
+  .luxury-left .luxury-img-box .image {
+      align-self: flex-end;
+      width: 100%;
+  }
+
+  @media (max-width: 1199px) {
+    .luxury-block-{{section.id}} {
+      padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }
+  }
+  @media (max-width: 1024px) {
+    .luxury-left-text {
+        font-size: {{ section.settings.font_size_text_1_tb | append: 'px' }};
+        line-height: {{ section.settings.text_1_line_height_tb | append: 'px' }};
+        padding-top: {{ section.settings.text_1_space_tb | append: 'px' }};
+        padding-bottom: 30px;
+    }
+    .luxury-center-text {
+        font-size: {{ section.settings.font_size_text_2_tb | append: 'px' }};
+        line-height: {{ section.settings.text_2_line_height_tb | append: 'px' }};
+        padding-top: 80px;
+    }
+    .luxury-left {
+        padding-left: 15px;
+        width: 100%;
+        padding-bottom: 30px;
+    }
+    .luxury-left .luxury-img-box img {
+        width: 100%;
+    }
+    .luxury-center {
+      width: 50%;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+    .luxury-right {
+        padding-right: 15px;
+        width: 50%;
+    }
+    .luxury-right .luxury-img-box {
+        padding-bottom: 80px;
+    }
+    .luxury-center .image img {
+        max-height: 250px;
+    }
+  }
+  @media (max-width: 767px) {
+    .luxury-block-{{section.id}} {
+      padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    }
+    .luxury-left-text {
+        font-size: {{ section.settings.font_size_text_1_mb | append: 'px' }};
+        line-height: {{ section.settings.text_1_line_height_mb | append: 'px' }};
+        padding-top: {{ section.settings.text_1_space_mb | append: 'px' }};
+        padding-bottom: {{ section.settings.text_1_space_mb | append: 'px' }};
+        padding-left: 0 !important;
+    }
+    .luxury-center-text {
+        font-size: {{ section.settings.font_size_text_2_mb | append: 'px' }};
+        line-height: {{ section.settings.text_2_line_height_mb | append: 'px' }};
+        padding-top: 30px;
+    }
+    .luxury-right .luxury-img-box {
+        padding-bottom: 50px;
+    }
+    .luxury-center {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+  }
+</style>
+
+{% if settings.enable_layout_rtl != blank %}
+  <script>
+    function container_spacer(){
+      var win = $(window).width();
+      var con = $('main .container').width();
+      var total = (win - con) / 2;
+  
+      $('.luxury-left-text').css('padding-right', total);
+    }
+    $(document).ready(function() {
+        container_spacer();
+  
+        $(window).resize(function(){
+            container_spacer();
+        });
+    });
+  </script>
+{% else %}
+  <script>
+    function container_spacer(){
+      var win = $(window).width();
+      var con = $('main .container').width();
+      var total = (win - con) / 2;
+  
+      $('.luxury-left-text').css('padding-left', total);
+    }
+    $(document).ready(function() {
+        container_spacer();
+  
+        $(window).resize(function(){
+            container_spacer();
+        });
+    });
+  </script>
+{% endif %}
+
+{% schema %}
+{
+    "name": "t:sections.images-section.name",
+    "class": "image-luxury",
+    "settings": [
+      {
+          "type": "header",
+          "content": "t:sections.layout.content"
+      },
+      {
+          "type" : "color",
+          "id" : "background_color",
+          "label" : "t:settings_schema.colors.settings.colors_name.background_color"
+      },
+      {
+          "type" : "color_background",
+          "id" : "background_gradient",
+          "label" : "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+      },
+      {
+          "type": "select",
+          "id": "container",
+          "label": "t:sections.layout.container.option",
+          "default": "fullwidth",
+          "options": [
+              {
+                  "value": "container",
+                  "label": "t:sections.layout.container.option1"
+              },
+              {
+                  "value": "fullwidth",
+                  "label": "t:sections.layout.container.option2"
+              }
+          ]
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.margin_top"
+      },
+      {
+          "type": "range",
+          "id": "mg_top_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 50
+      },
+      {
+          "type": "range",
+          "id": "mg_top_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 40
+      },
+      {
+          "type": "range",
+          "id": "mg_top_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 25
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.margin_bottom"
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 50
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 40
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 25
+      },
+      {
+          "type": "header",
+          "content": "t:sections.images-section.setting.image_1"
+      },
+      {
+        "type": "select",
+        "id": "animations_type_image1",
+        "label": "t:sections.animation.label_1",
+        "default": "none",
+        "options": [
+          {
+              "value": "none",
+              "label": "t:sections.animation.settings.type.option_0"
+          },
+          {
+              "value": "fadeIn",
+              "label": "fadeIn"
+          },
+          {
+              "value": "fadeInLeft",
+              "label": "fadeInLeft"
+          },
+          {
+              "value": "fadeInRight",
+              "label": "fadeInRight"
+          },
+          {
+              "value": "fadeInUp",
+              "label": "fadeInUp"
+          },
+          {
+              "value": "fadeInDown",
+              "label": "fadeInDown"
+          },
+          {
+              "value": "slideInLeft",
+              "label": "slideInLeft"
+          },
+          {
+              "value": "slideInRight",
+              "label": "slideInRight"
+          },
+          {
+              "value": "slideInUp",
+              "label": "slideInUp"
+          },
+          {
+              "value": "slideInDown",
+              "label": "slideInDown"
+          },
+          {
+              "value": "zoomIn",
+              "label": "zoomIn"
+          },
+          {
+              "value": "zoomInLeft",
+              "label": "zoomInLeft"
+          },
+          {
+              "value": "zoomInRight",
+              "label": "zoomInRight"
+          },
+          {
+              "value": "zoomInUp",
+              "label": "zoomInUp"
+          },
+          {
+              "value": "zoomInDown",
+              "label": "zoomInDown"
+          },
+          {
+              "value": "bounce",
+              "label": "bounce"
+          },
+          {
+              "value": "bounceIn",
+              "label": "bounceIn"
+          },
+          {
+              "value": "bounceInLeft",
+              "label": "bounceInLeft"
+          },
+          {
+              "value": "bounceInRight",
+              "label": "bounceInRight"
+          },
+          {
+              "value": "bounceInUp",
+              "label": "bounceInUp"
+          },
+          {
+              "value": "bounceInDown",
+              "label": "bounceInDown"
+          },
+          {
+              "value": "rotateIn",
+              "label": "rotateIn"
+          },
+          {
+              "value": "rotateInDownLeft",
+              "label": "rotateInDownLeft"
+          },
+          {
+              "value": "rotateInDownRight",
+              "label": "rotateInDownRight"
+          },
+          {
+              "value": "rotateInUpLeft",
+              "label": "rotateInUpLeft"
+          },
+          {
+              "value": "rotateInUpRight",
+              "label": "rotateInUpRight"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "animation_delay_image1",
+        "label": "t:sections.animation.label_2",
+        "default": "0s",
+        "info": "t:sections.animation.label_3"
+      },
+      {
+          "type": "image_picker",
+          "id": "left_image",
+          "label": "t:sections.images-section.setting.image_1"
+      },
+      {
+        "type": "select",
+        "id": "image_behavior1",
+        "options": [
+          {
+            "value": "none",
+            "label": "t:settings_schema.typography.settings.text_transform.options__1"
+          },
+          {
+            "value": "ambient",
+            "label": "t:sections.main-product.settings.general.image_behavior.option__1"
+          },
+          {
+            "value": "zoom-in",
+            "label": "t:sections.main-product.settings.general.image_behavior.option__3"
+          }
+        ],
+        "default": "none",
+        "label": "t:sections.main-product.settings.general.image_behavior.label"
+      },
+      {
+          "type": "text",
+          "id": "text_1",
+          "label": "t:sections.images-section.setting.text",
+          "default": "Sed faucibus in eu mi bibendum neque. Pulvinar pellentesque habitant morbi tristique senectus et netus et."
+      },
+      {
+          "type": "range",
+          "id": "font_size_text_1",
+          "label": "t:settings_schema.typography.settings.typography.sub_title_font_size",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 18
+      },
+      {
+        "type": "range",
+        "id": "text_1_line_height",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:settings_schema.typography.settings.typography.label__1",
+        "default": 22
+      },
+      {
+          "type": "range",
+          "id": "font_size_text_1_tb",
+          "label": "t:settings_schema.typography.settings.typography.sub_title_font_size_tb",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 16
+      },
+      {
+        "type": "range",
+        "id": "text_1_line_height_tb",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:settings_schema.typography.settings.typography.label__1",
+        "default": 20
+      },
+      {
+          "type": "range",
+          "id": "font_size_text_1_mb",
+          "label": "t:settings_schema.typography.settings.typography.sub_title_font_size_mb",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 14
+      },
+      {
+        "type": "range",
+        "id": "text_1_line_height_mb",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:settings_schema.typography.settings.typography.label__1",
+        "default": 18
+      },
+      {
+          "type": "select",
+          "id": "text_1_font",
+          "label": "t:settings_schema.typography.settings.font_type.label",
+          "options": [
+          {
+              "value": "font_1",
+              "label": "t:settings_schema.typography.settings.font_family__1.content"
+          },
+          {
+              "value": "font_2",
+              "label": "t:settings_schema.typography.settings.font_family__2.content"
+          }],
+          "default": "font_1"
+      },
+      {
+        "type": "select",
+        "id": "text_1_font_weight",
+        "label": "t:settings_schema.typography.settings.font_weight.sub_title",
+        "default": "400",
+        "options": [
+          {
+            "value": "100",
+            "label": "t:settings_schema.typography.settings.font_weight.options__9"
+          },
+          {
+            "value": "200",
+            "label": "t:settings_schema.typography.settings.font_weight.options__8"
+          },
+          {
+            "value": "300",
+            "label": "t:settings_schema.typography.settings.font_weight.options__7"
+          },
+          {
+            "value": "400",
+            "label": "t:settings_schema.typography.settings.font_weight.options__1"
+          },
+          {
+            "value": "500",
+            "label": "t:settings_schema.typography.settings.font_weight.options__2"
+          },
+          {
+            "value": "600",
+            "label": "t:settings_schema.typography.settings.font_weight.options__3"
+          },
+          {
+            "value": "700",
+            "label": "t:settings_schema.typography.settings.font_weight.options__4"
+          },
+          {
+            "value": "800",
+            "label": "t:settings_schema.typography.settings.font_weight.options__5"
+          },
+          {
+            "value": "900",
+            "label": "t:settings_schema.typography.settings.font_weight.options__6"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_1_transform",
+        "label": "t:settings_schema.typography.settings.text_transform.label",
+        "default": "none",
+        "options": [
+          {
+            "value": "none",
+            "label": "t:settings_schema.typography.settings.text_transform.options__1"
+          },
+          {
+            "value": "capitalize",
+            "label": "t:settings_schema.typography.settings.text_transform.options__2"
+          },
+          {
+            "value": "uppercase",
+            "label": "t:settings_schema.typography.settings.text_transform.options__3"
+          },
+          {
+            "value": "lowercase",
+            "label": "t:settings_schema.typography.settings.text_transform.options__4"
+          }
+        ]
+      },
+      {
+          "type": "range",
+          "id": "text_1_spacing",
+          "label": "t:settings_schema.typography.settings.typography.label__2",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+        "id": "text_1_color",
+        "type": "color",
+        "label": "t:settings_schema.colors.settings.colors_text.label__1"
+      },
+      {
+          "type": "range",
+          "id": "text_1_space",
+          "label": "t:sections.images-section.setting.spacing",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 10
+      },
+      {
+          "type": "range",
+          "id": "text_1_space_tb",
+          "label": "t:sections.images-section.setting.spacing_tb",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 10
+      },
+      {
+          "type": "range",
+          "id": "text_1_space_mb",
+          "label": "t:sections.images-section.setting.spacing_mb",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 10
+      },
+      {
+          "type": "header",
+          "content": "t:sections.images-section.setting.image_2"
+      },
+      {
+        "type": "select",
+        "id": "animations_type_image2",
+        "label": "t:sections.animation.label_1",
+        "default": "none",
+        "options": [
+          {
+              "value": "none",
+              "label": "t:sections.animation.settings.type.option_0"
+          },
+          {
+              "value": "fadeIn",
+              "label": "fadeIn"
+          },
+          {
+              "value": "fadeInLeft",
+              "label": "fadeInLeft"
+          },
+          {
+              "value": "fadeInRight",
+              "label": "fadeInRight"
+          },
+          {
+              "value": "fadeInUp",
+              "label": "fadeInUp"
+          },
+          {
+              "value": "fadeInDown",
+              "label": "fadeInDown"
+          },
+          {
+              "value": "slideInLeft",
+              "label": "slideInLeft"
+          },
+          {
+              "value": "slideInRight",
+              "label": "slideInRight"
+          },
+          {
+              "value": "slideInUp",
+              "label": "slideInUp"
+          },
+          {
+              "value": "slideInDown",
+              "label": "slideInDown"
+          },
+          {
+              "value": "zoomIn",
+              "label": "zoomIn"
+          },
+          {
+              "value": "zoomInLeft",
+              "label": "zoomInLeft"
+          },
+          {
+              "value": "zoomInRight",
+              "label": "zoomInRight"
+          },
+          {
+              "value": "zoomInUp",
+              "label": "zoomInUp"
+          },
+          {
+              "value": "zoomInDown",
+              "label": "zoomInDown"
+          },
+          {
+              "value": "bounce",
+              "label": "bounce"
+          },
+          {
+              "value": "bounceIn",
+              "label": "bounceIn"
+          },
+          {
+              "value": "bounceInLeft",
+              "label": "bounceInLeft"
+          },
+          {
+              "value": "bounceInRight",
+              "label": "bounceInRight"
+          },
+          {
+              "value": "bounceInUp",
+              "label": "bounceInUp"
+          },
+          {
+              "value": "bounceInDown",
+              "label": "bounceInDown"
+          },
+          {
+              "value": "rotateIn",
+              "label": "rotateIn"
+          },
+          {
+              "value": "rotateInDownLeft",
+              "label": "rotateInDownLeft"
+          },
+          {
+              "value": "rotateInDownRight",
+              "label": "rotateInDownRight"
+          },
+          {
+              "value": "rotateInUpLeft",
+              "label": "rotateInUpLeft"
+          },
+          {
+              "value": "rotateInUpRight",
+              "label": "rotateInUpRight"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "animation_delay_image2",
+        "label": "t:sections.animation.label_2",
+        "default": "0s",
+        "info": "t:sections.animation.label_3"
+      },
+      {
+          "type": "image_picker",
+          "id": "center_image",
+          "label": "t:sections.images-section.setting.image_2"
+      },
+      {
+          "type": "checkbox",
+          "id": "moveUpDown",
+          "label": "t:sections.image-banner.blocks.image.settings.content.moveUpDown",
+          "default": false
+      },
+      {
+          "type": "text",
+          "id": "text_2",
+          "label": "t:sections.images-section.setting.text",
+          "default": "Title"
+      },
+      {
+          "type": "range",
+          "id": "font_size_text_2",
+          "label": "t:settings_schema.typography.settings.typography.sub_title_font_size",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 24
+      },
+      {
+          "type": "range",
+          "id": "text_2_line_height",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "t:settings_schema.typography.settings.typography.label__1",
+          "default": 20
+      },
+      {
+          "type": "range",
+          "id": "font_size_text_2_tb",
+          "label": "t:settings_schema.typography.settings.typography.sub_title_font_size_tb",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 22
+      },
+      {
+          "type": "range",
+          "id": "text_2_line_height_tb",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "t:settings_schema.typography.settings.typography.label__1",
+          "default": 20
+      },
+      {
+          "type": "range",
+          "id": "font_size_text_2_mb",
+          "label": "t:settings_schema.typography.settings.typography.sub_title_font_size_mb",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 20
+      },
+      {
+        "type": "range",
+        "id": "text_2_line_height_mb",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:settings_schema.typography.settings.typography.label__1",
+        "default": 20
+      },
+      {
+          "type": "select",
+          "id": "text_2_font",
+          "label": "t:settings_schema.typography.settings.font_type.label",
+          "options": [
+          {
+              "value": "font_1",
+              "label": "t:settings_schema.typography.settings.font_family__1.content"
+          },
+          {
+              "value": "font_2",
+              "label": "t:settings_schema.typography.settings.font_family__2.content"
+          }],
+          "default": "font_1"
+      },
+      {
+        "type": "select",
+        "id": "text_2_font_weight",
+        "label": "t:settings_schema.typography.settings.font_weight.sub_title",
+        "default": "400",
+        "options": [
+          {
+            "value": "100",
+            "label": "t:settings_schema.typography.settings.font_weight.options__9"
+          },
+          {
+            "value": "200",
+            "label": "t:settings_schema.typography.settings.font_weight.options__8"
+          },
+          {
+            "value": "300",
+            "label": "t:settings_schema.typography.settings.font_weight.options__7"
+          },
+          {
+            "value": "400",
+            "label": "t:settings_schema.typography.settings.font_weight.options__1"
+          },
+          {
+            "value": "500",
+            "label": "t:settings_schema.typography.settings.font_weight.options__2"
+          },
+          {
+            "value": "600",
+            "label": "t:settings_schema.typography.settings.font_weight.options__3"
+          },
+          {
+            "value": "700",
+            "label": "t:settings_schema.typography.settings.font_weight.options__4"
+          },
+          {
+            "value": "800",
+            "label": "t:settings_schema.typography.settings.font_weight.options__5"
+          },
+          {
+            "value": "900",
+            "label": "t:settings_schema.typography.settings.font_weight.options__6"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_2_transform",
+        "label": "t:settings_schema.typography.settings.text_transform.label",
+        "default": "none",
+        "options": [
+          {
+            "value": "none",
+            "label": "t:settings_schema.typography.settings.text_transform.options__1"
+          },
+          {
+            "value": "capitalize",
+            "label": "t:settings_schema.typography.settings.text_transform.options__2"
+          },
+          {
+            "value": "uppercase",
+            "label": "t:settings_schema.typography.settings.text_transform.options__3"
+          },
+          {
+            "value": "lowercase",
+            "label": "t:settings_schema.typography.settings.text_transform.options__4"
+          }
+        ]
+      },
+      {
+          "type": "range",
+          "id": "text_2_spacing",
+          "label": "t:settings_schema.typography.settings.typography.label__2",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+        "id": "text_2_color",
+        "type": "color",
+        "label": "t:settings_schema.colors.settings.colors_text.label__1"
+      },
+      {
+          "type": "header",
+          "content": "t:sections.images-section.setting.image_3"
+      },
+      {
+          "type": "image_picker",
+          "id": "right_image",
+          "label": "t:sections.images-section.setting.image_3"
+      },
+      {
+        "type": "select",
+        "id": "image_behavior2",
+        "options": [
+          {
+            "value": "none",
+            "label": "t:settings_schema.typography.settings.text_transform.options__1"
+          },
+          {
+            "value": "ambient",
+            "label": "t:sections.main-product.settings.general.image_behavior.option__1"
+          },
+          {
+            "value": "zoom-in",
+            "label": "t:sections.main-product.settings.general.image_behavior.option__3"
+          }
+        ],
+        "default": "none",
+        "label": "t:sections.main-product.settings.general.image_behavior.label"
+      },
+      {
+        "type": "select",
+        "id": "animations_type_image3",
+        "label": "t:sections.animation.label_1",
+        "default": "none",
+        "options": [
+          {
+              "value": "none",
+              "label": "t:sections.animation.settings.type.option_0"
+          },
+          {
+              "value": "fadeIn",
+              "label": "fadeIn"
+          },
+          {
+              "value": "fadeInLeft",
+              "label": "fadeInLeft"
+          },
+          {
+              "value": "fadeInRight",
+              "label": "fadeInRight"
+          },
+          {
+              "value": "fadeInUp",
+              "label": "fadeInUp"
+          },
+          {
+              "value": "fadeInDown",
+              "label": "fadeInDown"
+          },
+          {
+              "value": "slideInLeft",
+              "label": "slideInLeft"
+          },
+          {
+              "value": "slideInRight",
+              "label": "slideInRight"
+          },
+          {
+              "value": "slideInUp",
+              "label": "slideInUp"
+          },
+          {
+              "value": "slideInDown",
+              "label": "slideInDown"
+          },
+          {
+              "value": "zoomIn",
+              "label": "zoomIn"
+          },
+          {
+              "value": "zoomInLeft",
+              "label": "zoomInLeft"
+          },
+          {
+              "value": "zoomInRight",
+              "label": "zoomInRight"
+          },
+          {
+              "value": "zoomInUp",
+              "label": "zoomInUp"
+          },
+          {
+              "value": "zoomInDown",
+              "label": "zoomInDown"
+          },
+          {
+              "value": "bounce",
+              "label": "bounce"
+          },
+          {
+              "value": "bounceIn",
+              "label": "bounceIn"
+          },
+          {
+              "value": "bounceInLeft",
+              "label": "bounceInLeft"
+          },
+          {
+              "value": "bounceInRight",
+              "label": "bounceInRight"
+          },
+          {
+              "value": "bounceInUp",
+              "label": "bounceInUp"
+          },
+          {
+              "value": "bounceInDown",
+              "label": "bounceInDown"
+          },
+          {
+              "value": "rotateIn",
+              "label": "rotateIn"
+          },
+          {
+              "value": "rotateInDownLeft",
+              "label": "rotateInDownLeft"
+          },
+          {
+              "value": "rotateInDownRight",
+              "label": "rotateInDownRight"
+          },
+          {
+              "value": "rotateInUpLeft",
+              "label": "rotateInUpLeft"
+          },
+          {
+              "value": "rotateInUpRight",
+              "label": "rotateInUpRight"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "animation_delay_image3",
+        "label": "t:sections.animation.label_2",
+        "default": "0s",
+        "info": "t:sections.animation.label_3"
+      }
+    ],
+    "presets": [
+      {
+          "name": "t:sections.images-section.name"
+      }
+    ]
+}
+{% endschema %}

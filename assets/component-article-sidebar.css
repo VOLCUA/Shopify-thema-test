@@ -1,0 +1,163 @@
+.blog-layout-default .scoder-blog-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+.blog-layout-default .page-sidebar {
+    width: 300px;
+}
+.blog-layout-default .page-sidebar + .main-blog {
+    width: calc(100% - 300px);
+    padding-left: 30px;
+}
+.blog-layout-default .page-sidebar.page-sidebar-right {
+    order: 1;
+}
+.blog-layout-default .page-sidebar.page-sidebar-right + .main-blog {
+    padding-left: 0;
+    padding-right: 30px;
+}
+.page-sidebar .sidebarBlock {
+    padding-bottom: 40px;
+}
+.recentPosts-list-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-bottom: 20px;
+}
+.recentPosts-list-item:last-child {
+    padding-bottom: 0px;
+}
+.recentPosts-list-item .blog-image {
+    width: 100px;
+    padding-bottom: 0;
+}
+.recentPosts-list-item img {
+    position: unset !important;
+    display: block;
+}
+.recentPosts-list-item .recentPosts-content {
+    width: calc(100% - 100px);
+    padding-left: 15px;
+}
+.recentPosts-list-item .recentPosts-content .date {
+    font-size: 14px;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+.recentPosts-list-item .recentPosts-content .title .link {
+    color: var(--heading-text-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}
+.recentPosts-list-item .recentPosts-content .title .link:hover {
+    color: var(--link-hover-color);
+}
+.recentTags-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px -8px;
+    margin-bottom: -15px;
+}
+.recentTags-list .tags-list-item {
+    padding: 0px 8px;
+    padding-bottom: 15px;
+}
+.recentTags-list .tags-list-item .link {
+    border: 1px solid var(--form-input-border);
+    font-size: var(--font-body-size);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: 1.2;
+    color: var(--body-text-color);
+    padding: 8px 10px;
+}
+.recentTags-list .tags-list-item .link:hover {
+    background: var(--button-bg-color);
+    border-color: var(--button-border-color);
+    color: var(--button-color);
+}
+.sidebarBlock-content .list-social {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0px -10px;
+}
+.sidebarBlock-content .list-social li {
+    padding: 0px 10px;
+}
+.sidebarBlock-content .list-social li a {
+    display: block;
+}
+.sidebarBlock-content .list-social li a svg {
+    display: block;
+}
+.sidebarBlock-content .list-social li a:hover svg {
+    fill: var(--link-hover-color);
+}
+.toolbar-icon.icon-filter {
+    display: inline-flex !important;
+}
+.toolbar-wrapper.toolbar-mobile, .blog-layout-default .page-sidebar .close {
+    display: none;
+}
+.page-sidebar .sidebarBlock:nth-last-child(2) {
+    padding-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .toolbar-wrapper.toolbar-mobile {
+      display: block;
+  }
+  .blog-layout-default .page-sidebar {
+      position: fixed;
+      top: 0;
+      left: -340px;
+      z-index: 9999;
+      background: var(--bg-white);
+      transition: all .4s ease;
+  }
+  .open-mobile-sidebar .blog-layout-default .page-sidebar {
+      left: 0;
+  }
+  .blog-layout-default .page-sidebar .scoder-sidebar-wrapper {
+      height: 100vh;
+  }
+  .blog-layout-default .page-sidebar .close {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      font-size: 0;
+      z-index: 10;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: auto;
+      border: none;
+      padding: 0;
+      top: 0;
+      background-color: var(--color-black);
+      right: -40px;
+  }
+  .blog-layout-default .page-sidebar .close svg {
+      display: block;
+      width: 18px;
+      height: 18px;
+      fill: var(--color-white);
+      transition: all .4s ease;
+  }
+  .blog-layout-default .page-sidebar+.main-blog {
+      width: 100%;
+      padding-left: 0;
+  }
+  .blog-layout-default .page-sidebar.page-sidebar-right+.main-blog{
+       padding-right:0px;
+  }
+  .toolbar-item.toolbar-sidebar {
+      margin-bottom: 15px;
+  }
+}

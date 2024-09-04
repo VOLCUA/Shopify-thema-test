@@ -1,0 +1,71 @@
+#scoder-card-mobile-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-47%, -50%);
+  background-color: white;
+  width: 70vw;
+  min-width: 300px;
+  max-width: 450px;
+  height: max-content;
+  max-height: 550px;
+  
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  transition: all 250ms ease-in-out;
+}
+
+#scoder-card-mobile-popup.show {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#scoder-card-mobile-popup .scoder-popup-wrapper {
+  padding: 8px; 
+}
+
+body.product-card-layout-07 #scoder-card-mobile-popup .scoder-popup-wrapper {
+  padding: 0;
+  padding-bottom: 15px;
+}
+
+#scoder-card-mobile-popup .card-media,
+#scoder-card-mobile-popup .card-information,
+#scoder-card-mobile-popup .button-ATC,
+#scoder-card-mobile-popup .card__badge {
+  display: none;
+  pointer-events: none;
+}
+
+#scoder-card-mobile-popup .card-action .variants-popup {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: none;
+  transform: translate(0) !important;
+  position: relative;
+  left: unset !important;
+}
+
+#scoder-card-mobile-popup.show .card-action .variants-popup {
+  pointer-events: auto;
+}
+
+#scoder-card-mobile-popup .card-action .variants-popup-content .variants {
+  max-height: 100%;
+  height: max-content;  
+}
+
+@media (max-width: 551px) {
+  #scoder-card-mobile-popup {
+    min-width: 95%;
+  }
+
+  #scoder-card-mobile-popup .card-action-bottom.has-wishlist,
+  #scoder-card-mobile-popup .card-wishlist {
+    display: none !important;
+  }
+}

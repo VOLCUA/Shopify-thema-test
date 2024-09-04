@@ -1,0 +1,89 @@
+<style>
+.product-with-content.product-with-content-{{section.id}} {
+    padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+    padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    {% if blog_bg_image != blank %}
+      background: url({{ blog_bg_image | img_url: '1920x' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-color: transparent;
+    {% else %}
+      background: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background_color }}{% endif %};
+    {% endif %}
+  }
+
+.product-with-content.product-with-content-{{section.id}} .section-header .title {
+    text-align: var(--block_title_align);
+    padding-bottom: var(--block_title_mg_bottom_title);
+    animation-delay: {{ section.settings.animation_delay_title }};
+    color: {{ section.settings.button_color }};
+    font-weight: {{ section.settings.block_title_font_weight }};
+    font-size: {{ section.settings.title_font_size | append: 'px' }};
+}
+.product-with-content.product-with-content-{{section.id}} .description-text{
+   font-size:{{ section.settings.description__font__size | append: 'px' }};
+   color: {{ section.settings.description__color }};
+   font-weight: {{ section.settings.description__font__weight }};
+   max-width: {{ section.settings.content__width | append: 'px' }};
+   padding-bottom: {{ section.settings.desc_space_bottom | append: 'px' }};
+   margin : 0 auto;
+}
+.product-with-content.product-with-content-{{section.id}} .product-with-content-link .button-link {
+    font-size: {{ section.settings.button_font_size | append: 'px' }};
+    line-height: 1.2;
+    font-family: var(--button_collection_grid-font-type);
+    color: {{ section.settings.button__color }};
+    font-weight: {{ section.settings.button_font_weight }};
+    text-transform: {{ section.settings.button_transform }};
+    letter-spacing: {{ section.settings.button_letter_spacing | append: 'px' }};
+    background-color: {{ section.settings.button_bg_color }};
+    border-color: {{ section.settings.button_border_color }};
+    {%- if section.settings.button_enable != blank -%}
+      border-bottom: 1px solid {{ section.settings.button__color }};
+    {%- endif -%}
+}
+.product-with-content.product-with-content-{{section.id}} .collection-grid-link .button-link:hover {
+    background-color: {{ section.settings.button_bghover_color }};
+    color: {{ section.settings.button_hover_color }};
+    border-color: {{ section.settings.button_borderhover_color }};
+}
+.product-with-content.product-with-content-{{section.id}} .product-with-content-link .button {
+    padding: {{ section.settings.button_top_bottom_padding | append: 'px' }} {{ section.settings.button_left_right_padding | append: 'px' }};
+}
+
+
+@media (max-width: 1024px) {
+    
+    .product-with-content.product-with-content-{{section.id}} .section-header .title  {
+        padding-bottom: var(--block_title_mg_bottom_tb_title);
+        font-size:{{ section.settings.title_font_size_tb | append: 'px' }};
+    }
+    .product-with-content.product-with-content-{{section.id}} .product-with-content-link .button-link{
+        font-size: {{ section.settings.button_font_size_tb | append: 'px' }};
+    }
+    .product-with-content.product-with-content-{{section.id}} .description-text{
+        font-size:{{ section.settings.description__font__tb | append: 'px' }};
+        padding-bottom: {{ section.settings.desc_space_bottom_tb | append: 'px' }};
+    }
+  
+}
+
+@media (max-width: 767px) {
+    
+    .product-with-content.product-with-content-{{section.id}} .section-header .title {
+        text-align: var(--block_title_align_bm);
+        padding-bottom: var(--block_title_mg_bottom_mb_title);
+        font-size:{{ section.settings.title_font_size_mb | append: 'px' }};
+    }
+    .product-with-content.product-with-content-{{section.id}} .product-with-content-link .button-link{
+        font-size: {{ section.settings.button_font_size_mb | append: 'px' }};
+    }
+    .product-with-content.product-with-content-{{section.id}} .description-text{
+        font-size:{{ section.settings.description__font__mb | append: 'px' }};
+        padding-bottom: {{ section.settings.desc_space_bottom_mb | append: 'px' }};
+    }
+  
+}
+
+</style>

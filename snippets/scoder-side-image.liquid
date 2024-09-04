@@ -1,0 +1,324 @@
+{%- if block.settings.show_block -%}
+    {%- liquid
+        assign heading = block.settings.heading
+        assign image = block.settings.image
+        assign link = block.settings.link
+    -%}
+    <style>
+      :root {
+        --sidebar-button-font-size: {{ block.settings.button_font_size | append: 'px' }};
+        --sidebar-button-border: {{ block.settings.button_border | append: 'px' }};
+        --sidebar-button-text-color: {{ block.settings.button_color }};
+        --sidebar-button-bg-color: {{ block.settings.button_bg_color }};
+        --sidebar-button-text-hover-color: {{ block.settings.button_hover_color }};
+        --sidebar-button-bg-hover-color: {{ block.settings.button_bghover_color }};
+        --sidebar-button-border-color: {{ block.settings.button_border_color | color_modify: 'alpha', 0.8 }};
+        --sidebar-button-boder-hover-color: {{ block.settings.button_borderhover_color | color_modify: 'alpha', 0.8 }};
+      }
+      {% if settings.button_hover_style == '2' %}
+        .sidebar-image-title {
+          position: relative;
+          overflow: hidden;
+          z-index: 0;
+        }
+        .sidebar-image-title:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          transform: unset;
+          display: unset;
+          border: unset;
+          border-radius: unset;
+          width: unset;
+          height: unset;
+          animation: unset;
+          opacity: unset;
+          visibility: unset;
+          background: var(--sidebar-button-bg-hover-color);
+          right: 100%;
+          z-index: -1;
+          transition: all 400ms ease;
+        }
+        .sidebar-image-title:hover {
+          color: var(--sidebar-button-text-hover-color);
+          border: var(--sidebar-button-border) solid var(--sidebar-button-boder-hover-color);
+        }
+        .sidebar-image-title:hover:before {
+          right: 0%;
+        }
+      {% elsif settings.button_hover_style == '3' %}
+        .sidebar-image-title {
+          position: relative;
+          overflow: hidden;
+          z-index: 0;
+        }
+        .sidebar-image-title:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -70%;
+          display: unset;
+          border: unset;
+          border-radius: unset;
+          animation: unset;
+          opacity: unset;
+          visibility: unset;
+          background: var(--sidebar-button-bg-hover-color);
+          z-index: -1;
+          transition: all 400ms ease;
+          clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+          width: 70%;
+          height: 100%;
+          transform: rotateY(180deg);
+        }
+        .sidebar-image-title:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: -70%;
+          transform: unset;
+          display: unset;
+          border: unset;
+          border-radius: unset;
+          animation: unset;
+          opacity: unset;
+          visibility: unset;
+          background: var(--sidebar-button-bg-hover-color);
+          z-index: -1;
+          transition: all 400ms ease;
+          clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+          width: 70%;
+          height: 100%;
+        }
+        .sidebar-image-title:hover {
+          color: var(--sidebar-button-text-hover-color);
+          border: var(--sidebar-button-border) solid var(--sidebar-button-boder-hover-color);
+        }
+        .sidebar-image-title:hover:before {
+          left: calc(0% - 2px);
+        }
+        .sidebar-image-title:hover:after {
+          right: calc(0% - 2px);
+        }
+      {% elsif settings.button_hover_style == '4' %}
+        .sidebar-image-title {
+          position: relative;
+          overflow: hidden;
+          z-index: 0;
+        }
+        .sidebar-image-title:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -70%;
+          display: unset;
+          border: unset;
+          border-radius: unset;
+          animation: unset;
+          opacity: unset;
+          visibility: unset;
+          background: var(--sidebar-button-bg-hover-color);
+          z-index: -1;
+          transition: all 400ms ease;
+          clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%);
+          width: 70%;
+          height: 100%;
+          transform: rotateY(180deg);
+        }
+        .sidebar-image-title:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: -70%;
+          transform: unset;
+          display: unset;
+          border: unset;
+          border-radius: unset;
+          animation: unset;
+          opacity: unset;
+          visibility: unset;
+          background: var(--sidebar-button-bg-hover-color);
+          z-index: -1;
+          transition: all 400ms ease;
+          clip-path: polygon(0px 0%, 100% 0%, 100% 100%, 25px 100%);
+          width: 70%;
+          height: 100%;
+        }
+        .sidebar-image-title:hover {
+          color: var(--sidebar-button-text-hover-color);
+          border: var(--sidebar-button-border) solid var(--sidebar-button-boder-hover-color);
+        }
+        .sidebar-image-title:hover:before {
+          left: calc(0% - 2px);
+        }
+        .sidebar-image-title:hover:after {
+          right: calc(0% - 2px);
+        }
+      {% elsif settings.button_hover_style == '5' %}
+        .sidebar-image-title {
+          position: relative;
+          overflow: hidden;
+          z-index: 0;
+        }
+        .sidebar-image-title:before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: -30px;
+          display: unset;
+          border: unset;
+          animation: unset;
+          opacity: unset;
+          visibility: unset;
+          background: var(--sidebar-button-bg-hover-color);
+          z-index: -1;
+          transition: all 400ms ease;
+          width: 20px;
+          height: 20px;
+          transform: translateY(-50%);
+          border-radius: 100%;
+        }
+        .sidebar-image-title:after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          right: -30px;
+          display: unset;
+          border: unset;
+          animation: unset;
+          opacity: unset;
+          visibility: unset;
+          background: var(--sidebar-button-bg-hover-color);
+          z-index: -1;
+          transition: all 400ms ease;
+          width: 20px;
+          height: 20px;
+          transform: translateY(-50%);
+          border-radius: 100%;
+        }
+        .sidebar-image-title:hover {
+          color: var(--sidebar-button-text-hover-color);
+          border: var(--sidebar-button-border) solid var(--sidebar-button-boder-hover-color);
+        }
+        .sidebar-image-title:hover:before {
+          -webkit-animation: criss-cross-left 0.8s both;
+          animation: criss-cross-left 0.8s both;
+          -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+        }
+        .sidebar-image-title:hover:after {
+          -webkit-animation: criss-cross-right 0.8s both;
+          animation: criss-cross-right 0.8s both;
+          -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+        }
+        @-webkit-keyframes criss-cross-left {
+          0% {
+            left: -30px;
+          }
+          50% {
+            left: calc(50% - 10px);
+            width: 20px;
+            height: 20px;
+          }
+          100% {
+            left: 40%;
+            width: 375px;
+            height: 375px;
+          }
+        }
+        
+        @keyframes criss-cross-left {
+          0% {
+            left: -30px;
+          }
+          50% {
+            left: calc(50% - 10px);
+            width: 20px;
+            height: 20px;
+          }
+          100% {
+            left: 40%;
+            width: 375px;
+            height: 375px;
+          }
+        }
+        @-webkit-keyframes criss-cross-right {
+          0% {
+            right: -30px;
+          }
+          50% {
+            right: calc(50% - 10px);
+            width: 20px;
+            height: 20px;
+          }
+          100% {
+            right: calc(50% - 10px);
+            width: 375px;
+            height: 375px;
+          }
+        }
+        @keyframes criss-cross-right {
+          0% {
+            right: -30px;
+          }
+          50% {
+            right: calc(50% - 10px);
+            width: 20px;
+            height: 20px;
+          }
+          100% {
+            right: calc(50% - 10px);
+            width: 375px;
+            height: 375px;
+          }
+        }
+      {% else %}
+        .sidebar-image-title:hover {
+            background: var(--sidebar-button-bg-hover-color);
+            color: var(--sidebar-button-text-hover-color);
+            border: var(--sidebar-button-border) solid var(--sidebar-button-boder-hover-color);
+        }
+      {% endif %}
+    </style>
+    <div class="sidebarBlock sidebar-image{% if show_collapse %} sidebarBlock-collapse{% endif %}">
+        {%- if show_collapse -%}
+            <div class="sidebarBlock-headingWrapper">
+        {%- endif -%}
+            {%- if heading != blank -%}
+                <h3 class="sidebarBlock-heading{% if show_collapse %}{% if sidebar_collapse == 'expand' %} is-clicked{% endif %}{% endif %}">
+                    {{ heading | escape }}
+                </h3>
+            {%- endif -%}
+        {%- if show_collapse -%}
+            </div>
+            <div class="sidebarBlock-contentWrapper" {% if sidebar_collapse == 'expand' %} style="display: block;"{% endif %}>
+        {%- endif -%}
+            <div class="sidebarBlock-content">
+                <div class="advertisement-images">
+                    {%- if link != blank -%}
+                        <a class="image" href="{{ link }}" aria-label="link">
+                    {%- else -%}
+                        <div class="image">
+                    {%- endif -%}
+                        {%- if image != blank -%}
+                            <img srcset="{{ image | img_url: 'master' }} 1x, {{ image | img_url: 'master', scale: 2 }} 2x" src="{{ image | img_url: 'master' }}" alt="{{ image.alt | default: shop.name | escape }}" loading="lazy">
+                        {%- else -%}
+                            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}
+                    {%- if link != blank -%}
+                        </a>
+                    {%- else -%}
+                        </div>
+                    {%- endif -%}
+                    <a class="button sidebar-image-title" href="{{ link }}" aria-label="link">{{ block.settings.image_banner_button }}</a>
+                </div>
+            </div>
+        {%- if show_collapse -%}
+            </div>
+        {%- endif -%}
+    </div>
+{%- endif -%}

@@ -1,0 +1,109 @@
+.scoder-cookie{
+	display: block;
+    z-index: 98;
+    width: 100%;
+    text-align: center;
+}
+
+.scoder-cookie__block{
+	padding: 20px 0;
+    position: relative;
+}
+
+.scoder-cookie__text{
+	display: block;
+    font-size: var(--font-body-size);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: var(--body-line-height);
+    color: var(--color-white);
+}
+
+.scoder-cookie__action{
+    font-size: 0;
+    letter-spacing: 0;
+    margin: 10px 0 0 0;
+	text-align: center;
+}
+
+.scoder-cookie__action .button + .button{
+	margin-top: 10px;
+}
+
+.scoder-cookie__action .link{
+	font-size: var(--font-body-size);
+    font-weight: 600;
+    color: var(--color-white);
+    text-transform: uppercase;
+}
+
+.scoder-cookie__action .link .icon{
+	margin-left: 5px;
+}
+
+.scoder-cookie__action .privacy_policy_link{
+	font-weight: 100;
+}
+
+.scoder-cookie__action .accept_cookies_link{
+	letter-spacing: .05em;
+    background: none;
+    border: none;
+}
+
+.scoder-cookie__action .link + .link{
+	margin-left: 16px;
+}
+
+.scoder-cookie{
+	padding: 10px 15px;
+}
+
+.scoder-cookie .scoder-cookie__block{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.scoder-cookie .scoder-cookie__text{
+	font-size: 14px;
+    letter-spacing: 0;
+    line-height: 26px;
+    color: #fff;
+    font-weight: 400;
+}
+
+.scoder-cookie .scoder-cookie__action{
+	margin-top: 15px;
+}
+
+@media (min-width: 551px){
+	.scoder-cookie{
+		text-align: left;
+		margin-top: 15px;
+	}
+
+	.scoder-cookie__text{
+		font-size: calc(var(--font-body-size) + 2px);
+	}
+
+	.scoder-cookie__action .button{
+		display: inline-block;
+	    vertical-align: top;
+	    width: auto;
+	    min-width: 190px;
+	}
+
+	.scoder-cookie__action .button + .button{
+		margin-top: 0;
+		margin-left: 10px;
+	}
+
+	.scoder-cookie{
+		max-width: 370px;
+	}
+
+	.scoder-cookie__action{
+		text-align: right;
+	}
+	
+}

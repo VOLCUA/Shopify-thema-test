@@ -1,0 +1,400 @@
+{%- liquid
+  assign container = section.settings.container
+  assign background_color = section.settings.background_color
+  assign background_gradient = section.settings.background_gradient
+-%}
+{{ 'component-fancybox.css' | asset_url | stylesheet_tag }}
+<div class="gallery-block gallery-block-{{section.id}}">
+  <div class="{% if container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+    <div class="gallery-inner gallery-inner--{{section.id}}">
+      {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'image' -%}
+                <div class="gallery-box">
+                  {%- liquid
+                    assign preview_img = block.settings.image
+                  -%}
+                  {%- if block.settings.image != blank -%}
+                    <a href="{{ preview_img | image_url }}" data-fancybox="images">
+                      <div class="{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }} animate-hidden{% endif %}">
+                        <div class="animate-ambient-image">
+                          <img {% render 'lazyload', preview_img: preview_img %} loading="lazy"/>
+                          {% if settings.enable_lazyload %}<span class="data-lazy-loading"></span>{% endif %}
+                        </div>
+                      </div>
+                    </a>
+                  {%- else -%}
+                      <div class="not_img" style="--height_not_img: 484px">
+                        740 x 440px
+                      </div>  
+                  {%- endif -%}
+                </div>
+          {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<style>
+  {% if settings.type_font_1 == 'shopify_fonts' and settings.type_font_2 == 'shopify_fonts' %}
+      {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+      {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+      {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+      {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+      {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+      {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+      {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+
+      {% if settings.type_font_2_font.family != settings.type_font_1_font.family %}
+          {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+          {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+          {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+          {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+          
+          {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+          {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+                {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+      {% else %}
+                {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+      {% endif %}
+  {% elsif settings.type_font_1 != 'shopify_fonts' and settings.type_font_2 != 'shopify_fonts' %}
+        {%- assign font_1 = settings.type_font_1_name -%}
+        {%- capture font_name_1 -%}
+            {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+        {%- endcapture -%}
+        @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+              {% assign fonts_name = font_1 %}
+
+        {% if settings.type_font_1_name != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                  {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = font_1 %}
+        {% endif %}
+  {% elsif settings.type_font_1 == 'shopify_fonts' %}
+        {% assign base_font = settings.type_font_1_font | font_modify: 'weight', '400' %}
+        {% assign base_font_medium = settings.type_font_1_font | font_modify: 'weight', '500' %}
+        {% assign base_font_sem_bold = settings.type_font_1_font | font_modify: 'weight', '600' %}
+        {% assign base_font_bold = settings.type_font_1_font | font_modify: 'weight', 'bold' %}
+
+        {{ base_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ base_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+
+        {% assign fonts_name = base_font.family | append: ',' | append: base_font.fallback_families %}
+      
+        {% if base_font.family != settings.type_font_2_name %}
+            {%- assign font_2 = settings.type_font_2_name -%}
+            {%- capture fonts_name_2 -%}
+                {{font_2 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{fonts_name_2}}&display=swap');
+                    {% assign fonts_name_2 = font_2 %}
+        {% else %}
+                  {% assign fonts_name_2 = base_font.family | append: ',' | append: base_font.fallback_families %}
+        {% endif %}
+  {% else %}
+        {% assign header_font = settings.type_font_2_font | font_modify: 'weight', '400' %}
+        {% assign header_font_bold = settings.type_font_2_font | font_modify: 'weight', 'bold' %}
+        {% assign header_font_sem_bold = settings.type_font_2_font | font_modify: 'weight', '600' %}
+        {% assign header_font_medium = settings.type_font_2_font | font_modify: 'weight', '500' %}
+
+        {% if header_font.family != settings.type_font_1_name %}
+            {%- assign font_1 = settings.type_font_1_name -%}
+            {%- capture font_name_1 -%}
+                {{font_1 | strip | replace: ' ', '+'}}:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i
+            {%- endcapture -%}
+            @import url('https://fonts.googleapis.com/css?family={{font_name_1}}&display=swap');
+                  {% assign fonts_name = font_1 %}
+        {% else %}
+                  {% assign fonts_name = header_font.family | append: ',' | append: header_font.fallback_families %}
+        {% endif %}
+
+        {{ header_font | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_medium | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_sem_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+        {{ header_font_bold | font_face | replace: '@font-face {', '@font-face { font-display: swap;' }}
+             
+        {% assign fonts_name_2 = header_font.family | append: ',' | append: header_font.fallback_families %}
+  {% endif %}
+
+  body.fancybox-active.compensate-for-scrollbar {
+      overflow: unset;
+      margin-right: 0;
+  }
+
+  .gallery-block-{{section.id}} {
+      background: {% if background_gradient != blank %}{{ background_gradient }}{% else %}{{ background_color }}{% endif %};
+      padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+  }
+  .gallery-block-{{section.id}} .gallery-inner {
+      display: flex;
+      justify-content: center;
+  }
+  .gallery-block-{{section.id}} .gallery-box {
+      min-width: 37vw;
+      padding-left: {{ section.settings.image_spacing | append: 'px' }};
+      padding-right: {{ section.settings.image_spacing | append: 'px' }};
+  }
+  .gallery-block-{{section.id}} .gallery-box img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 1199px) {
+    .gallery-block-{{section.id}} {
+      padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+    }  
+  }
+
+  @media (max-width: 767px) {
+    .gallery-block-{{section.id}} {
+      padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+      padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+    }
+  }
+</style>
+
+{% if section.settings.scroll_left_right != blank %}
+  <script>
+    $(window).on("load resize scroll", function() {
+          $('.gallery-block-{{section.id}}').each(function(){
+              var height_sec = $(".gallery-block-{{section.id}}").height();
+              var win_height = $(window).height();
+              var win_height_main = (win_height - height_sec);
+              var main_height = (height_sec + win_height_main);
+              if ($(".gallery-block-{{section.id}}").offset().top < ($(window).scrollTop() + main_height)) {
+                  var difference = ($(window).scrollTop() + main_height) - $(this).offset().top;
+                  var half = (difference / 5) + 'px',
+                  left = ' + half + ';
+                  $(this).find('.gallery-inner--{{section.id}}').css('transform', 'translateX('+ half +')');
+                
+              } else {
+                  $(this).find('.gallery-inner--{{section.id}}').css('transform', 'translateX(0px)');
+              }
+          });
+    });
+  </script>
+{% else %}
+  <script>
+    $(window).on("load resize scroll", function() {
+          $('.gallery-block-{{section.id}}').each(function(){
+              var height_sec = $(".gallery-block-{{section.id}}").height();
+              var win_height = $(window).height();
+              var win_height_main = (win_height - height_sec);
+              var main_height = (height_sec + win_height_main);
+              if ($(".gallery-block-{{section.id}}").offset().top < ($(window).scrollTop() + main_height)) {
+                  var difference = ($(window).scrollTop() + main_height) - $(this).offset().top;
+                  var half = (difference / 5) + 'px',
+                  left = ' + half + ';
+                  $(this).find('.gallery-inner--{{section.id}}').css('transform', 'translateX(-'+ half +')');
+                
+              } else {
+                  $(this).find('.gallery-inner--{{section.id}}').css('transform', 'translateX(0px)');
+              }
+          });
+    });
+  </script>
+{% endif %}
+
+{{ 'fancybox.js' | asset_url | script_tag }}
+
+{% schema %}
+  {
+    "name": "t:sections.scrolling-gallery.name",
+    "settings": [
+      {
+          "type": "header",
+          "content": "t:sections.layout.content"
+      },
+      {
+          "type": "select",
+          "id": "container",
+          "label": "t:sections.layout.container.option",
+          "default": "container",
+          "options": [
+              {
+                  "value": "container",
+                  "label": "t:sections.layout.container.option1"
+              },
+              {
+                  "value": "fullwidth",
+                  "label": "t:sections.layout.container.option2"
+              }
+          ]
+      },
+      {
+          "type" : "color",
+          "id" : "background_color",
+          "label" : "t:settings_schema.colors.settings.colors_name.background_color",
+          "default" : "#ffffff"
+      },
+      {
+          "type" : "color_background",
+          "id" : "background_gradient",
+          "label" : "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.margin_top"
+      },
+      {
+          "type": "range",
+          "id": "mg_top_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+          "type": "range",
+          "id": "mg_top_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+          "type": "range",
+          "id": "mg_top_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+          "type": "header",
+          "content": "t:sections.layout.margin_bottom"
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_desktop",
+          "label": "t:sections.layout.mg_desktop.label",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_tablet",
+          "label": "t:sections.layout.mg_tablet.label",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+          "type": "range",
+          "id": "mg_bottom_mobile",
+          "label": "t:sections.layout.mg_mobile.label",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+          "type": "header",
+          "content": "t:sections.scrolling-gallery.block.image-setting"
+      },
+      {
+          "type": "range",
+          "id": "image_spacing",
+          "label": "t:sections.scrolling-gallery.block.image-spacing",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "t:sections.layout.mg_desktop.unit",
+          "default": 0
+      },
+      {
+          "type": "checkbox",
+          "id": "scroll_left_right",
+          "label": "t:sections.scrolling-gallery.block.scroll_left_right.",
+          "default": false
+      },
+      {
+        "type": "header",
+        "content": "t:sections.main-product.settings.general.animation"
+      },
+      {
+        "type": "select",
+        "id": "image_behavior",
+        "options": [
+          {
+            "value": "none",
+            "label": "t:settings_schema.typography.settings.text_transform.options__1"
+          },
+          {
+            "value": "ambient",
+            "label": "t:sections.main-product.settings.general.image_behavior.option__1"
+          },
+          {
+            "value": "zoom-in",
+            "label": "t:sections.main-product.settings.general.image_behavior.option__3"
+          }
+        ],
+        "default": "none",
+        "label": "t:sections.main-product.settings.general.image_behavior.label"
+      }
+    ],
+    "blocks": [
+      {
+          "type": "image",
+          "name": "t:sections.scrolling-gallery.block.name",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "t:sections.image-banner.blocks.image.settings.image.label__1"
+            }
+          ]
+      }
+    ],
+    "presets": [
+        {
+            "name": "t:sections.scrolling-gallery.name",
+            "blocks": [
+              {
+                  "type": "image"
+              },
+              {
+                  "type": "image"
+              },
+              {
+                  "type": "image"
+              },
+              {
+                  "type": "image"
+              },
+              {
+                  "type": "image"
+              }
+            ]
+        }
+    ]
+  }
+{% endschema %}

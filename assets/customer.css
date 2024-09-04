@@ -1,0 +1,533 @@
+.login-section {
+    padding-top: var(--login-spacing-top-desktop);
+    padding-bottom: var(--login-spacing-bottom-desktop);
+}
+#recover, #recover+div {
+    display: none;
+}
+.login-section h1 {
+    font-size: var(--login-title-font-size);
+    line-height: 1.2;
+    color: var(--login-title-color);
+    font-weight: var(--login-title-font-weight);
+    padding-bottom: var(--login-title-spacing-bottom);
+    text-align: var(--login-title-align);
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+.account-address-section h1 {
+    font-size: var(--address-title-font-size);
+    line-height: 1.2;
+    color: var(--address-title-color);
+    font-weight: var(--address-title-font-weight);
+    padding-bottom: var(--address-title-spacing-bottom);
+    text-align: var(--address-title-align);
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+.customer.login, .customer.register {
+    max-width: 500px;
+    margin: 0 auto;
+}
+form .field {
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+}
+form .field label {
+    width: 100%;
+}
+.forgot-password {
+    padding-bottom: 30px;
+}
+.forgot-password .forgot-link {
+    color: var(--body-text-color);
+    text-decoration: underline;
+}
+.forgot-password .forgot-link:hover {
+    color: var(--link-hover-color);
+}
+.register-link {
+    padding-top: 15px;
+}
+.register-link a {
+    color: var(--body-text-color);
+    text-decoration: underline;
+}
+.register-link a:hover {
+    color: var(--link-hover-color);
+}
+#recover:target {
+    display: block;
+}
+#recover:target~#login, #recover:target~#login+div {
+    display: none;
+}
+#recover:target+div {
+    display: block;
+}
+#recover:target+div > p {
+    text-align: var(--login-title-align);
+}
+#recover:target+div .login-button {
+    padding-top: 20px;
+}
+.customer .form__message svg {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 1rem;
+}
+.customer.register .login-button {
+    padding-top: 30px;
+}
+
+.account-loged-section {
+    padding-top: var(--account-spacing-top-desktop);
+    padding-bottom: var(--account-spacing-bottom-desktop);
+}
+.account h1+a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--body-text-color);
+    cursor: pointer;
+}
+.account h1+a:hover {
+  color: var(--link-hover-color);
+}
+.account a svg {
+    width: 16px;
+    margin-right: 10px;
+}
+:is(.account,.order)>div:nth-of-type(2) {
+    margin-top: 50px;
+}
+:is(.account,.order)>div:nth-of-type(2)>div:first-of-type {
+    padding-right: 0;
+    padding-bottom: 30px;
+}
+.account-loged-section h1 {
+    font-size: var(--account-title-font-size);
+    line-height: 1.2;
+    color: var(--account-title-color);
+    font-weight: var(--account-title-font-weight);
+    padding-bottom: var(--account-title-spacing-bottom);
+    text-align: var(--account-title-align);
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+.account-loged-section h2 {
+    font-size: 20px;
+    padding-bottom: 15px;
+}
+.account-address-section {
+    padding-top: var(--address-spacing-top-desktop);
+    padding-bottom: var(--address-spacing-bottom-desktop);
+}
+.account-address-section a {
+    text-decoration: underline;
+}
+.account-address-section div[data-address] {
+    padding-top: 25px;
+}
+.account-address-section h2 {
+    font-size: calc(var(--address-title-font-size) - 8px);
+    padding-bottom: 8px;
+}
+.addresses .address-popup-main {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 400ms ease;
+}
+.addresses [aria-expanded=true]~.address-popup-main {
+  opacity: 1;
+  visibility: visible;
+}
+form .field .select {
+    width: 100%;
+    position: relative;
+}
+form .field .select select + svg {
+    height: 0.5rem;
+    pointer-events: none;
+    position: absolute;
+    top: calc(50% - 0.2rem);
+    right: 15px;
+}
+.addresses [aria-expanded=false]~div[id] {
+    display: none;
+}
+.addresses [aria-expanded=true]~div[id] {
+    display: block;
+}
+.address-form {
+    margin: 52px 0 50px;
+}
+.address-form--wrapper {
+    max-width: 450px;
+}
+.addresses-page .account-action {
+    margin: 15px 0 0;
+    max-width: 270px;
+}
+.address-new {
+    margin: 0 0 30px;
+}
+.addresses li .acc-name {
+    font-family: var(--font-body-family);
+    font-size: var(--font-body-size);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: var(--body-line-height);
+}
+.addresses ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-top: 10px;
+}
+.addresses li, .account-listItem {
+    width: 25%;
+    padding: 0 15px;
+}
+.addresses li address {
+    border: 1px solid #cecece;
+    padding: 15px 25px 25px;
+    min-height: 200px;
+    margin-bottom: 15px;
+}
+.addresses li .cus-addr {
+    display: block;
+    padding: 1px 0;
+}
+.addresses li .button-delete, .account-listItem .button-delete, .address-form .button[type="reset"] {
+    background: transparent;
+    color: var(--button-hover-color);
+    background: var(--button-bg-color);
+}
+.addresses li .button-delete:hover, .account-listItem .button-delete:hover, .address-form .button[type="reset"]:hover {
+    background-color: var(--button-bg-hover-color);
+    border-color: var(--button-border-hover-color);
+    color: var(--button-color);
+}
+.account-page .account-item {
+    padding: 0 0 30px;
+}
+.account table {
+    table-layout: auto;
+    border-collapse: collapse;
+    box-shadow: none;
+    width: 100%;
+    font-size: var(--font-body-size);
+    font-weight: var(--font-body-weight);
+    line-height: var(--body-line-height);
+    letter-spacing: var(--body-letter-spacing);
+    position: relative;
+    border: 1px solid var(--form-input-border);
+}
+.account thead {
+    background-color: #f1f1f1;
+}
+.account thead th {
+    text-transform: uppercase;
+    padding: 9px 15px 6px;
+    text-align: left;
+    font-weight: 500;
+    color: var(--heading-text-color);
+}
+.account tbody tr {
+    border-top: 1px solid var(--form-input-border);
+}
+.account tbody td {
+    padding: 12px 15px 10px;
+}
+.account-list {
+    margin-left: -15px;
+    margin-right: -15px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+}
+.account-product {
+    border: 1px solid #e6e6e6;
+    padding: 19px 15px 20px;
+    min-height: 200px;
+}
+.account-product .account-product-title {
+    font-family: var(--font-body-family);
+    font-size: var(--font-body-size);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: var(--body-line-height);
+}
+.account-loged-section .logout-link {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--account-title-spacing-bottom);
+}
+.account-loged-section .logout-link svg {
+    width: 15px;
+}
+.account-loged-section .logout-link span {
+    margin-left: 8px;
+    text-decoration: underline;
+}
+.customer.reset-password {
+    padding-top: var(--pass-spacing-top-desktop);
+    padding-bottom: var(--pass-spacing-bottom-desktop);
+}
+.reset-password-inner {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.reset-password h1 {
+    font-size: var(--pass-title-font-size);
+    line-height: 1.2;
+    color: var(--pass-title-color);
+    font-weight: var(--pass-title-font-weight);
+    padding-bottom: var(--pass-title-spacing-bottom);
+    text-align: var(--pass-title-align);
+    outline: unset!important;
+    box-shadow: unset!important;
+}
+.account-page.order-page {
+    padding-top: var(--order-spacing-top-desktop);
+    padding-bottom: var(--order-spacing-bottom-desktop);
+}
+.account-page.order-page h1 {
+    font-size: var(--order-title-font-size);
+    line-height: 1.2;
+    color: var(--order-title-color);
+    font-weight: var(--order-title-font-weight);
+    padding-bottom: var(--order-title-spacing-bottom);
+    text-align: var(--order-title-align);
+    outline: unset!important;
+    box-shadow: unset!important;
+}
+.account-page.order-page h2 {
+    font-size: 20px;
+    padding-bottom: 15px;
+}
+.account-desc {
+    font-size: var(--font-body-size);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: var(--body-line-height);
+    background: var(--color-info-bg);
+    color: var(--color-info);
+    padding: 13px 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.account-desc svg {
+    width: var(--font-body-size);
+    height: var(--font-body-size);
+    margin-right: 10px;
+}
+.order-page .account-desc {
+    margin-bottom: 25px;
+}
+.account tfoot td {
+    padding: 5px 15px;
+    text-align: left;
+}
+.order-page .account thead th:last-of-type, .order-page .account tbody td:last-of-type, .order-page .account tfoot td:last-of-type {
+    text-align: right;
+}
+.account tfoot tr:last-child td {
+    color: var(--heading-text-color);
+}
+.account tfoot tr:first-child {
+    border-top: 1px solid var(--form-input-border);
+}
+.account-page.order-page .account-action {
+    margin: 15px 0 0;
+    max-width: 270px;
+}
+.account-page.order-page .account-action a {
+    color: var(--body-text-color);
+    text-decoration: underline;
+}
+.account-page.order-page .account-action a:hover {
+    color: var(--link-hover-color);
+}
+.account-page.order-page strong {
+    font-weight: var(--font-heading-weight-h2);
+}
+.account-page.order-page .account-item p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 1199px) {
+  .login-section {
+      padding-top: var(--login-spacing-top-tablet);
+      padding-bottom: var(--login-spacing-bottom-tablet);
+  }
+  .account-loged-section {
+      padding-top: var(--account-spacing-top-tablet);
+      padding-bottom: var(--account-spacing-bottom-tablet);
+  }
+  .account-address-section {
+      padding-top: var(--address-spacing-top-tablet);
+      padding-bottom: var(--address-spacing-bottom-tablet);
+  }
+  .customer.reset-password {
+      padding-top: var(--pass-spacing-top-tablet);
+      padding-bottom: var(--pass-spacing-bottom-tablet);
+  }
+  .account-page.order-page {
+      padding-top: var(--order-spacing-top-tablet);
+      padding-bottom: var(--order-spacing-bottom-tablet);
+  }
+}
+
+@media (max-width:1024px) {
+  .login-section h1 {
+      font-size: var(--login-title-font-size-tb);
+      padding-bottom: var(--login-title-spacing-bottom-tb);
+  }
+  .account-loged-section h1 {
+      font-size: var(--account-title-font-size-tb);
+      padding-bottom: var(--account-title-spacing-bottom-tb);
+  }
+  .account-address-section h1 {
+      font-size: var(--address-title-font-size-tb);
+      padding-bottom: var(--address-title-spacing-bottom-tb);
+  }
+  .account-loged-section h2, .account-address-section h2 {
+      font-size: 18px;
+  }
+  :is(.account,.order)>div:nth-of-type(2) {
+      display: block;
+      margin-top: 30px;
+  }
+  :is(.account,.order)>div:nth-of-type(2)>div:first-of-type {
+      padding-bottom: 25px;
+      padding-right: 0;
+  }
+  .addresses li, .account-listItem {
+    width: 50%;
+  }
+  .reset-password h1 {
+      font-size: var(--pass-title-font-size-tb);
+      padding-bottom: var(--pass-title-spacing-bottom-tb);
+  }
+  .account-page.order-page h1 {
+      font-size: var(--order-title-font-size-tb);
+      padding-bottom: var(--order-title-spacing-bottom-tb);
+  }
+  .account-page.order-page h2 {
+      font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .login-section {
+      padding-top: var(--login-spacing-top-mobile);
+      padding-bottom: var(--login-spacing-bottom-mobile);
+  }
+  .account-loged-section {
+      padding-top: var(--account-spacing-top-mobile);
+      padding-bottom: var(--account-spacing-bottom-mobile);
+  }
+  .account-address-section {
+      padding-top: var(--address-spacing-top-mobile);
+      padding-bottom: var(--address-spacing-bottom-mobile);
+  }
+  .login-section h1 {
+      font-size: var(--login-title-font-size-mb);
+      padding-bottom: var(--login-title-spacing-bottom-mb);
+  }
+  .account-address-section h1 {
+      font-size: var(--address-title-font-size-mb);
+      padding-bottom: var(--address-title-spacing-bottom-mb);
+  }
+  .account-loged-section h1 {
+      font-size: var(--account-title-font-size-mb);
+      padding-bottom: var(--account-title-spacing-bottom-mb);
+  }
+  .account-loged-section h2, .account-address-section h2 {
+      font-size: 18px;
+  }
+  .customer.register .login-button {
+      padding-top: 10px;
+  }
+  form .field {
+      padding-bottom: 10px;
+  }
+  .form-input, .field__input {
+      padding: 6px 15px;
+  }
+  .addresses li, .account-listItem {
+      width: 100%;
+      padding-bottom: 25px;
+  }
+  .addresses li address {
+    padding: 10px 15px 15px;
+  }
+  .account thead, .account th, .account tfoot td:first-of-type {
+      display: none;
+  }
+  .account td:first-of-type {
+      display: flex;
+      align-items: center;
+  }
+  .account tbody tr:first-of-type {
+      margin-bottom: 15px;
+  }
+  .account td {
+      display: flex;
+      text-align: right;
+      padding: 2px 0px 2px !important;
+  }
+  .account tr {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+  }
+  .account td:first-of-type {
+      display: flex;
+      align-items: center;
+  }
+  .account td:before {
+      content: attr(data-label);
+      padding-right: 15px;
+      flex-grow: 1;
+      text-align: left;
+  }
+  .account table {
+      border: unset;
+      border-bottom: 1px solid var(--form-input-border);
+  }
+  .account tbody tr:first-of-type {
+      border-top: none;
+  }
+  .addresses li:last-child, .account-listItem:last-child {
+      padding-bottom: 0;
+  }
+  .customer.reset-password {
+      padding-top: var(--pass-spacing-top-mobile);
+      padding-bottom: var(--pass-spacing-bottom-mobile);
+  }
+  .reset-password h1 {
+      font-size: var(--pass-title-font-size-mb);
+      padding-bottom: var(--pass-title-spacing-bottom-mb);
+  }
+  .account-page.order-page {
+      padding-top: var(--order-spacing-top-mobile);
+      padding-bottom: var(--order-spacing-bottom-mobile);
+  }
+  .account-page.order-page h1 {
+      font-size: var(--order-title-font-size-mb);
+      padding-bottom: var(--order-title-spacing-bottom-mb);
+  }
+}
